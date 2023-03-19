@@ -21,6 +21,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"country-code-lookup": "^0.0.22"
+		"country-code-lookup": "^0.0.22",
+		"dotenv": "^16.0.3",
+		"pexels": "^1.4.0"
 	}
 }

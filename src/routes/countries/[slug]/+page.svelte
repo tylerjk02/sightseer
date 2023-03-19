@@ -20,10 +20,17 @@
   } = item;
 
   let borderList: any[] = [];
-  for (let i = 0; i < borders.length; i++) {
-    borderList.push(lookup.byIso(borders[i]));
+  let borderString: string[] = [];
+  if(borders) {
+    for (let i = 0; i < borders.length; i++) {
+      borderList.push(lookup.byIso(borders[i]));
+    }
+    for (let i = 0; i < borderList.length; i++) {
+      borderString.push(borderList[i].country);
+    }  
   }
-  
+
+  console.log(item);
 </script>
 
 <div class="main">
@@ -51,13 +58,7 @@
         <h2>Geography:</h2>
         <p>{area.toLocaleString()}km<sup>2</sup></p>
         {#if borders}
-          <p>Borders:</p> 
-          
-          {#each borderList as border}
-            <div class="border-country">
-              <p>{border.country}</p>
-            </div>
-          {/each}
+          <p>Borders: {borderString.join(', ')}</p> 
         {/if}
         <h2>Demographics:</h2>
         <p>Population: {population.toLocaleString()}</p>
@@ -70,6 +71,7 @@
   .trace-back {
     display: flex;
     gap: 1px;
+    margin: 5px 0;
   }
   .country {
     background: #e3e3e3;

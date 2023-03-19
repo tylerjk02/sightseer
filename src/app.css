@@ -3,3 +3,11 @@
   margin: 0;
   padding: 0;
 }
+
+body {
+  margin: 5px;
+  background: #e3f3ff;
+  color: #222222;
+
+  font-family: 'Roboto', sans-serif;
+}
