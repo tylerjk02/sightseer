@@ -10,7 +10,9 @@
 
 <div class="main">
   <div class="region">
-    <a href="/">home</a>/<a href="/continents/{region}">{region}</a>
+    <div class="trace-back">
+      <a href="/">home</a>/<a href="/continents/{region.toLowerCase()}">{region.toLowerCase()}</a>/<p>{name.common.toLowerCase()}</p>
+    </div>
   </div>
   <div class="country">
 
@@ -20,6 +22,10 @@
 </div>
 
 <style>
+  .trace-back {
+    display:flex;
+    gap: 1px;
+  }
   .country {
     background: #e3e3e3;
     padding: 1rem;
