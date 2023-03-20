@@ -1,13 +1,13 @@
 <script lang="ts">
   import lookup from "country-code-lookup";
+  import { HtmlTag } from "svelte/internal";
 
   export let data;
 
-  const { country, photos, cities } = data;
+  const { country, photos, cities, wikiArticle } = data;
   const countryItem = country[0];
   const { results } = photos;
-
-
+  console.log(wikiArticle.extract_html)
   const {
     name,
     region,
@@ -68,6 +68,11 @@
       </div>
     </div>
   </div>
+  <hr>
+  <div class="wiki-blob">
+    <h3>Short Summary from Wikipedia</h3>
+    <div class="summary">{@html wikiArticle.extract_html}</div>
+  </div>
   <hr />
   {#if cities.length !== 0}
     <div class="country-cities">
@@ -94,6 +99,20 @@
 </div>
 
 <style>
+
+  .wiki-blob {
+    background: #e3e3e3;
+    padding: 0 5px 10px 5px;
+
+  }
+  .wiki-blob h3 {
+    padding: 5px 0;
+    font-size: 36px;
+  }
+  .wiki-blob div {
+    text-indent: 40px;
+    font-size: 18px;
+  }
   .photo-header {
     padding: 5px 0;
     font-size: 36px;
