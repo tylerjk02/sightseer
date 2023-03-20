@@ -3,9 +3,11 @@
 
   export let data;
 
-  const { country, photos } = data;
+  const { country, photos, cities } = data;
   const countryItem = country[0];
   const { results } = photos;
+
+
   const {
     name,
     region,
@@ -66,22 +68,55 @@
       </div>
     </div>
   </div>
+  <hr />
+  {#if cities.length !== 0}
+    <div class="country-cities">
+      <h3>Most Populated Cities of {name.common}</h3>
+
+      {#each cities as { is_capital, latitude, longitude, name, population }}
+        <div class="city">
+          <h1>{name}</h1>
+          {#if is_capital == true}
+            <b>Capital</b>
+          {/if}
+          <p>Coordinates: {latitude}, {longitude}</p>
+          <p>Population: {population.toLocaleString()}</p>
+        </div>
+      {/each}
+    </div>
+  {/if}
+  <h3 class="photo-header">Photos relating to {name.common}</h3>
   <div class="country-images">
     {#each results as image}
-      <img src={image.urls.raw + '&w=300&h=400&fit=crop'} alt="" />
+      <img src={image.urls.raw + "&w=300&h=400&fit=crop"} alt="" />
     {/each}
   </div>
 </div>
 
 <style>
+  .photo-header {
+    padding: 5px 0;
+    font-size: 36px;
+  }
+  .country-cities {
+    background: #e3e3e3;
+  }
+  .country-cities h3 {
+    padding: 5px 0;
+    font-size: 36px;
+  }
+  .city {
+    border: 1px solid #222;
+    padding: 2px;
+    margin: 5px 0;
+    /* margin: 5px; */
+  }
   .country-images {
-    margin: 10px auto;
+    margin: 0px auto;
     width: min-content;
     display: grid;
     grid-template-columns: repeat(4, auto);
     gap: 5px;
-    
-
   }
   .trace-back {
     display: flex;

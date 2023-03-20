@@ -24,7 +24,7 @@
     <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
   {/if}
   <div class="list">
-    {#each continents as { name, flags, altSpellings }}
+    {#each continents as { name, flag, flags, altSpellings }}
       <div class="country">
         <div class="country-flag">
           <img src={flags.svg} alt={flags.alt} />
