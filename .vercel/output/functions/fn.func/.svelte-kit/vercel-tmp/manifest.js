@@ -4,7 +4,7 @@ export const manifest = {
 	assets: new Set(["img/africa.jpg","img/americas.jpg","img/asia.jpg","img/europe.jpg","img/oceania.jpg"]),
 	mimeTypes: {".jpg":"image/jpeg"},
 	_: {
-		client: {"start":{"file":"_app/immutable/entry/start.d0925a37.js","imports":["_app/immutable/entry/start.d0925a37.js","_app/immutable/chunks/index.be72a3fc.js","_app/immutable/chunks/singletons.a028fe99.js"],"stylesheets":[],"fonts":[]},"app":{"file":"_app/immutable/entry/app.e2893dda.js","imports":["_app/immutable/entry/app.e2893dda.js","_app/immutable/chunks/index.be72a3fc.js"],"stylesheets":[],"fonts":[]}},
+		client: {"start":{"file":"_app/immutable/entry/start.3367a384.js","imports":["_app/immutable/entry/start.3367a384.js","_app/immutable/chunks/index.be72a3fc.js","_app/immutable/chunks/singletons.47c0a012.js"],"stylesheets":[],"fonts":[]},"app":{"file":"_app/immutable/entry/app.bb64b6e3.js","imports":["_app/immutable/entry/app.bb64b6e3.js","_app/immutable/chunks/index.be72a3fc.js"],"stylesheets":[],"fonts":[]}},
 		nodes: [
 			() => import('../output/server/nodes/0.js'),
 			() => import('../output/server/nodes/1.js'),
