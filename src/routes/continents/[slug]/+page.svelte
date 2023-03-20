@@ -39,6 +39,9 @@
 </div>
 
 <style>
+  .continent {
+    margin: 5px;
+  }
   .trace-back {
     display: flex;
     gap: 1px;

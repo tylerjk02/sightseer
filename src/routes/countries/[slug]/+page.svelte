@@ -2,9 +2,10 @@
   import lookup from "country-code-lookup";
 
   export let data;
-  const { country } = data;
-  const item = country[0];
 
+  const { country, photos } = data;
+  const countryItem = country[0];
+  const { results } = photos;
   const {
     name,
     region,
@@ -17,20 +18,18 @@
     independent,
     landlocked,
     borders,
-  } = item;
+  } = countryItem;
 
   let borderList: any[] = [];
   let borderString: string[] = [];
-  if(borders) {
+  if (borders) {
     for (let i = 0; i < borders.length; i++) {
       borderList.push(lookup.byIso(borders[i]));
     }
     for (let i = 0; i < borderList.length; i++) {
       borderString.push(borderList[i].country);
-    }  
+    }
   }
-
-  console.log(item);
 </script>
 
 <div class="main">
@@ -42,6 +41,7 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
+
   <div class="country">
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
@@ -53,30 +53,47 @@
       <div class="country-top">
         <h1>{name.common}</h1>
         <p>{name.official}</p>
+        <p>Capital: <b>{capital}</b></p>
       </div>
       <div class="country-mid">
         <h2>Geography:</h2>
         <p>{area.toLocaleString()}km<sup>2</sup></p>
         {#if borders}
-          <p>Borders: {borderString.join(', ')}</p> 
+          <p>Borders: {borderString.join(", ")}</p>
         {/if}
         <h2>Demographics:</h2>
         <p>Population: {population.toLocaleString()}</p>
       </div>
     </div>
   </div>
+  <div class="country-images">
+    {#each results as image}
+      <img src={image.urls.raw + '&w=300&h=400&fit=crop'} alt="" />
+    {/each}
+  </div>
 </div>
 
 <style>
+  .country-images {
+    margin: 10px auto;
+    width: min-content;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 5px;
+    
+
+  }
   .trace-back {
     display: flex;
     gap: 1px;
     margin: 5px 0;
   }
+  .main {
+    margin: 5px;
+  }
   .country {
     background: #e3e3e3;
     padding: 1rem;
-    margin: 5px;
   }
   .country-flag {
     width: 70px;

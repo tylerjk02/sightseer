@@ -15,6 +15,7 @@
     width: fit-content;
     background: #b4eaff;
     padding: 5px 10px 5px 10px;
+    margin: 5px;
   }
   .brand a {
     text-decoration: none;
