@@ -144,7 +144,7 @@
 
 <style>
   .city-depth img {
-    width: 500px;
+    width: 300px;
   }
   .city-depth:first-of-type {
     margin-top: 0;
@@ -153,19 +153,35 @@
     margin-bottom: 0;
   }
   .city-depth {
+    background: #ffffff;
     border: 1px solid black;
     padding: 5px;
-    margin: 3px 0;
+    display: flex;
+    flex-direction: column;
+    /* margin: 3px 0; */
+  }
+  .city-depth a {
+    margin-top: auto;
   }
   .city-depth h3 {
     text-align: left !important;
+    /* height: fit-content; */
   }
-  .country-cities-depth {
+  .city-wrap-depth {
+    /* height: 100%; */
+    display: grid;
+    gap: 5px;
+    /* align-items: center; */
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+  .city-cities-depth {
     background: #e3e3e3;
+    padding: 5px;
   }
   .city-cities-depth h3 {
     text-align: center;
-    padding: 5px 0 5px 0;
+    padding: 0 0 5px 0;
     font-size: 36px;
   }
   .country-info h1 {
@@ -188,6 +204,7 @@
     font-size: 36px;
   }
   .country-cities {
+    padding: 5px;
     background: #e3e3e3;
   }
   .country-cities h3 {
@@ -201,6 +218,7 @@
     gap: 5px;
   }
   .city {
+    background: #ffffff;
     border: 1px solid #222;
     padding: 5px;
     /* margin: 5px 0; */
