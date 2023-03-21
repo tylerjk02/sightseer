@@ -3,11 +3,18 @@
   import { HtmlTag } from "svelte/internal";
 
   export let data;
-
   const { country, photos, cities, wikiArticle } = data;
+  const citiesBasic = cities[0];
+  const citiesDepth = cities[1];
+
+  const filteredCitiesDepth = citiesDepth.filter((e: any) => {
+    return e.title !== "Not found." && e.type !== "disambiguation";
+  });
+
+  console.log(filteredCitiesDepth);
+
   const countryItem = country[0];
   const { results } = photos;
-  console.log(wikiArticle.extract_html)
   const {
     name,
     region,
@@ -43,7 +50,12 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
-
+  <div class="disclaimer" style="background: red; color:white; padding: 3px;">
+    <p>
+      'City Info in Depth' sometimes displays unrelated topics. This is due to
+      conflicting Wikipedia title names. A fix is being worked on.
+    </p>
+  </div>
   <div class="country">
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
@@ -52,58 +64,116 @@
       <img class="country-flag" src={flags.svg} alt={flags.alt} />
     </div>
     <div class="country-info">
-      <div class="country-top">
-        <h1>{name.common}</h1>
-        <p>{name.official}</p>
-        <p>Capital: <b>{capital}</b></p>
-      </div>
-      <div class="country-mid">
-        <h2>Geography:</h2>
-        <p>{area.toLocaleString()}km<sup>2</sup></p>
-        {#if borders}
-          <p>Borders: {borderString.join(", ")}</p>
-        {/if}
-        <h2>Demographics:</h2>
+      <h1>{name.common}</h1>
+      <p>{name.official}</p>
+      <p>Capital: <b>{capital}</b></p>
+
+      <p>{area.toLocaleString()}km<sup>2</sup></p>
+      {#if borders}
+        <p>Borders: {borderString.join(", ")}</p>
+      {/if}
+      {#if population}
         <p>Population: {population.toLocaleString()}</p>
-      </div>
+      {/if}
+      {#if landlocked == true}
+        <b>Landlocked</b>
+      {/if}
+      {#if independent == false}
+        <b>Non-Independent</b>
+      {/if}
     </div>
   </div>
-  <hr>
+  <hr />
   <div class="wiki-blob">
     <h3>Short Summary from Wikipedia</h3>
     <div class="summary">{@html wikiArticle.extract_html}</div>
   </div>
   <hr />
-  {#if cities.length !== 0}
+  {#if cities[0].length !== 0}
     <div class="country-cities">
       <h3>Most Populated Cities of {name.common}</h3>
+      <div class="city-wrap">
+        {#each citiesBasic as { is_capital, latitude, longitude, name, population }}
+          <div class="city">
+            <h1>{name}</h1>
+            {#if is_capital == true}
+              <b>Capital</b>
+            {/if}
 
-      {#each cities as { is_capital, latitude, longitude, name, population }}
-        <div class="city">
-          <h1>{name}</h1>
-          {#if is_capital == true}
-            <b>Capital</b>
-          {/if}
-          <p>Coordinates: {latitude}, {longitude}</p>
-          <p>Population: {population.toLocaleString()}</p>
-        </div>
+            <p>Coordinates: {latitude}, {longitude}</p>
+            {#if population}
+              <p>Population: {population.toLocaleString()}</p>
+            {/if}
+          </div>
+        {/each}
+      </div>
+    </div>
+
+    <div class="city-cities-depth">
+      <h3>City Info in Depth</h3>
+      <div class="city-wrap-depth">
+        {#each filteredCitiesDepth as { content_urls, coordinates, description, displaytitle, extract_html, originalimage }}
+          <div class="city-depth">
+            <div class="city-depth-info">
+              <h3>{@html displaytitle}</h3>
+              {#if coordinates}
+                <p>{coordinates.lat}, {coordinates.lon}</p>
+              {/if}
+              {#if originalimage}
+                <img src={originalimage.source} alt="" />
+              {/if}
+            </div>
+            <div class="city-depth-blurb">
+              {@html extract_html}
+            </div>
+            <a href={content_urls.desktop.page}>{content_urls.desktop.page}</a>
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/if}
+  {#if results.length !== 0}
+    <h3 class="photo-header">Photos relating to {name.common}</h3>
+    <div class="country-images">
+      {#each results as image}
+        <img src={image.urls.raw + "&w=300&h=200&fit=crop"} alt="" />
       {/each}
     </div>
   {/if}
-  <h3 class="photo-header">Photos relating to {name.common}</h3>
-  <div class="country-images">
-    {#each results as image}
-      <img src={image.urls.raw + "&w=300&h=400&fit=crop"} alt="" />
-    {/each}
-  </div>
 </div>
 
 <style>
-
+  .city-depth img {
+    width: 500px;
+  }
+  .city-depth:first-of-type {
+    margin-top: 0;
+  }
+  .city-depth:last-of-type {
+    margin-bottom: 0;
+  }
+  .city-depth {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 3px 0;
+  }
+  .city-depth h3 {
+    text-align: left !important;
+  }
+  .country-cities-depth {
+    background: #e3e3e3;
+  }
+  .city-cities-depth h3 {
+    text-align: center;
+    padding: 5px 0 5px 0;
+    font-size: 36px;
+  }
+  .country-info h1 {
+    font-size: 38px;
+  }
   .wiki-blob {
     background: #e3e3e3;
     padding: 0 5px 10px 5px;
-
   }
   .wiki-blob h3 {
     padding: 5px 0;
@@ -114,20 +184,26 @@
     font-size: 18px;
   }
   .photo-header {
-    padding: 5px 0;
+    padding: 0 0 5px 0;
     font-size: 36px;
   }
   .country-cities {
     background: #e3e3e3;
   }
   .country-cities h3 {
-    padding: 5px 0;
+    text-align: center;
+    padding: 5px 0 5px 0;
     font-size: 36px;
+  }
+  .city-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
   }
   .city {
     border: 1px solid #222;
-    padding: 2px;
-    margin: 5px 0;
+    padding: 5px;
+    /* margin: 5px 0; */
     /* margin: 5px; */
   }
   .country-images {
@@ -155,7 +231,9 @@
   .country-coa {
     width: 65px;
   }
-
+  .photo-header {
+    text-align: center;
+  }
   .country-political-images {
     display: flex;
     gap: 10px;
