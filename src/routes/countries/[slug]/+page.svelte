@@ -3,15 +3,20 @@
   import { HtmlTag } from "svelte/internal";
 
   export let data;
-  const { country, photos, cities, wikiArticle } = data;
+  const { country, photos, cities, wikiArticle, travelAdvisory } = data;
   const citiesBasic = cities[0];
   const citiesDepth = cities[1];
+
+  const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
+  const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
+
+  const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
+  const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
 
   const filteredCitiesDepth = citiesDepth.filter((e: any) => {
     return e.title !== "Not found." && e.type !== "disambiguation";
   });
 
-  console.log(filteredCitiesDepth);
 
   const countryItem = country[0];
   const { results } = photos;
@@ -82,6 +87,13 @@
         <b>Non-Independent</b>
       {/if}
     </div>
+    {#if travelAdvisoryResponseCode == 200}
+      <div class="travel-advisory">
+        <h3>Travel Advisory</h3>
+        <p>{currentCountryAdvisory.advisory.message}</p>
+        <a target="_blank" href="{currentCountryAdvisory.advisory.source}">Source</a>
+      </div>
+    {/if}
   </div>
   <hr />
   <div class="wiki-blob">
@@ -93,7 +105,7 @@
     <div class="country-cities">
       <h3>Most Populated Cities of {name.common}</h3>
       <div class="city-wrap">
-        {#each citiesBasic as { is_capital, latitude, longitude, name, population }}
+        {#each citiesBasic as { is_capital, latitude, longitude, name, population, country }}
           <div class="city">
             <h1>{name}</h1>
             {#if is_capital == true}
@@ -104,6 +116,7 @@
             {#if population}
               <p>Population: {population.toLocaleString()}</p>
             {/if}
+            <a href="/cities/{name},{country},{latitude},{longitude}">More Info</a>
           </div>
         {/each}
       </div>
@@ -136,7 +149,7 @@
     <h3 class="photo-header">Photos relating to {name.common}</h3>
     <div class="country-images">
       {#each results as image}
-        <img src={image.urls.raw + "&w=300&h=200&fit=crop"} alt="" />
+        <img class="country-img" src={image.urls.raw + "&w=300&h=200&fit=crop"} alt="" />
       {/each}
     </div>
   {/if}
@@ -173,7 +186,6 @@
     gap: 5px;
     /* align-items: center; */
     grid-template-columns: repeat(2, 1fr);
-
   }
   .city-cities-depth {
     background: #e3e3e3;
@@ -228,7 +240,7 @@
     margin: 0px auto;
     width: min-content;
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(4, 25%);
     gap: 5px;
   }
   .trace-back {

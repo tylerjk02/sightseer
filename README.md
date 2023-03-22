@@ -1,1 +1,3 @@
-Displays Country Data and Images
+#Sightseer
+
+In-Depth info directory for Countries/Cities.
