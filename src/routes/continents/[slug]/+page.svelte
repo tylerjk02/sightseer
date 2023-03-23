@@ -30,7 +30,7 @@
           <img src={flags.svg} alt={flags.alt} />
         </div>
         <div class="country-info">
-          <a target="_blank" href="/countries/{name.official}">{name.common}</a>
+          <a href="/countries/{name.official}">{name.common}</a>
           <p>{name.official}</p>
         </div>
       </div>
