@@ -43,7 +43,7 @@
     landlocked,
     borders,
     tld,
-    unMember
+    unMember,
   } = countryItem;
 
   let borderList: any[] = [];
@@ -58,155 +58,159 @@
   }
 </script>
 
-<div class="main">
-  <div class="region">
-    <div class="trace-back">
-      <a href="/">home</a>/<a href="/continents/{region.toLowerCase()}"
-        >{region.toLowerCase()}</a
-      >/
-      <p>{name.common.toLowerCase()}</p>
+  <div class="main">
+    <div class="region">
+      <div class="trace-back">
+        <a href="/">home</a>/<a href="/continents/{region.toLowerCase()}"
+          >{region.toLowerCase()}</a
+        >/
+        <p>{name.common.toLowerCase()}</p>
+      </div>
     </div>
-  </div>
 
-  <div class="country">
-    <div class="country-political-images">
-      {#if coatOfArms.hasOwnProperty("svg")}
-        <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
-      {/if}
-      <img class="country-flag" src={flags.svg} alt={flags.alt} />
+    <div class="country">
+      <div class="country-political-images">
+        {#if coatOfArms.hasOwnProperty("svg")}
+          <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
+        {/if}
+        <img class="country-flag" src={flags.svg} alt={flags.alt} />
+      </div>
+      <div class="country-info">
+        <h1>{name.common}</h1>
+        <p><b>{name.official}</b></p>
+        <div class="area">
+          <b>Size</b>: {area.toLocaleString()}km<sup>2</sup>
+        </div>
+        <p><b>Capital</b>: {capital}</p>
+
+        {#if borders}
+          <p><b>Borders</b>: {borderString.join(", ")}</p>
+        {/if}
+        {#if population}
+          <p><b>Population</b>: {population.toLocaleString()}</p>
+        {/if}
+        {#if landlocked == true}
+          <div class="landlocked"><b>Landlocked</b></div>
+        {/if}
+        {#if independent == false}
+          <div class="independent"><b>Non-Independent</b></div>
+        {/if}
+        {#if unMember == true}
+          <b>UN Member</b>: Yes
+        {:else}
+          <b>UN Member</b>: No
+        {/if}
+      </div>
     </div>
-    <div class="country-info">
-      <h1>{name.common}</h1>
-      <p><b>{name.official}</b></p>
-      <div class="area"><b>Size</b>: {area.toLocaleString()}km<sup>2</sup></div>
-      <p><b>Capital</b>: {capital}</p>
+    <hr />
 
-      {#if borders}
-      <p><b>Borders</b>: {borderString.join(", ")}</p>
-      {/if}
-      {#if population}
-        <p><b>Population</b>: {population.toLocaleString()}</p>
-      {/if}
-      {#if landlocked == true}
-        <div class="landlocked"><b>Landlocked</b></div>
-      {/if}
-      {#if independent == false}
-      <div class="independent"><b>Non-Independent</b></div>
-      {/if}
-      {#if unMember == true}
-      <b>UN Member</b>: Yes
+    <div class="important-info">
+      <h3>Things to Know</h3>
+      {#if countryLanguages.length == 1}
+        <div class="language">
+          <b>Official Language</b>: {countryLanguages}
+        </div>
       {:else}
-      <b>UN Member</b>: No
-      {/if}
-    </div>
-  </div>
-  <hr />
-
-  <div class="important-info">
-    <h3>Things to Know</h3>
-    {#if countryLanguages.length == 1}
-      <div class="language">
-        <b>Official Language</b>: {countryLanguages}
-      </div>
-    {:else}
-      <div class="language">
-        <b>Official Languages</b>: {countryLanguages.join(", ")}
-      </div>
-    {/if}
-
-    <div class="currency">
-      <b>Currency</b>: {countryCurrenciesValues[0].name}
-    </div>
-
-    <div class="driving-side">
-      <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
-        countryDrivingSide[1].slice(1)}
-    </div>
-    {#if tld.length !== 0}
-      <div class="top-level-domain">
-        <b>Top-Level Domain</b>: {tld}
-      </div>
-    {/if}
-
-    {#if travelAdvisoryResponseCode == 200}
-      <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
-      {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
-        <div class="travel-advisory">
-          <b>Travel Advisory:</b>
-          <p>{currentCountryAdvisory.advisory.message}</p>
-          <a target="_blank" href={currentCountryAdvisory.advisory.source}
-            >Source</a
-          >
+        <div class="language">
+          <b>Official Languages</b>: {countryLanguages.join(", ")}
         </div>
       {/if}
+
+      <div class="currency">
+        <b>Currency</b>: {countryCurrenciesValues[0].name}
+      </div>
+
+      <div class="driving-side">
+        <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
+          countryDrivingSide[1].slice(1)}
+      </div>
+      {#if tld.length !== 0}
+        <div class="top-level-domain">
+          <b>Top-Level Domain</b>: {tld}
+        </div>
+      {/if}
+
+      {#if travelAdvisoryResponseCode == 200}
+        <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
+        {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
+          <div class="travel-advisory">
+            <b>Travel Advisory:</b>
+            <p>{currentCountryAdvisory.advisory.message}</p>
+            <a target="_blank" href={currentCountryAdvisory.advisory.source}
+              >Source</a
+            >
+          </div>
+        {/if}
+      {/if}
+    </div>
+
+    <hr />
+    <div class="wiki-blob">
+      <h3>Short Summary from Wikipedia</h3>
+      <div class="summary">{@html wikiArticle.extract_html}</div>
+    </div>
+    <hr />
+    {#if cities[0].length !== 0}
+      <div class="country-cities">
+        <h3>Most Populated Cities of {name.common}</h3>
+        <div class="city-wrap">
+          {#each citiesBasic as { is_capital, latitude, longitude, name, population, country }}
+            <div class="city">
+              <h1>{name}</h1>
+              {#if is_capital == true}
+                <b>Capital</b>
+              {/if}
+
+              <p>Coordinates: {latitude}, {longitude}</p>
+              {#if population}
+                <p>Population: {population.toLocaleString()}</p>
+              {/if}
+              <a href="/cities/{name},{country},{latitude},{longitude}"
+                >More Info</a
+              >
+            </div>
+          {/each}
+        </div>
+      </div>
+
+      <div class="city-cities-depth">
+        <h3>City Info in Depth</h3>
+        <div class="city-wrap-depth">
+          {#each filteredCitiesDepthNoAlts as { content_urls, country, coordinates, description, displaytitle, extract_html, thumbnail }}
+            <div class="city-depth">
+              <div class="city-depth-info">
+                <h3>{@html displaytitle}</h3>
+                {#if coordinates}
+                  <p>{coordinates.lat}, {coordinates.lon}</p>
+                {/if}
+                {#if thumbnail}
+                  <img src={thumbnail.source} alt="" />
+                {/if}
+              </div>
+              <div class="city-depth-blurb">
+                {@html extract_html}
+              </div>
+              <a href={content_urls.desktop.page}>{content_urls.desktop.page}</a
+              >
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
+    {#if results.length !== 0}
+      <h3 class="photo-header">Photos relating to {name.common}</h3>
+      <div class="country-images">
+        {#each results as image}
+          <img
+            class="country-img"
+            src={image.urls.raw + "&w=300&h=200&fit=crop"}
+            alt=""
+          />
+        {/each}
+      </div>
     {/if}
   </div>
 
-  <hr />
-  <div class="wiki-blob">
-    <h3>Short Summary from Wikipedia</h3>
-    <div class="summary">{@html wikiArticle.extract_html}</div>
-  </div>
-  <hr />
-  {#if cities[0].length !== 0}
-    <div class="country-cities">
-      <h3>Most Populated Cities of {name.common}</h3>
-      <div class="city-wrap">
-        {#each citiesBasic as { is_capital, latitude, longitude, name, population, country }}
-          <div class="city">
-            <h1>{name}</h1>
-            {#if is_capital == true}
-              <b>Capital</b>
-            {/if}
-
-            <p>Coordinates: {latitude}, {longitude}</p>
-            {#if population}
-              <p>Population: {population.toLocaleString()}</p>
-            {/if}
-            <a href="/cities/{name},{country},{latitude},{longitude}"
-              >More Info</a
-            >
-          </div>
-        {/each}
-      </div>
-    </div>
-
-    <div class="city-cities-depth">
-      <h3>City Info in Depth</h3>
-      <div class="city-wrap-depth">
-        {#each filteredCitiesDepthNoAlts as { content_urls, country, coordinates, description, displaytitle, extract_html, originalimage }}
-          <div class="city-depth">
-            <div class="city-depth-info">
-              <h3>{@html displaytitle}</h3>
-              {#if coordinates}
-                <p>{coordinates.lat}, {coordinates.lon}</p>
-              {/if}
-              {#if originalimage}
-                <img src={originalimage.source} alt="" />
-              {/if}
-            </div>
-            <div class="city-depth-blurb">
-              {@html extract_html}
-            </div>
-            <a href={content_urls.desktop.page}>{content_urls.desktop.page}</a>
-          </div>
-        {/each}
-      </div>
-    </div>
-  {/if}
-  {#if results.length !== 0}
-    <h3 class="photo-header">Photos relating to {name.common}</h3>
-    <div class="country-images">
-      {#each results as image}
-        <img
-          class="country-img"
-          src={image.urls.raw + "&w=300&h=200&fit=crop"}
-          alt=""
-        />
-      {/each}
-    </div>
-  {/if}
-</div>
 
 <style>
   .important-info {
