@@ -7,6 +7,7 @@
   const citiesBasic = cities[0];
   const citiesDepth = cities[1];
 
+  // Advisory API seems to default to...Niue Island? Adding a check for that.
   const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
 
@@ -55,12 +56,14 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
+  {#if filteredCitiesDepth.length !== 0}
   <div class="disclaimer" style="background: red; color:white; padding: 3px;">
     <p>
       'City Info in Depth' sometimes displays unrelated topics. This is due to
       conflicting Wikipedia title names. A fix is being worked on.
     </p>
   </div>
+  {/if}
   <div class="country">
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
@@ -88,11 +91,15 @@
       {/if}
     </div>
     {#if travelAdvisoryResponseCode == 200}
-      <div class="travel-advisory">
-        <h3>Travel Advisory</h3>
-        <p>{currentCountryAdvisory.advisory.message}</p>
-        <a target="_blank" href="{currentCountryAdvisory.advisory.source}">Source</a>
-      </div>
+      {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
+        <div class="travel-advisory">
+          <h3>Travel Advisory</h3>
+          <p>{currentCountryAdvisory.advisory.message}</p>
+          <a target="_blank" href={currentCountryAdvisory.advisory.source}
+            >Source</a
+          >
+        </div>
+      {/if}
     {/if}
   </div>
   <hr />
@@ -116,7 +123,9 @@
             {#if population}
               <p>Population: {population.toLocaleString()}</p>
             {/if}
-            <a href="/cities/{name},{country},{latitude},{longitude}">More Info</a>
+            <a href="/cities/{name},{country},{latitude},{longitude}"
+              >More Info</a
+            >
           </div>
         {/each}
       </div>
@@ -125,7 +134,7 @@
     <div class="city-cities-depth">
       <h3>City Info in Depth</h3>
       <div class="city-wrap-depth">
-        {#each filteredCitiesDepth as { content_urls, coordinates, description, displaytitle, extract_html, originalimage }}
+        {#each filteredCitiesDepth as { content_urls, country, coordinates, description, displaytitle, extract_html, originalimage }}
           <div class="city-depth">
             <div class="city-depth-info">
               <h3>{@html displaytitle}</h3>
@@ -149,7 +158,11 @@
     <h3 class="photo-header">Photos relating to {name.common}</h3>
     <div class="country-images">
       {#each results as image}
-        <img class="country-img" src={image.urls.raw + "&w=300&h=200&fit=crop"} alt="" />
+        <img
+          class="country-img"
+          src={image.urls.raw + "&w=300&h=200&fit=crop"}
+          alt=""
+        />
       {/each}
     </div>
   {/if}
@@ -240,7 +253,7 @@
     margin: 0px auto;
     width: min-content;
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(3, auto);
     gap: 5px;
   }
   .trace-back {

@@ -1,14 +1,16 @@
 export const load = ({ fetch, params }) => {
-  console.log(params);
-  let slug = params.slug;
-  let slugList = slug.split(',');
-  
-  const lat = slugList[1];
-  const lon = slugList[2];
+  const slug = params.slug;
+  const slugList = slug.split(",");
 
-  console.log(lat, lon);
+  const cityName = slugList[0];
+  const countryName = slugList[1];
+  const lat = slugList[2];
+  const lon = slugList[3];
+
+
+  
 
   return {
     slug: slugList,
-  }
-}
+  };
+};

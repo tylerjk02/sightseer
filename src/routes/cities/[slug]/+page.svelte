@@ -12,6 +12,7 @@
 
   const lat = slug[2];
   const lon = slug[3];
+
 </script>
 
 <div class="city">
@@ -24,6 +25,8 @@
 
   <h1>{cityName}, {countryName}</h1>
   <p>{lat}, {lon}</p>
+  <hr />
+  
 </div>
 
 <style>
@@ -32,4 +35,5 @@
     gap: 1px;
     margin: 5px 0;
   }
+
 </style>
