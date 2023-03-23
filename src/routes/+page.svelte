@@ -5,23 +5,23 @@
   <h1>Choose a region</h1>
   <div class="regions">
     <a class="region-link" href="/continents/africa">
-      <img class="region-img" src="/img/africa.jpg" alt="" />
+      <img class="region-img" src="/img/africa.jpg" alt="africa" />
       <div class="centered">Africa</div>
     </a>
     <a class="region-link" href="/continents/asia">
-      <img class="region-img" src="/img/asia.jpg" alt="" />
+      <img class="region-img" src="/img/asia.jpg" alt="asia" />
       <div class="centered">Asia</div>
     </a>
     <a class="region-link" href="/continents/europe">
-      <img class="region-img" src="/img/europe.jpg" alt="" />
+      <img class="region-img" src="/img/europe.jpg" alt="europe" />
       <div class="centered">Europe</div>
     </a>
     <a class="region-link" href="/continents/americas">
-      <img class="region-img" src="/img/americas.jpg" alt="" />
+      <img class="region-img" src="/img/americas.jpg" alt="americas" />
       <div class="centered">Americas</div>
     </a>
     <a class="region-link" href="/continents/oceania">
-      <img class="region-img" src="/img/oceania.jpg" alt="" />
+      <img class="region-img" src="/img/oceania.jpg" alt="oceania" />
       <div class="centered">Oceania</div>
     </a>
   </div>
