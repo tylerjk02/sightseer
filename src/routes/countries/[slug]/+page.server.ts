@@ -63,6 +63,7 @@ export const load = (params) => {
 
   };
 
+
   return {
     country: fetchContinentData(params.params.slug),
     photos: fetchCountryPhotos(params.params.slug),

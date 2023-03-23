@@ -1,9 +1,9 @@
 <script lang="ts">
   import lookup from "country-code-lookup";
-  import { HtmlTag } from "svelte/internal";
 
   export let data;
   const { country, photos, cities, wikiArticle, travelAdvisory } = data;
+
   const citiesBasic = cities[0];
   const citiesDepth = cities[1];
 
@@ -14,21 +14,22 @@
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
 
   const filteredCitiesDepth = citiesDepth.filter((e: any) => {
-
-    return (
-      e.title !== "Not found." &&
-      e.type !== "disambiguation");
+    return e.title !== "Not found." && e.type !== "disambiguation";
   });
 
-  const filteredCitiesDepthNoAlts = filteredCitiesDepth.filter((e:any) => {
+  const filteredCitiesDepthNoAlts = filteredCitiesDepth.filter((e: any) => {
     const testStrings = ["city", "town", "village", "hamlet", "capital"];
     const splitExtract = e.extract.split(" ");
     const testExtract = testStrings.some((x) => splitExtract.includes(x));
 
     return testExtract;
-  })
+  });
 
   const countryItem = country[0];
+  const countryLanguages = Object.values(countryItem.languages);
+  const countryCurrenciesValues: any = Object.values(countryItem.currencies);
+  const countryDrivingSide: any = Object.values(countryItem.car);
+
   const { results } = photos;
   const {
     name,
@@ -37,11 +38,12 @@
     flags,
     area,
     capital,
-    languages,
     population,
     independent,
     landlocked,
     borders,
+    tld,
+    unMember
   } = countryItem;
 
   let borderList: any[] = [];
@@ -75,28 +77,62 @@
     </div>
     <div class="country-info">
       <h1>{name.common}</h1>
-      <p>{name.official}</p>
-      <p>Capital: <b>{capital}</b></p>
+      <p><b>{name.official}</b></p>
+      <div class="area"><b>Size</b>: {area.toLocaleString()}km<sup>2</sup></div>
+      <p><b>Capital</b>: {capital}</p>
 
-      <p>{area.toLocaleString()}km<sup>2</sup></p>
       {#if borders}
-        <p>Borders: {borderString.join(", ")}</p>
+      <p><b>Borders</b>: {borderString.join(", ")}</p>
       {/if}
       {#if population}
-        <p>Population: {population.toLocaleString()}</p>
+        <p><b>Population</b>: {population.toLocaleString()}</p>
       {/if}
       {#if landlocked == true}
-        <b>Landlocked</b>
+        <div class="landlocked"><b>Landlocked</b></div>
       {/if}
       {#if independent == false}
-        <b>Non-Independent</b>
+      <div class="independent"><b>Non-Independent</b></div>
+      {/if}
+      {#if unMember == true}
+      <b>UN Member</b>: Yes
+      {:else}
+      <b>UN Member</b>: No
       {/if}
     </div>
+  </div>
+  <hr />
+
+  <div class="important-info">
+    <h3>Things to Know</h3>
+    {#if countryLanguages.length == 1}
+      <div class="language">
+        <b>Official Language</b>: {countryLanguages}
+      </div>
+    {:else}
+      <div class="language">
+        <b>Official Languages</b>: {countryLanguages.join(", ")}
+      </div>
+    {/if}
+
+    <div class="currency">
+      <b>Currency</b>: {countryCurrenciesValues[0].name}
+    </div>
+
+    <div class="driving-side">
+      <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
+        countryDrivingSide[1].slice(1)}
+    </div>
+    {#if tld.length !== 0}
+      <div class="top-level-domain">
+        <b>Top-Level Domain</b>: {tld}
+      </div>
+    {/if}
+
     {#if travelAdvisoryResponseCode == 200}
       <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
       {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
         <div class="travel-advisory">
-          <h3>Travel Advisory</h3>
+          <b>Travel Advisory:</b>
           <p>{currentCountryAdvisory.advisory.message}</p>
           <a target="_blank" href={currentCountryAdvisory.advisory.source}
             >Source</a
@@ -105,6 +141,7 @@
       {/if}
     {/if}
   </div>
+
   <hr />
   <div class="wiki-blob">
     <h3>Short Summary from Wikipedia</h3>
@@ -172,6 +209,14 @@
 </div>
 
 <style>
+  .important-info {
+    background: #e3e3e3;
+    padding: 0 5px 5px 5px;
+  }
+  .important-info h3 {
+    padding: 5px 0;
+    font-size: 36px;
+  }
   .city-depth img {
     width: 300px;
   }
