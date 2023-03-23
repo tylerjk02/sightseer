@@ -60,6 +60,7 @@ export const load = (params) => {
     const data = await res.json();
     const dataSet = [data, await fetchWikiCityArticles(data)];
     return dataSet;
+
   };
 
   return {
