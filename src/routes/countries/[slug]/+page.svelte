@@ -1,18 +1,20 @@
 <script lang="ts">
   import lookup from "country-code-lookup";
-
   export let data;
-  const { country, photos, cities, wikiArticle, travelAdvisory } = data;
+  const getData = new Promise((res, rej) => {
+    setTimeout(() => {
+      res(data);
+    });
+  })
+  const { country, photos, cities, travelAdvisory, wikiArticle } = data;
+  
 
   const citiesBasic = cities[0];
   const citiesDepth = cities[1];
-
   const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
-
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
-
   const filteredCitiesDepth = citiesDepth.filter((e: any) => {
     return e.title !== "Not found." && e.type !== "disambiguation";
   });
@@ -21,7 +23,6 @@
     const testStrings = ["city", "town", "village", "hamlet", "capital"];
     const splitExtract = e.extract.split(" ");
     const testExtract = testStrings.some((x) => splitExtract.includes(x));
-
     return testExtract;
   });
 
@@ -58,6 +59,9 @@
   }
 </script>
 
+{#await getData}
+  <p>loading...</p>
+{:then}
   <div class="main">
     <div class="region">
       <div class="trace-back">
@@ -75,6 +79,7 @@
         {/if}
         <img class="country-flag" src={flags.svg} alt={flags.alt} />
       </div>
+
       <div class="country-info">
         <h1>{name.common}</h1>
         <p><b>{name.official}</b></p>
@@ -210,7 +215,7 @@
       </div>
     {/if}
   </div>
-
+{/await}
 
 <style>
   .important-info {
