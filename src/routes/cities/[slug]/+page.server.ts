@@ -23,22 +23,7 @@ export const load = ({ fetch, params }) => {
     return data;
   };
 
-  // const fetchMapTile = async (lat: string, lon: string) => {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       'X-RapidAPI-Key': MAPTOOLKIT_API,
-  //       'X-RapidAPI-Host': 'maptoolkit.p.rapidapi.com'
-  //     }
-  //   };
-  //   const res = await fetch(`https://maptoolkit.p.rapidapi.com/staticmap?center=${lat}%2C${lon}&zoom=11&size=640x480&maptype=toursprung-terrain&format=png`, options)
-  //     .then(res => res.json())
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err));
 
-  // } 
-
-  // fetchMapTile(lat, lon);
 
   return {
     slug: slugList,

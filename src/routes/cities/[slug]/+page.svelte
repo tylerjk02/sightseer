@@ -15,8 +15,6 @@
     title,
   } = cityWikiArticle;
 
-  console.log(cityWikiArticle);
-
   const cityName = slug[0];
   const countryName = slug[1];
   const countryFullName = countries.getName(countryName, "en");

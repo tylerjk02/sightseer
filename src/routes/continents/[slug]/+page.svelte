@@ -1,6 +1,7 @@
 <script lang="ts">
   export let data;
   const { continents, slug } = data;
+
   continents.sort((a:any, b:any) => {
   if (a.name.common < b.name.common) {
     return -1;
@@ -30,7 +31,7 @@
           <img src={flags.svg} alt={flags.alt} />
         </div>
         <div class="country-info">
-          <a href="/countries/{name.official}">{name.common}</a>
+          <a href="/countries/{name.common}">{name.common}</a>
           <p>{name.official}</p>
         </div>
       </div>
