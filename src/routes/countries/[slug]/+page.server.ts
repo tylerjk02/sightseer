@@ -5,7 +5,7 @@ export const load = (params) => {
   const fetchWikiArticle = async (id: string) => {
     const res = await fetch(
       `https://en.wikipedia.org/api/rest_v1/page/summary/${id}`
-    ).catch((err) => {return(err)});
+    );
     const data = await res.json();
     return data;
   };
@@ -16,7 +16,7 @@ export const load = (params) => {
       for (const city of id) {
         const res = await fetch(
           `https://en.wikipedia.org/api/rest_v1/page/summary/${city.name}`
-        ).catch((err) => {console.log(err)});
+        );
         const data = await res.json();
         cityWikiArticles.push(data);
       }
@@ -25,7 +25,7 @@ export const load = (params) => {
   };
 
   const fetchContinentData = async (id: string) => {
-    const res = await fetch(`https://restcountries.com/v3.1/name/${id}`).catch((err) => {console.log(err)});;
+    const res = await fetch(`https://restcountries.com/v3.1/name/${id}`);
     const data = await res.json();
     return data;
   };
@@ -33,7 +33,7 @@ export const load = (params) => {
   const fetchTravelAdvisoryInfo = async (id: string) => {
     const res = await fetch(
       `https://www.travel-advisory.info/api?countrycode=${countryToAlpha2(id)}`
-    ).catch((err) => {console.log(err)});;
+    );
     const data = await res.json();
     return data;
   };
@@ -41,7 +41,7 @@ export const load = (params) => {
   const fetchCountryPhotos = async (id: string) => {
     const res = await fetch(
       `https://api.unsplash.com/search/photos?query=${id}&orientation=landscape&client_id=${UNSPLASH_ACCESS}`
-    ).catch((err) => {console.log(err)});;
+    );
     const data = await res.json();
     return data;
   };
@@ -56,13 +56,11 @@ export const load = (params) => {
           "X-Api-Key": NINJA_API_KEY,
         },
       }
-    ).catch((err) => {console.log(err)});;
+    );
     const data = await res.json();
     const dataSet = [data, await fetchWikiCityArticles(data)];
     return dataSet;
-
   };
-
 
   return {
     country: fetchContinentData(params.params.slug),

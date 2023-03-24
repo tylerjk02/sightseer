@@ -36,6 +36,7 @@
       <p>{lat}, {lon}</p>
     </div>
     <hr />
+    {#if cityWikiArticle.length !== 0}
     <div class="city-wiki-blurb">
       <h1>Blurb from WikiPedia</h1>
       <h2>{title}</h2>
@@ -44,6 +45,7 @@
 
       <img src="{originalimage.source}" alt="">
     </div>
+    {/if}
   </div>
 </div>
 
