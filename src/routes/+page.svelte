@@ -53,11 +53,11 @@
   }
   .regions {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
   }
   .region-link {
-    width: 100%;
+    width: 20%;
     position: relative;
     text-align: center;
     color: white;
@@ -80,5 +80,14 @@
     background: #333333ce;
     padding: 5px 15px;
     border-radius: 10px;
+  }
+  @media screen and (max-width: 728px) {
+    .regions {
+      flex-direction: column;
+    }
+
+    .region-link {
+      width: 100%;
+    }
   }
 </style>

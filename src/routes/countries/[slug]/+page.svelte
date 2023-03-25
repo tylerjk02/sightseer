@@ -153,14 +153,14 @@
     </div>
 
     {#if wikiArticle.extract_html !== "<p><b>CN</b>, <b>Cn</b>, <b>cn</b> and other variants may refer to:</p>"}
-      <hr />
+      
       <div class="wiki-blob">
         <h3>Short Summary from Wikipedia</h3>
         <div class="summary">{@html wikiArticle.extract_html}</div>
       </div>
     {/if}
 
-    <hr />
+    <hr /> 
     {#if webcamResults.length > 0}
       <div class="webcams">
         <h3>Webcams from around {name.common}</h3>
@@ -179,8 +179,8 @@
           {/each}
         </div>
       </div>
+      <hr />
     {/if}
-    <hr />
     {#if cities[0].length > 0}
       <div class="country-cities">
         <h3>Most Populated Cities of {name.common}</h3>
