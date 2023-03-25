@@ -5,9 +5,12 @@
     setTimeout(() => {
       res(data);
     });
-  })
-  const { country, photos, cities, travelAdvisory, wikiArticle } = data;
-  
+  });
+  const { country, photos, cities, travelAdvisory, wikiArticle, webcams } =
+    data;
+  const webcamResults = webcams.result.webcams;
+
+  console.log(webcamResults);
 
   const citiesBasic = cities[0];
   const citiesDepth = cities[1];
@@ -154,8 +157,23 @@
       <h3>Short Summary from Wikipedia</h3>
       <div class="summary">{@html wikiArticle.extract_html}</div>
     </div>
+
     <hr />
-    {#if cities[0].length !== 0}
+    {#if webcamResults.length > 0}
+      <div class="webcams">
+        <h3>Webcams from around {name.common}</h3>
+        <div class="webcam-wrap">
+          {#each webcamResults as { location, player, title }}
+            <div class="webcam">
+              <p>{title}</p>
+              <iframe {title} src={player.day.embed} frameborder="0" width="400" height="300" />
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
+    <hr />
+    {#if cities[0].length > 0}
       <div class="country-cities">
         <h3>Most Populated Cities of {name.common}</h3>
         <div class="city-wrap">
@@ -218,11 +236,29 @@
 {/await}
 
 <style>
+  .webcam {
+    width: 100%;
+  }
+  .webcam-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    gap: 5px;
+  }
   .important-info {
     background: #e3e3e3;
     padding: 0 5px 5px 5px;
   }
   .important-info h3 {
+    padding: 5px 0;
+    font-size: 36px;
+  }
+  .webcams {
+    text-align: center;
+    background: #e3e3e3;
+    /* padding: 0 5px 5px 5px; */
+  }
+
+  .webcams h3 {
     padding: 5px 0;
     font-size: 36px;
   }

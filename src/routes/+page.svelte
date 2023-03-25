@@ -5,23 +5,23 @@
   <h1>Choose a region</h1>
   <div class="regions">
     <a class="region-link" href="/continents/africa">
-      <img class="region-img" src="/img/africa.jpg" alt="africa" />
+      <img class="region-img" src="https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F180508141319-03-amazing-places-africa---victoria-falls.jpg" alt="africa" />
       <div class="centered">Africa</div>
     </a>
     <a class="region-link" href="/continents/asia">
-      <img class="region-img" src="/img/asia.jpg" alt="asia" />
+      <img class="region-img" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2d/bd/asia.jpg?w=500&h=300&s=1" alt="asia" />
       <div class="centered">Asia</div>
     </a>
     <a class="region-link" href="/continents/europe">
-      <img class="region-img" src="/img/europe.jpg" alt="europe" />
+      <img class="region-img" src="https://i.natgeofe.com/n/075e4f53-f271-4f7a-855a-5eccdba43587/01_Europe.jpg" alt="europe" />
       <div class="centered">Europe</div>
     </a>
     <a class="region-link" href="/continents/americas">
-      <img class="region-img" src="/img/americas.jpg" alt="americas" />
+      <img class="region-img" src="http://www.palacelasamericas.com/images/slides/slide-1.jpg" alt="americas" />
       <div class="centered">Americas</div>
     </a>
     <a class="region-link" href="/continents/oceania">
-      <img class="region-img" src="/img/oceania.jpg" alt="oceania" />
+      <img class="region-img" src="https://www.sporcle.com/blog/wp-content/uploads/2019/02/3-5.jpg" alt="oceania" />
       <div class="centered">Oceania</div>
     </a>
   </div>

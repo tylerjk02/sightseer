@@ -2,6 +2,7 @@
   export let data;
   const { continents, slug } = data;
 
+
   continents.sort((a:any, b:any) => {
   if (a.name.common < b.name.common) {
     return -1;
@@ -13,12 +14,15 @@
 });
 
 
+
 </script>
 
 <div class="continent">
   <div class="trace-back">
     <a href="/">home</a>/<p>{slug}</p>
   </div>
+
+
   {#if slug == 'americas'}
     <h1>Countries in the {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
   {:else}

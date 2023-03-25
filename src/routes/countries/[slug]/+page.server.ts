@@ -1,4 +1,4 @@
-import { UNSPLASH_ACCESS, NINJA_API_KEY } from "$env/static/private";
+import { UNSPLASH_ACCESS, NINJA_API_KEY, WINDY_API_KEY } from "$env/static/private";
 import { countryToAlpha2 } from "country-to-iso";
 
 export const load = (params) => {
@@ -62,11 +62,22 @@ export const load = (params) => {
     return dataSet;
   };
 
+  const fetchWebcamData = async(id: string) => {
+    const res = await fetch(`https://api.windy.com/api/webcams/v2/list?show=webcams:title,player,location,status/property=live/country=${countryToAlpha2(id)}`, {
+      headers: {
+        "x-windy-key": WINDY_API_KEY,
+      }
+    })
+    const data = res.json();
+    return data;
+  }
+
   return {
     country: fetchContinentData(params.params.slug),
     photos: fetchCountryPhotos(params.params.slug),
     cities: fetchCityData(params.params.slug),
     wikiArticle: fetchWikiArticle(params.params.slug),
     travelAdvisory: fetchTravelAdvisoryInfo(params.params.slug),
+    webcams: fetchWebcamData(params.params.slug)
   };
 };
