@@ -63,7 +63,7 @@ export const load = (params) => {
   };
 
   const fetchWebcamData = async(id: string) => {
-    const res = await fetch(`https://api.windy.com/api/webcams/v2/list?show=webcams:title,player,location,status/property=live/country=${countryToAlpha2(id)}`, {
+    const res = await fetch(`https://api.windy.com/api/webcams/v2/list/country=${countryToAlpha2(id)}?show=webcams:title,player,location,status`, {
       headers: {
         "x-windy-key": WINDY_API_KEY,
       }

@@ -152,11 +152,13 @@
       {/if}
     </div>
 
-    <hr />
-    <div class="wiki-blob">
-      <h3>Short Summary from Wikipedia</h3>
-      <div class="summary">{@html wikiArticle.extract_html}</div>
-    </div>
+    {#if wikiArticle.extract_html !== "<p><b>CN</b>, <b>Cn</b>, <b>cn</b> and other variants may refer to:</p>"}
+      <hr />
+      <div class="wiki-blob">
+        <h3>Short Summary from Wikipedia</h3>
+        <div class="summary">{@html wikiArticle.extract_html}</div>
+      </div>
+    {/if}
 
     <hr />
     {#if webcamResults.length > 0}
@@ -166,7 +168,13 @@
           {#each webcamResults as { location, player, title }}
             <div class="webcam">
               <p>{title}</p>
-              <iframe {title} src={player.day.embed} frameborder="0" width="400" height="300" />
+              <iframe
+                {title}
+                src={player.day.embed}
+                frameborder="0"
+                width="300"
+                height="200"
+              />
             </div>
           {/each}
         </div>
@@ -237,8 +245,16 @@
 
 <style>
   .webcam {
-    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
+  .webcam p {
+    margin-bottom: 10px;
+  }
+  
   .webcam-wrap {
     display: grid;
     grid-template-columns: repeat(2, 50%);

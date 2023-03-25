@@ -2,29 +2,27 @@
   export let data;
   const { continents, slug } = data;
 
-
-  continents.sort((a:any, b:any) => {
-  if (a.name.common < b.name.common) {
-    return -1;
-  }
-  if (a.name.common > b.name.common) {
-    return 1;
-  }
-  return 0;
-});
-
-
-
+  continents.sort((a: any, b: any) => {
+    if (a.name.common < b.name.common) {
+      return -1;
+    }
+    if (a.name.common > b.name.common) {
+      return 1;
+    }
+    return 0;
+  });
 </script>
 
 <div class="continent">
   <div class="trace-back">
-    <a href="/">home</a>/<p>{slug}</p>
+    <a href="/">home</a>/
+    <p>{slug}</p>
   </div>
 
-
-  {#if slug == 'americas'}
-    <h1>Countries in the {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
+  {#if slug == "americas"}
+    <h1>
+      Countries in the {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}
+    </h1>
   {:else}
     <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
   {/if}
@@ -35,7 +33,11 @@
           <img src={flags.svg} alt={flags.alt} />
         </div>
         <div class="country-info">
-          <a href="/countries/{name.common}">{name.common}</a>
+          {#if name.common == "China"}
+            <a href="/countries/CN">{name.common}</a>
+          {:else}
+            <a href="/countries/{name.official}">{name.common}</a>
+          {/if}
           <p>{name.official}</p>
         </div>
       </div>
