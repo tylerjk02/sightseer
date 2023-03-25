@@ -13,14 +13,14 @@
     box-shadow: 0 0 3px rgb(0,0,0,0.5);
     border-radius: 3px;
     width: fit-content;
-    background: #b4eaff;
-    padding: 5px 10px 5px 10px;
-    margin: 5px;
+    background: var(--color-orange);
+    padding: 10px;
+    /* margin: 5px; */
   }
   .brand a {
     text-decoration: none;
-    color: #222222;
-    font-size: 22px;
+    color: var(--color-white);
+    font-size: 26px;
     font-weight: bold;
   }
 </style>

@@ -254,7 +254,7 @@
   .webcam p {
     margin-bottom: 10px;
   }
-  
+
   .webcam-wrap {
     display: grid;
     grid-template-columns: repeat(2, 50%);
@@ -391,4 +391,27 @@
     gap: 10px;
     align-items: center;
   }
+
+
+  
+  @media screen and (max-width: 728px) {
+    .city-wrap {
+      /* display: grid; */
+      grid-template-columns: 1fr;
+    }
+
+    .city-wrap-depth {
+      grid-template-columns: 1fr;
+    }
+
+    .country-images {
+      grid-template-columns: 1fr;
+    }
+
+    .webcam-wrap {
+      grid-template-columns: 1fr;
+    }
+
+
+}
 </style>

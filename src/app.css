@@ -1,3 +1,11 @@
+:root {
+  --color-white: #fffcf2;
+  --color-light-grey: #ccc5b9;
+  --color-dark-grey: #403d39;
+  --color-black: #252422;
+  --color-orange: #eb5e28;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,8 +14,8 @@
 
 body {
   margin: 5px;
-  background: #e3f3ff;
-  color: #222222;
+  background: var(--color-white);
+  color: var(--color-black);
 
   font-family: 'Roboto', sans-serif;
 }
