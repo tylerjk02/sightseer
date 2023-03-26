@@ -5,6 +5,7 @@ In-Depth Info Directory for Countries/Cities.
 - Country Name, Both Common and Official
 - Country Flag and Coat of Arms
 - Wikipedia Summaries 
+
 *A full list of data provided can be found below*
 
 
