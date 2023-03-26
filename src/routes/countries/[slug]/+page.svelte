@@ -1,23 +1,18 @@
 <script lang="ts">
   import lookup from "country-code-lookup";
   export let data;
-  const getData = new Promise((res, rej) => {
-    setTimeout(() => {
-      res(data);
-    });
-  });
-  const { country, photos, cities, travelAdvisory, wikiArticle, webcams } =
-    data;
+
+  const { country, cities, travelAdvisory, wikiArticle, webcams } = data;
+  const citiesBasic = cities[0];
+
   const webcamResults = webcams.result.webcams;
 
-  console.log(webcamResults);
-
-  const citiesBasic = cities[0];
-  const citiesDepth = cities[1];
   const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
+
+  const citiesDepth = cities[1];
   const filteredCitiesDepth = citiesDepth.filter((e: any) => {
     return e.title !== "Not found." && e.type !== "disambiguation";
   });
@@ -30,11 +25,11 @@
   });
 
   const countryItem = country[0];
+  
   const countryLanguages = Object.values(countryItem.languages);
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
   const countryDrivingSide: any = Object.values(countryItem.car);
 
-  const { results } = photos;
   const {
     name,
     region,
@@ -62,148 +57,144 @@
   }
 </script>
 
-{#await getData}
-  <p>loading...</p>
-{:then}
-  <div class="main">
-    <div class="region">
-      <div class="trace-back">
-        <a href="/">home</a>/<a href="/continents/{region.toLowerCase()}"
-          >{region.toLowerCase()}</a
-        >/
-        <p>{name.common.toLowerCase()}</p>
-      </div>
+<div class="main">
+  <div class="region">
+    <div class="trace-back">
+      <a href="/">home</a>/<a href="/continents/{region.toLowerCase()}"
+        >{region.toLowerCase()}</a
+      >/
+      <p>{name.common.toLowerCase()}</p>
+    </div>
+  </div>
+
+  <div class="country">
+    <div class="country-political-images">
+      {#if coatOfArms.hasOwnProperty("svg")}
+        <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
+      {/if}
+      <img class="country-flag" src={flags.svg} alt={flags.alt} />
     </div>
 
-    <div class="country">
-      <div class="country-political-images">
-        {#if coatOfArms.hasOwnProperty("svg")}
-          <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
-        {/if}
-        <img class="country-flag" src={flags.svg} alt={flags.alt} />
+    <div class="country-info">
+      <h1>{name.common}</h1>
+      <p><b>{name.official}</b></p>
+      <div class="area">
+        <b>Size</b>: {area.toLocaleString()}km<sup>2</sup>
       </div>
+      <p><b>Capital</b>: {capital}</p>
 
-      <div class="country-info">
-        <h1>{name.common}</h1>
-        <p><b>{name.official}</b></p>
-        <div class="area">
-          <b>Size</b>: {area.toLocaleString()}km<sup>2</sup>
+      {#if borders}
+        <p><b>Borders</b>: {borderString.join(", ")}</p>
+      {/if}
+      {#if population}
+        <p><b>Population</b>: {population.toLocaleString()}</p>
+      {/if}
+      {#if landlocked == true}
+        <div class="landlocked"><b>Landlocked</b></div>
+      {/if}
+      {#if independent == false}
+        <div class="independent"><b>Non-Independent</b></div>
+      {/if}
+      {#if unMember == true}
+        <b>UN Member</b>: Yes
+      {:else}
+        <b>UN Member</b>: No
+      {/if}
+    </div>
+  </div>
+  <hr />
+
+  <div class="important-info">
+    <h3>Things to Know</h3>
+    {#if countryLanguages.length == 1}
+      <div class="language">
+        <b>Official Language</b>: {countryLanguages}
+      </div>
+    {:else}
+      <div class="language">
+        <b>Official Languages</b>: {countryLanguages.join(", ")}
+      </div>
+    {/if}
+
+    <div class="currency">
+      <b>Currency</b>: {countryCurrenciesValues[0].name}
+    </div>
+
+    <div class="driving-side">
+      <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
+        countryDrivingSide[1].slice(1)}
+    </div>
+    {#if tld.length !== 0}
+      <div class="top-level-domain">
+        <b>Top-Level Domain</b>: {tld}
+      </div>
+    {/if}
+
+    {#if travelAdvisoryResponseCode == 200}
+      <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
+      {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
+        <div class="travel-advisory">
+          <b>Travel Advisory:</b>
+          <p>{currentCountryAdvisory.advisory.message}</p>
+          <a target="_blank" href={currentCountryAdvisory.advisory.source}
+            >Source</a
+          >
         </div>
-        <p><b>Capital</b>: {capital}</p>
+      {/if}
+    {/if}
+  </div>
 
-        {#if borders}
-          <p><b>Borders</b>: {borderString.join(", ")}</p>
-        {/if}
-        {#if population}
-          <p><b>Population</b>: {population.toLocaleString()}</p>
-        {/if}
-        {#if landlocked == true}
-          <div class="landlocked"><b>Landlocked</b></div>
-        {/if}
-        {#if independent == false}
-          <div class="independent"><b>Non-Independent</b></div>
-        {/if}
-        {#if unMember == true}
-          <b>UN Member</b>: Yes
-        {:else}
-          <b>UN Member</b>: No
-        {/if}
+  {#if wikiArticle.extract_html !== "<p><b>CN</b>, <b>Cn</b>, <b>cn</b> and other variants may refer to:</p>"}
+    <div class="wiki-blob">
+      <h3>Short Summary from Wikipedia</h3>
+      <div class="summary">{@html wikiArticle.extract_html}</div>
+    </div>
+  {/if}
+
+  <hr />
+  {#if webcamResults.length > 0}
+    <div class="webcams">
+      <h3>Webcams from around {name.common}</h3>
+      <div class="webcam-wrap">
+        {#each webcamResults as { location, player, title }}
+          <div class="webcam">
+            <p>{title}</p>
+            <iframe
+              {title}
+              src={player.day.embed}
+              frameborder="0"
+              width="300"
+              height="200"
+            />
+          </div>
+        {/each}
       </div>
     </div>
     <hr />
+  {/if}
+  {#if cities[0].length > 0}
+    <div class="country-cities">
+      <h3>Most Populated Cities of {name.common}</h3>
+      <div class="city-wrap">
+        {#each citiesBasic as { is_capital, latitude, longitude, name, population, country }}
+          <div class="city">
+            <h1>{name}</h1>
+            {#if is_capital == true}
+              <b>Capital</b>
+            {/if}
 
-    <div class="important-info">
-      <h3>Things to Know</h3>
-      {#if countryLanguages.length == 1}
-        <div class="language">
-          <b>Official Language</b>: {countryLanguages}
-        </div>
-      {:else}
-        <div class="language">
-          <b>Official Languages</b>: {countryLanguages.join(", ")}
-        </div>
-      {/if}
-
-      <div class="currency">
-        <b>Currency</b>: {countryCurrenciesValues[0].name}
-      </div>
-
-      <div class="driving-side">
-        <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
-          countryDrivingSide[1].slice(1)}
-      </div>
-      {#if tld.length !== 0}
-        <div class="top-level-domain">
-          <b>Top-Level Domain</b>: {tld}
-        </div>
-      {/if}
-
-      {#if travelAdvisoryResponseCode == 200}
-        <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
-        {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
-          <div class="travel-advisory">
-            <b>Travel Advisory:</b>
-            <p>{currentCountryAdvisory.advisory.message}</p>
-            <a target="_blank" href={currentCountryAdvisory.advisory.source}
-              >Source</a
+            <p>Coordinates: {latitude}, {longitude}</p>
+            {#if population}
+              <p>Population: {population.toLocaleString()}</p>
+            {/if}
+            <a href="/cities/{name},{country},{latitude},{longitude}"
+              >More Info</a
             >
           </div>
-        {/if}
-      {/if}
+        {/each}
+      </div>
     </div>
-
-    {#if wikiArticle.extract_html !== "<p><b>CN</b>, <b>Cn</b>, <b>cn</b> and other variants may refer to:</p>"}
-      
-      <div class="wiki-blob">
-        <h3>Short Summary from Wikipedia</h3>
-        <div class="summary">{@html wikiArticle.extract_html}</div>
-      </div>
-    {/if}
-
-    <hr /> 
-    {#if webcamResults.length > 0}
-      <div class="webcams">
-        <h3>Webcams from around {name.common}</h3>
-        <div class="webcam-wrap">
-          {#each webcamResults as { location, player, title }}
-            <div class="webcam">
-              <p>{title}</p>
-              <iframe
-                {title}
-                src={player.day.embed}
-                frameborder="0"
-                width="300"
-                height="200"
-              />
-            </div>
-          {/each}
-        </div>
-      </div>
-      <hr />
-    {/if}
-    {#if cities[0].length > 0}
-      <div class="country-cities">
-        <h3>Most Populated Cities of {name.common}</h3>
-        <div class="city-wrap">
-          {#each citiesBasic as { is_capital, latitude, longitude, name, population, country }}
-            <div class="city">
-              <h1>{name}</h1>
-              {#if is_capital == true}
-                <b>Capital</b>
-              {/if}
-
-              <p>Coordinates: {latitude}, {longitude}</p>
-              {#if population}
-                <p>Population: {population.toLocaleString()}</p>
-              {/if}
-              <a href="/cities/{name},{country},{latitude},{longitude}"
-                >More Info</a
-              >
-            </div>
-          {/each}
-        </div>
-      </div>
-
+    {#if filteredCitiesDepthNoAlts.length !== 0}
       <div class="city-cities-depth">
         <h3>City Info in Depth</h3>
         <div class="city-wrap-depth">
@@ -228,24 +219,27 @@
         </div>
       </div>
     {/if}
-    {#if results.length !== 0}
-      <h3 class="photo-header">Photos relating to {name.common}</h3>
-      <div class="country-images">
-        {#each results as image}
-          <img
-            class="country-img"
-            src={image.urls.raw + "&w=300&h=200&fit=crop"}
-            alt=""
-          />
-        {/each}
-      </div>
-    {/if}
-  </div>
-{/await}
+  {/if}
+
+  <!-- Related Images Phased Out - See +page.server.ts -->
+
+  <!-- {#if results.length !== 0}
+    <h3 class="photo-header">Photos relating to {name.common}</h3>
+    <div class="country-images">
+      {#each results as image}
+        <img
+          class="country-img"
+          src={image.urls.raw + "&w=300&h=200&fit=crop"}
+          alt=""
+        />
+      {/each}
+    </div>
+  {/if} -->
+</div>
 
 <style>
   .webcam {
-    height: 300px;
+    height:250px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -258,7 +252,7 @@
   .webcam-wrap {
     display: grid;
     grid-template-columns: repeat(2, 50%);
-    gap: 5px;
+    /* gap: 5px; */
   }
   .important-info {
     background: #e3e3e3;
@@ -392,8 +386,6 @@
     align-items: center;
   }
 
-
-  
   @media screen and (max-width: 728px) {
     .city-wrap {
       /* display: grid; */
@@ -411,7 +403,11 @@
     .webcam-wrap {
       grid-template-columns: 1fr;
     }
+  }
 
-
-}
+  @media screen and (min-width: 1028px) {
+    .webcam-wrap {
+      grid-template-columns: repeat(3, 3fr);
+    }
+  }
 </style>

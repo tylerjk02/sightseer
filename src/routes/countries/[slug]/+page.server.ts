@@ -1,4 +1,4 @@
-import { UNSPLASH_ACCESS, NINJA_API_KEY, WINDY_API_KEY } from "$env/static/private";
+import { NINJA_API_KEY, WINDY_API_KEY } from "$env/static/private";
 import { countryToAlpha2 } from "country-to-iso";
 
 export const load = (params) => {
@@ -38,13 +38,17 @@ export const load = (params) => {
     return data;
   };
 
-  const fetchCountryPhotos = async (id: string) => {
-    const res = await fetch(
-      `https://api.unsplash.com/search/photos?query=${id}&orientation=landscape&client_id=${UNSPLASH_ACCESS}`
-    );
-    const data = await res.json();
-    return data;
-  };
+  // Unsplash Image Fetch Phased Out - Returns unrelated images too often. Occupies too much network time on page load.
+  
+  // const fetchCountryPhotos = async (id: string) => {
+  //   const res = await fetch(
+  //     `https://api.unsplash.com/search/photos?query=${id}&orientation=landscape&client_id=${UNSPLASH_ACCESS}`
+  //   );
+  //   const data = await res.json();
+  //   return data;
+  // };
+
+
   const fetchCityData = async (id: string) => {
     const res = await fetch(
       `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
@@ -74,7 +78,7 @@ export const load = (params) => {
 
   return {
     country: fetchContinentData(params.params.slug),
-    photos: fetchCountryPhotos(params.params.slug),
+    // photos: fetchCountryPhotos(params.params.slug),
     cities: fetchCityData(params.params.slug),
     wikiArticle: fetchWikiArticle(params.params.slug),
     travelAdvisory: fetchTravelAdvisoryInfo(params.params.slug),

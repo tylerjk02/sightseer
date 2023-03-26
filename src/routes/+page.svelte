@@ -47,47 +47,58 @@
   </div>
 </main>
 
-<style>
+<style lang="scss">
   .main h1 {
     margin: 5px 0;
   }
   .regions {
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
+    .region-link {
+      width: 20%;
+      position: relative;
+      text-align: center;
+      color: var(--color-white);
+      .region-img {
+        width: 100%;
+        height: 200px;
+      }
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 42px;
+        background: var(--color-black);
+        padding: 5px 15px;
+        border-radius: 10px;
+      }
+    }
+    .region-link:hover {
+      z-index: 1000;
+      transform: scale(104%);
+      transition: all 0.3s;
+    }
   }
-  .region-link {
-    width: 20%;
-    position: relative;
-    text-align: center;
-    color: white;
-  }
-  .region-link:hover {
-    z-index: 1000;
-    transform: scale(104%);
-    transition: all 0.3s;
-  }
-  .region-img {
-    width: 100%;
-    height: 200px;
-  }
-  .centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 42px;
-    background: #333333ce;
-    padding: 5px 15px;
-    border-radius: 10px;
-  }
-  @media screen and (max-width: 728px) {
+
+  @media screen and (max-width: 978px) {
     .regions {
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(2, 2fr);
+      // gap: 5px;
+      // margin: 0;
     }
 
     .region-link {
       width: 100%;
+      height: 200px;
+    }
+  }
+
+  @media screen and (max-width: 528px) {
+    .regions {
+      display: flex;
+      flex-direction: column;
     }
   }
 </style>

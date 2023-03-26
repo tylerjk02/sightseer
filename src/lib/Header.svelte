@@ -1,5 +1,4 @@
 <script lang="ts">
-
 </script>
 
 <header class="header">
@@ -8,19 +7,20 @@
   </div>
 </header>
 
-<style>
+<style lang="scss">
   .header {
-    box-shadow: 0 0 3px rgb(0,0,0,0.5);
+    box-shadow: 0 0 3px rgb(0, 0, 0, 0.5);
     border-radius: 3px;
     width: fit-content;
     background: var(--color-orange);
     padding: 10px;
-    /* margin: 5px; */
-  }
-  .brand a {
-    text-decoration: none;
-    color: var(--color-white);
-    font-size: 26px;
-    font-weight: bold;
+    .brand {
+      a {
+        text-decoration: none;
+        color: var(--color-white);
+        font-size: 26px;
+        font-weight: bold;
+      }
+    }
   }
 </style>
