@@ -90,7 +90,7 @@
     }
 
     .region-link {
-      width: 100%;
+      width: 100% !important;
       height: 200px;
     }
   }
@@ -99,6 +99,10 @@
     .regions {
       display: flex;
       flex-direction: column;
+    }
+    .region-link {
+      width: 100%;
+      height: 200px;
     }
   }
 </style>

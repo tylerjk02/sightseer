@@ -9,14 +9,20 @@ In-Depth Info Directory for Countries/Cities.
 
 
 ## Current Version
+
+### 0.1.3
+*March 26, 2023*
+- Fixed styling on homepage
+- Error catching for country data route
+
+## Previous Versions
+
 ### 0.1.2
 *March 26, 2023*
 - SCSS added to better organize styling
 - Improvement to routing speed
 - Mobile support improved
 - No longer pulling images from Unsplash 
-
-## Previous Versions
 
 ### 0.1.1
 *March 25, 2023*

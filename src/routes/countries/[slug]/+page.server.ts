@@ -3,43 +3,61 @@ import { countryToAlpha2 } from "country-to-iso";
 
 export const load = (params) => {
   const fetchWikiArticle = async (id: string) => {
-    const res = await fetch(
-      `https://en.wikipedia.org/api/rest_v1/page/summary/${id}`
-    );
-    const data = await res.json();
-    return data;
+    try {
+      const res = await fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${id}`
+      );
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
   };
 
   const fetchWikiCityArticles = async (id: any[]) => {
-    const cityWikiArticles: any[] = [];
-    if (id.length > 0) {
-      for (const city of id) {
-        const res = await fetch(
-          `https://en.wikipedia.org/api/rest_v1/page/summary/${city.name}`
-        );
-        const data = await res.json();
-        cityWikiArticles.push(data);
+    try {
+      const cityWikiArticles: any[] = [];
+      if (id.length > 0) {
+        for (const city of id) {
+          const res = await fetch(
+            `https://en.wikipedia.org/api/rest_v1/page/summary/${city.name}`
+          );
+          const data = await res.json();
+          cityWikiArticles.push(data);
+        }
       }
+      return cityWikiArticles;
+    } catch (err) {
+      return err;
     }
-    return cityWikiArticles;
   };
 
   const fetchContinentData = async (id: string) => {
-    const res = await fetch(`https://restcountries.com/v3.1/name/${id}`);
-    const data = await res.json();
-    return data;
+    try {
+      const res = await fetch(`https://restcountries.com/v3.1/name/${id}`);
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
   };
 
   const fetchTravelAdvisoryInfo = async (id: string) => {
-    const res = await fetch(
-      `https://www.travel-advisory.info/api?countrycode=${countryToAlpha2(id)}`
-    );
-    const data = await res.json();
-    return data;
+    try {
+      const res = await fetch(
+        `https://www.travel-advisory.info/api?countrycode=${countryToAlpha2(
+          id
+        )}`
+      );
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
   };
 
   // Unsplash Image Fetch Phased Out - Returns unrelated images too often. Occupies too much network time on page load.
-  
+
   // const fetchCountryPhotos = async (id: string) => {
   //   const res = await fetch(
   //     `https://api.unsplash.com/search/photos?query=${id}&orientation=landscape&client_id=${UNSPLASH_ACCESS}`
@@ -48,33 +66,45 @@ export const load = (params) => {
   //   return data;
   // };
 
-
   const fetchCityData = async (id: string) => {
-    const res = await fetch(
-      `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
-        id
-      )}&limit=10`,
-      {
-        method: "GET",
-        headers: {
-          "X-Api-Key": NINJA_API_KEY,
-        },
-      }
-    );
-    const data = await res.json();
-    const dataSet = [data, await fetchWikiCityArticles(data)];
-    return dataSet;
+    try {
+      const res = await fetch(
+        `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
+          id
+        )}&limit=10`,
+        {
+          method: "GET",
+          headers: {
+            "X-Api-Key": NINJA_API_KEY,
+          },
+        }
+      );
+      const data = await res.json();
+      const dataSet = [data, await fetchWikiCityArticles(data)];
+      return dataSet;
+    } catch (err) {
+      return err;
+    }
   };
 
-  const fetchWebcamData = async(id: string) => {
-    const res = await fetch(`https://api.windy.com/api/webcams/v2/list/country=${countryToAlpha2(id)}?show=webcams:title,player,location,status`, {
-      headers: {
-        "x-windy-key": WINDY_API_KEY,
-      }
-    })
-    const data = res.json();
-    return data;
-  }
+  const fetchWebcamData = async (id: string) => {
+    try {   
+      const res = await fetch(
+        `https://api.windy.com/api/webcams/v2/list/country=${countryToAlpha2(
+          id
+        )}?show=webcams:title,player,location,status`,
+        {
+          headers: {
+            "x-windy-key": WINDY_API_KEY,
+          },
+        }
+      );
+      const data = res.json();
+      return data;
+    } catch(err) {
+      return err;
+    }
+  };
 
   return {
     country: fetchContinentData(params.params.slug),
@@ -82,6 +112,6 @@ export const load = (params) => {
     cities: fetchCityData(params.params.slug),
     wikiArticle: fetchWikiArticle(params.params.slug),
     travelAdvisory: fetchTravelAdvisoryInfo(params.params.slug),
-    webcams: fetchWebcamData(params.params.slug)
+    webcams: fetchWebcamData(params.params.slug),
   };
 };
