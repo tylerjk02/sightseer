@@ -1,4 +1,4 @@
-import { NINJA_API_KEY, WINDY_API_KEY } from "$env/static/private";
+import { NINJA_API_KEY, WINDY_API_KEY, YT_SEARCH_API_KEY } from "$env/static/private";
 import { countryToAlpha2 } from "country-to-iso";
 
 export const load = (params) => {
@@ -16,7 +16,7 @@ export const load = (params) => {
 
   const fetchWikiCityArticles = async (id: any[]) => {
     try {
-      const cityWikiArticles: any[] = [];
+      const cityWikiArticles: object[] = [];
       if (id.length > 0) {
         for (const city of id) {
           const res = await fetch(
@@ -79,13 +79,32 @@ export const load = (params) => {
           },
         }
       );
-      const data = await res.json();
-      const dataSet = [data, await fetchWikiCityArticles(data)];
-      return dataSet;
+      const article = await res.json();
+      const data = [article, await fetchWikiCityArticles(article)];
+      return data;
     } catch (err) {
       return err;
     }
   };
+
+  // const fetchYoutubeSearch = async (id: string) => {
+  //   try {
+  //     const options = {
+  //       method: 'GET',
+  //       headers: {
+  //         'X-RapidAPI-Key': YT_SEARCH_API_KEY,
+  //         'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
+  //       }
+  //     }
+  //     const res = await fetch(`https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${id}`, options);
+  //     const data = await res.json();
+  //     return data;
+  //   } catch(err) {
+  //     return err;
+  //   }
+
+
+  // }
 
   const fetchWebcamData = async (id: string) => {
     try {   
@@ -108,6 +127,7 @@ export const load = (params) => {
 
   return {
     country: fetchContinentData(params.params.slug),
+    // ytSearch: fetchYoutubeSearch(params.params.slug),
     // photos: fetchCountryPhotos(params.params.slug),
     cities: fetchCityData(params.params.slug),
     wikiArticle: fetchWikiArticle(params.params.slug),

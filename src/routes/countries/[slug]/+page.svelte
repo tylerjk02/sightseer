@@ -2,8 +2,12 @@
   import lookup from "country-code-lookup";
   export let data;
 
-  const { country, cities, travelAdvisory, wikiArticle, webcams } = data;
-  const citiesBasic = cities[0];
+
+
+  const { country, travelAdvisory, wikiArticle, webcams } = data;
+
+  const cities: any = data.cities;
+
 
   const webcamResults = webcams.result.webcams;
 
@@ -12,7 +16,10 @@
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
 
-  const citiesDepth = cities[1];
+  const citiesBasic: any = cities[0];
+  const citiesDepth: any = cities[1];
+
+
   const filteredCitiesDepth = citiesDepth.filter((e: any) => {
     return e.title !== "Not found." && e.type !== "disambiguation";
   });
@@ -25,10 +32,14 @@
   });
 
   const countryItem = country[0];
-  
+
   const countryLanguages = Object.values(countryItem.languages);
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
   const countryDrivingSide: any = Object.values(countryItem.car);
+
+  // const { correctedQuery, items } = ytSearch;
+  // const ytItems = ytSearch.items;
+  // console.log(ytSearch.items);
 
   const {
     name,
@@ -150,6 +161,20 @@
       <div class="summary">{@html wikiArticle.extract_html}</div>
     </div>
   {/if}
+  <!-- 
+  {#if ytSearch.items.length !== 0}
+    <hr />
+    <div class="yt-search">
+      {#each ytItems as {author, bestThumbnail, duration, title, uploadedAt, url, views, id }}
+        <div class="yt-item">
+          <p>{title}</p>
+          <iframe src="https://www.youtube.com/embed/{id}" title={title} frameborder="0"></iframe>
+        </div>  
+      
+      {/each}
+      <h3>Videos related to {correctedQuery}</h3>
+    </div> -->
+  <!-- {/if} -->
 
   <hr />
   {#if webcamResults.length > 0}
@@ -238,8 +263,17 @@
 </div>
 
 <style>
+  .yt-search {
+    text-align: center;
+    background: #e3e3e3;
+    /* padding: 0 5px 5px 5px; */
+  }
+  .yt-search h3 {
+    padding: 5px 0;
+    font-size: 36px;
+  }
   .webcam {
-    height:250px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
