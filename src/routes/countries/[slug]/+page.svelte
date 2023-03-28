@@ -2,12 +2,8 @@
   import lookup from "country-code-lookup";
   export let data;
 
-
-
   const { country, travelAdvisory, wikiArticle, webcams } = data;
-
   const cities: any = data.cities;
-
 
   const webcamResults = webcams.result.webcams;
 
@@ -18,7 +14,6 @@
 
   const citiesBasic: any = cities[0];
   const citiesDepth: any = cities[1];
-
 
   const filteredCitiesDepth = citiesDepth.filter((e: any) => {
     return e.title !== "Not found." && e.type !== "disambiguation";
