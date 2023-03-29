@@ -14,23 +14,23 @@ export const load = (params) => {
     }
   };
 
-  const fetchWikiCityArticles = async (id: any[]) => {
-    try {
-      const cityWikiArticles: object[] = [];
-      if (id.length > 0) {
-        for (const city of id) {
-          const res = await fetch(
-            `https://en.wikipedia.org/api/rest_v1/page/summary/${city.name}`
-          );
-          const data = await res.json();
-          cityWikiArticles.push(data);
-        }
-      }
-      return cityWikiArticles;
-    } catch (err) {
-      return err;
-    }
-  };
+  // const fetchWikiCityArticles = async (id: any[]) => {
+  //   try {
+  //     const cityWikiArticles: object[] = [];
+  //     if (id.length > 0) {
+  //       for (const city of id) {
+  //         const res = await fetch(
+  //           `https://en.wikipedia.org/api/rest_v1/page/summary/${city.name}`
+  //         );
+  //         const data = await res.json();
+  //         cityWikiArticles.push(data);
+  //       }
+  //     }
+  //     return cityWikiArticles;
+  //   } catch (err) {
+  //     return err;
+  //   }
+  // };
 
   const fetchContinentData = async (id: string) => {
     try {
@@ -79,8 +79,7 @@ export const load = (params) => {
           },
         }
       );
-      const article = await res.json();
-      const data = [article, await fetchWikiCityArticles(article)];
+      const data = await res.json();
       return data;
     } catch (err) {
       return err;

@@ -2,8 +2,10 @@
   import lookup from "country-code-lookup";
   export let data;
 
-  const { country, travelAdvisory, wikiArticle, webcams } = data;
-  const cities: any = data.cities;
+  const { country, travelAdvisory, wikiArticle, webcams, cities } = data;
+  // const cities: any = data.cities;
+
+  console.log(cities);
 
   const webcamResults = webcams.result.webcams;
 
@@ -12,19 +14,19 @@
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
 
-  const citiesBasic: any = cities[0];
-  const citiesDepth: any = cities[1];
+  // const citiesBasic: any = cities[0];
+  // const citiesDepth: any = cities[1];
 
-  const filteredCitiesDepth = citiesDepth.filter((e: any) => {
-    return e.title !== "Not found." && e.type !== "disambiguation";
-  });
+  // const filteredCitiesDepth = citiesDepth.filter((e: any) => {
+  //   return e.title !== "Not found." && e.type !== "disambiguation";
+  // });
 
-  const filteredCitiesDepthNoAlts = filteredCitiesDepth.filter((e: any) => {
-    const testStrings = ["city", "town", "village", "hamlet", "capital"];
-    const splitExtract = e.extract.split(" ");
-    const testExtract = testStrings.some((x) => splitExtract.includes(x));
-    return testExtract;
-  });
+  // const filteredCitiesDepthNoAlts = filteredCitiesDepth.filter((e: any) => {
+  //   const testStrings = ["city", "town", "village", "hamlet", "capital"];
+  //   const splitExtract = e.extract.split(" ");
+  //   const testExtract = testStrings.some((x) => splitExtract.includes(x));
+  //   return testExtract;
+  // });
 
   const countryItem = country[0];
   const countryLanguages = Object.values(countryItem.languages);
@@ -71,7 +73,7 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
-  <hr>
+  <hr />
   <!-- <div class="top-tabs">
     <a class="tab" href="/travel/{name.official},{name.common},{region}">Travel to {name.common}</a>    
   </div> -->
@@ -172,8 +174,31 @@
       <h3>Videos related to {correctedQuery}</h3>
     </div> -->
   <!-- {/if} -->
+  {#if cities}
+    <div class="country-cities">
+      <h3>Most Populated Cities of {name.common}</h3>
+      <div class="city-wrap">
+        {#each cities as { is_capital, latitude, longitude, name, population, country }}
+          <div class="city">
+            <h1>{name}</h1>
+            {#if is_capital == true}
+              <b>Capital</b>
+            {/if}
 
-  <hr />
+            <p>Coordinates: {latitude}, {longitude}</p>
+            {#if population}
+              <p>Population: {population.toLocaleString()}</p>
+            {/if}
+            <a href="/cities/{name},{country},{latitude},{longitude}"
+              >More Info</a
+            >
+          </div>
+        {/each}
+      </div>
+    </div>
+
+    <hr />
+  {/if}
   {#if webcamResults.length > 0}
     <div class="webcams">
       <h3>Webcams from around {name.common}</h3>
@@ -192,55 +217,6 @@
         {/each}
       </div>
     </div>
-    <hr />
-  {/if}
-  {#if cities[0].length > 0}
-    <div class="country-cities">
-      <h3>Most Populated Cities of {name.common}</h3>
-      <div class="city-wrap">
-        {#each citiesBasic as { is_capital, latitude, longitude, name, population, country }}
-          <div class="city">
-            <h1>{name}</h1>
-            {#if is_capital == true}
-              <b>Capital</b>
-            {/if}
-
-            <p>Coordinates: {latitude}, {longitude}</p>
-            {#if population}
-              <p>Population: {population.toLocaleString()}</p>
-            {/if}
-            <a href="/cities/{name},{country},{latitude},{longitude}"
-              >More Info</a
-            >
-          </div>
-        {/each}
-      </div>
-    </div>
-    {#if filteredCitiesDepthNoAlts.length !== 0}
-      <div class="city-cities-depth">
-        <h3>City Info in Depth</h3>
-        <div class="city-wrap-depth">
-          {#each filteredCitiesDepthNoAlts as { content_urls, country, coordinates, description, displaytitle, extract_html, thumbnail }}
-            <div class="city-depth">
-              <div class="city-depth-info">
-                <h3>{@html displaytitle}</h3>
-                {#if coordinates}
-                  <p>{coordinates.lat}, {coordinates.lon}</p>
-                {/if}
-                {#if thumbnail}
-                  <img src={thumbnail.source} alt="" />
-                {/if}
-              </div>
-              <div class="city-depth-blurb">
-                {@html extract_html}
-              </div>
-              <a href={content_urls.desktop.page}>{content_urls.desktop.page}</a
-              >
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
   {/if}
 
   <!-- Related Images Phased Out - See +page.server.ts -->
@@ -287,7 +263,7 @@
   }
   .important-info {
     background: #e3e3e3;
-    padding: 0 5px 5px 5px;
+    padding: 0 15px;
   }
   .important-info h3 {
     padding: 5px 0;
@@ -348,7 +324,7 @@
   }
   .wiki-blob {
     background: #e3e3e3;
-    padding: 0 5px 10px 5px;
+    padding: 0 15px;
   }
   .wiki-blob h3 {
     padding: 5px 0;
