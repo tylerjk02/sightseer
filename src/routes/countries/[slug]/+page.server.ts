@@ -1,4 +1,4 @@
-import { NINJA_API_KEY, WINDY_API_KEY, YT_SEARCH_API_KEY } from "$env/static/private";
+import { NINJA_API_KEY, WINDY_API_KEY } from "$env/static/private";
 import { countryToAlpha2 } from "country-to-iso";
 
 export const load = (params) => {

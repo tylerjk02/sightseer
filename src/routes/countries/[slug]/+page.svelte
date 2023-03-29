@@ -27,7 +27,6 @@
   });
 
   const countryItem = country[0];
-
   const countryLanguages = Object.values(countryItem.languages);
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
   const countryDrivingSide: any = Object.values(countryItem.car);
@@ -72,7 +71,10 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
-
+  <hr>
+  <!-- <div class="top-tabs">
+    <a class="tab" href="/travel/{name.official},{name.common},{region}">Travel to {name.common}</a>    
+  </div> -->
   <div class="country">
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
