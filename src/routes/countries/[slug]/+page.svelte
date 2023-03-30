@@ -73,7 +73,7 @@
   <hr />
   <div class="top-tabs">
     <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a>
-    <a class="tab" href="./{name.common}/history/">History of {name.common}</a>    
+    <!-- <a class="tab" href="./{name.common}/history/">History of {name.common}</a>     -->
   </div>
   <div class="country">
     <div class="country-political-images">

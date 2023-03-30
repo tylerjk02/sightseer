@@ -9,8 +9,6 @@
   const advisoryData: any = Object.values(travelAdvisory.data)[0];
   const { advisory, continent, iso_alpha2, name } = advisoryData;
 
-
-  console.log(cities);
 </script>
 
 <div class="travel">
