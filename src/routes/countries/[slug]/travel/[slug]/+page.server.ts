@@ -42,11 +42,12 @@ export const load = (params) => {
   
   
           })
+          
           hotelObjList.push(hotelObject);        
         }
       })
       console.log(hotelObjList);
-      return hotelObjList;
+      return JSON.stringify(hotelObjList);
   
     } catch (err) {
       console.error(err);

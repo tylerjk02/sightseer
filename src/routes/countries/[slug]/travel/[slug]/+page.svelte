@@ -1,7 +1,7 @@
 <script lang="ts">
   export let data;
   const { citySlug, countrySlug } = data;
-  const hotelData: any = data.hotelData;
+  const hotelData: any[] = JSON.parse(data.hotelData!);
   const hotelList: any = [];
 
   hotelData.forEach((e: any) => {
