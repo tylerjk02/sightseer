@@ -12,6 +12,10 @@
   padding: 0;
 }
 
+sup {
+  line-height: 0;
+}
+
 body {
   margin: 5px;
   background: var(--color-white);

@@ -2,11 +2,8 @@
   import lookup from "country-code-lookup";
   export let data;
 
-  const { country, travelAdvisory, wikiArticle, webcams, cities } = data;
+  const { country, travelAdvisory, wikiArticle, webcams, cities, slug } = data;
   // const cities: any = data.cities;
-
-  console.log(cities);
-
   const webcamResults = webcams.result.webcams;
 
   const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
@@ -74,9 +71,10 @@
     </div>
   </div>
   <hr />
-  <!-- <div class="top-tabs">
-    <a class="tab" href="/travel/{name.official},{name.common},{region}">Travel to {name.common}</a>    
-  </div> -->
+  <div class="top-tabs">
+    <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a>
+    <a class="tab" href="./{name.common}/history/">History of {name.common}</a>    
+  </div>
   <div class="country">
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
@@ -174,7 +172,8 @@
       <h3>Videos related to {correctedQuery}</h3>
     </div> -->
   <!-- {/if} -->
-  {#if cities}
+
+  {#if cities.length !== 0}
     <div class="country-cities">
       <h3>Most Populated Cities of {name.common}</h3>
       <div class="city-wrap">

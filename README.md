@@ -11,12 +11,18 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.1.4
+*March 30, 2023*
+- Added country history page
+- Country page load speed greatly improved
+- *WIP* Travel page added to country routes
+
+## Previous Versions
+
 ### 0.1.3
 *March 26, 2023*
 - Fixed styling on homepage
 - Error catching for country data route
-
-## Previous Versions
 
 ### 0.1.2
 *March 26, 2023*

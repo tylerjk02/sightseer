@@ -125,6 +125,7 @@ export const load = (params) => {
   };
 
   return {
+    slug: params.params.slug,
     country: fetchContinentData(params.params.slug),
     // ytSearch: fetchYoutubeSearch(params.params.slug),
     // photos: fetchCountryPhotos(params.params.slug),

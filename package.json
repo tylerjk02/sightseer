@@ -34,6 +34,7 @@
 		"follow-redirects": "^1.15.2",
 		"i18n-iso-countries": "^7.5.0",
 		"node-fetch": "^3.3.1",
-		"pexels": "^1.4.0"
+		"pexels": "^1.4.0",
+		"upper-case-first": "^2.0.2"
 	}
 }
