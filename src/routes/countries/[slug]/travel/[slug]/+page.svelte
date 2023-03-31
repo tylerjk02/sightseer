@@ -58,7 +58,7 @@
   </div>
   <h1>Travel in {citySlug}, {countrySlug}</h1>
 
-  {#if hotelObjList.length !== 0}
+  {#if hotelObjList}
     <div class="hotels">
       {#each hotelObjList as { name, area, addons }}
         <h3>{name}</h3>
