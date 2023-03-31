@@ -72,7 +72,7 @@
   </div>
   <hr />
   <div class="top-tabs">
-    <!-- <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a> -->
+    <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a>
     <!-- <a class="tab" href="./{name.common}/history/">History of {name.common}</a>     -->
   </div>
   <div class="country">
@@ -132,7 +132,7 @@
       <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
         countryDrivingSide[1].slice(1)}
     </div>
-    {#if tld.length !== 0}
+    {#if tld !== ''}
       <div class="top-level-domain">
         <b>Top-Level Domain</b>: {tld}
       </div>

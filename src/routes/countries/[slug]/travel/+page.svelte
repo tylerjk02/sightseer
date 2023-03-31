@@ -29,7 +29,7 @@
     </div>
   {/if}
   <h1>Travel to {upperCaseFirst(slug)}</h1>
-  {#if cities.length !== 0}
+  {#if cities}
     <div class="city-select">
       <h2>Please Select a City</h2>
       <div class="cities">
