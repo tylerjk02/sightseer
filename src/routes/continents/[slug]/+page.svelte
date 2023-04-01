@@ -14,15 +14,18 @@
 
   const ranNum = () => {
     return Math.floor(Math.random() * continents.length);
-  }
+  };
 </script>
+
 
 <div class="continent">
   <div class="trace-back">
-    <a href="/">home</a>/
-    <p>{slug}</p>
+    <a href="/">continents</a>/
+    <p>{slug.toLowerCase()}</p>
   </div>
-
+  {#if slug == "antarctic"}
+    <h1>Here be penguins...</h1>
+  {:else}
   {#if slug == "americas"}
     <h1>
       Countries in the {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}
@@ -31,7 +34,11 @@
     <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
   {/if}
 
-  <p>click a country to view more or <a href="/countries/{continents[ranNum()].name.official}">surprise me</a></p>
+  <p>
+    click a country to view more or <a
+      href="/countries/{continents[ranNum()].name.official}">surprise me</a
+    >
+  </p>
   <div class="list">
     {#each continents as { name, flags, altSpellings }}
       <div class="country">
@@ -40,19 +47,15 @@
             <img src={flags.svg} alt={flags.alt} />
           </div>
           <div class="country-info">
-            {#if name.common == "China"}
-              <a href="/countries/CN">{name.common}</a>
-            {:else}
-              <a href="/countries/{name.official}">{name.common}</a>
-            {/if}
+            <a href="/countries/{name.common}">{name.common}</a>
             <p>{name.official}</p>
           </div>
         </div>
       </div>
     {/each}
   </div>
+  {/if}
 </div>
-
 <style lang="scss">
   .trace-back {
     display: flex;
@@ -65,7 +68,7 @@
       .country {
         color: var(--color-black);
         background: var(--color-light-grey);
-        box-shadow: 0 0 3px 2px rgba(0,0,0,0.2);
+        box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
         padding: 5px;
         margin: 5px;
 

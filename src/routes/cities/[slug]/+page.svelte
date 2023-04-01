@@ -32,11 +32,15 @@
 
   const lat = slug[2];
   const lon = slug[3];
+
+  const region = slug[4];
+
+  console.log(region);
 </script>
 
 <div class="page">
   <div class="trace-back">
-    <a href="/">home</a>/<a href="/countries/{countryFullName.toLowerCase()}"
+    <a href="/">continents</a>/<a href="/continents/{region}">{region.toLowerCase()}</a>/<a href="/countries/{countryFullName.toLowerCase()}"
       >{countryFullName.toLowerCase()}</a
     >/
     <p>{cityName.toLowerCase()}</p>

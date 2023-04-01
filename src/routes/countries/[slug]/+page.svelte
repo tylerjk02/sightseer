@@ -49,6 +49,8 @@
     unMember,
   } = countryItem;
 
+  const countryRegion = region;
+
   let borderList: any[] = [];
   let borderString: string[] = [];
   if (borders) {
@@ -64,17 +66,20 @@
 <div class="main">
   <div class="region">
     <div class="trace-back">
-      <a href="/">home</a>/<a href="/continents/{region.toLowerCase()}"
+      <a href="/">continents</a>/<a href="/continents/{region.toLowerCase()}"
         >{region.toLowerCase()}</a
       >/
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
   <hr />
-  <div class="top-tabs">
-    <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a>
+  <!-- these looks awful and neither works well. finding a different place for them -->
+  <!-- <div class="top-tabs"> -->
+    <!-- {#if cities.length !== 0} -->
+      <!-- <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a> -->
+    <!-- {/if} -->
     <!-- <a class="tab" href="./{name.common}/history/">History of {name.common}</a>     -->
-  </div>
+  <!-- </div> -->
   <div class="country">
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
@@ -132,7 +137,7 @@
       <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
         countryDrivingSide[1].slice(1)}
     </div>
-    {#if tld !== ''}
+    {#if tld !== ""}
       <div class="top-level-domain">
         <b>Top-Level Domain</b>: {tld}
       </div>
@@ -188,7 +193,7 @@
             {#if population}
               <p>Population: {population.toLocaleString()}</p>
             {/if}
-            <a href="/cities/{name},{country},{latitude},{longitude}"
+            <a href="/cities/{name},{country},{latitude},{longitude},{countryRegion}"
               >More Info</a
             >
           </div>
