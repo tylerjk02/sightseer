@@ -17,19 +17,14 @@ export const load = (params) => {
     return data;
   }
 
-  const fetchHotelData = async () => {
+  const fetchPlaceData = async () => {
     const cityIdObj = await fetchCityId(citySlug);
-    if(cityIdObj) {
-
-      const cityId = cityIdObj.results[0].place_id;
-      const res = await fetch(
-        `https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${cityId}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
-      );
-      const data = await res.json()
-      return data;
-    } else {
-      return 'error';
-    }
+    const cityId = cityIdObj.results[0].place_id;
+    const res = await fetch(
+      `https://api.geoapify.com/v2/places?categories=accommodation&filter=place:${cityId}&limit=35&apiKey=${GEOAPIFY_API_KEY}`
+    );
+    const data = await res.json()
+    return data;
   };
 
 
@@ -37,6 +32,6 @@ export const load = (params) => {
   return {
     citySlug: citySlug,
     countrySlug: countryFullName,
-    hotelData: fetchHotelData(),
+    cityPlaces: fetchPlaceData(),
   };
 };

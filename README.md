@@ -8,16 +8,20 @@ In-Depth Info Directory for Countries/Cities.
 
 *A full list of data provided can be found below*
 
-
 ## Current Version
+
+### 0.1.7
+*April 3, 2023*
+- Travel route info no longer limited to only hotels
+- Proper error handling for travel routes (whoops)
+- Styling for travel routes
+## Previous Versions
 
 ### 0.1.6
 *April 2, 2023*
 - Travel routes reopened
 - Hotel data now displayed for cities (making it not ugly is a WIP)
 - Other small fixes...
-
-## Previous Versions
 
 ### 0.1.5
 *April 1, 2023*
@@ -103,4 +107,5 @@ In-Depth Info Directory for Countries/Cities.
 - City coordinates
 - City population
 - City imagery
+- Hotels and other accommodations in a city
 
