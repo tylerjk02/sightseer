@@ -19,7 +19,10 @@
     <h3>{properties.name}</h3>
     <p>{properties.address_line2}</p>
     <p>{properties.lat}, {properties.lon}</p>
-    <p>{properties.district}</p>
+    {#if properties.district}
+      <p>{properties.district}</p>
+    {/if}
+    <a href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties.datasource.raw.osm_id}&class=tourism">Source</a>
   {/each}
 </div>
 
