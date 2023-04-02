@@ -10,29 +10,10 @@
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
-
-  // const citiesBasic: any = cities[0];
-  // const citiesDepth: any = cities[1];
-
-  // const filteredCitiesDepth = citiesDepth.filter((e: any) => {
-  //   return e.title !== "Not found." && e.type !== "disambiguation";
-  // });
-
-  // const filteredCitiesDepthNoAlts = filteredCitiesDepth.filter((e: any) => {
-  //   const testStrings = ["city", "town", "village", "hamlet", "capital"];
-  //   const splitExtract = e.extract.split(" ");
-  //   const testExtract = testStrings.some((x) => splitExtract.includes(x));
-  //   return testExtract;
-  // });
-
   const countryItem = country[0];
   const countryLanguages = Object.values(countryItem.languages);
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
   const countryDrivingSide: any = Object.values(countryItem.car);
-
-  // const { correctedQuery, items } = ytSearch;
-  // const ytItems = ytSearch.items;
-  // console.log(ytSearch.items);
 
   const {
     name,
@@ -73,14 +54,11 @@
     </div>
   </div>
   <hr />
-  <!-- these looks awful and neither works well. finding a different place for them -->
-  <!-- <div class="top-tabs"> -->
-    <!-- {#if cities.length !== 0} -->
-      <!-- <a class="tab" href="./{slug}/travel/">Travel to {name.common}</a> -->
-    <!-- {/if} -->
-    <!-- <a class="tab" href="./{name.common}/history/">History of {name.common}</a>     -->
-  <!-- </div> -->
+
   <div class="country">
+    <div class="top-tabs">
+      <a href="./{name.common}/travel/">Travel to {name.common}</a>
+    </div>
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
         <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
@@ -157,26 +135,10 @@
     {/if}
   </div>
 
-  {#if wikiArticle.extract_html !== "<p><b>CN</b>, <b>Cn</b>, <b>cn</b> and other variants may refer to:</p>"}
-    <div class="wiki-blob">
-      <h3>Short Summary from Wikipedia</h3>
-      <div class="summary">{@html wikiArticle.extract_html}</div>
-    </div>
-  {/if}
-  <!-- 
-  {#if ytSearch.items.length !== 0}
-    <hr />
-    <div class="yt-search">
-      {#each ytItems as {author, bestThumbnail, duration, title, uploadedAt, url, views, id }}
-        <div class="yt-item">
-          <p>{title}</p>
-          <iframe src="https://www.youtube.com/embed/{id}" title={title} frameborder="0"></iframe>
-        </div>  
-      
-      {/each}
-      <h3>Videos related to {correctedQuery}</h3>
-    </div> -->
-  <!-- {/if} -->
+  <div class="wiki-blob">
+    <h3>Short Summary from Wikipedia</h3>
+    <div class="summary">{@html wikiArticle.extract_html}</div>
+  </div>
 
   {#if cities.length !== 0}
     <div class="country-cities">
@@ -193,7 +155,8 @@
             {#if population}
               <p>Population: {population.toLocaleString()}</p>
             {/if}
-            <a href="/cities/{name},{country},{latitude},{longitude},{countryRegion}"
+            <a
+              href="/cities/{name},{country},{latitude},{longitude},{countryRegion}"
               >More Info</a
             >
           </div>
@@ -223,20 +186,6 @@
     </div>
   {/if}
 
-  <!-- Related Images Phased Out - See +page.server.ts -->
-
-  <!-- {#if results.length !== 0}
-    <h3 class="photo-header">Photos relating to {name.common}</h3>
-    <div class="country-images">
-      {#each results as image}
-        <img
-          class="country-img"
-          src={image.urls.raw + "&w=300&h=200&fit=crop"}
-          alt=""
-        />
-      {/each}
-    </div>
-  {/if} -->
 </div>
 
 <style>
@@ -378,9 +327,21 @@
   .main {
     margin: 5px;
   }
+  .top-tabs {
+    padding: 10px 0 15px 0;
+  }
+  .top-tabs a {
+    text-decoration: none;
+    /* border: 1px solid black; */
+    padding: 5px;
+  }
+  .top-tabs a:hover {
+    text-decoration: underline;
+  }
   .country {
     background: #e3e3e3;
     padding: 1rem;
+    padding-top: 0;
   }
   .country-flag {
     width: 70px;

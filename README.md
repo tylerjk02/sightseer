@@ -11,14 +11,20 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.1.6
+*April 2, 2023*
+- Travel routes reopened
+- Hotel data now displayed for cities (making it not ugly is a WIP)
+- Other small fixes...
+
+## Previous Versions
+
 ### 0.1.5
 *April 1, 2023*
 - Great improvements to routing
 - Simply country data now fetched via Alpha3, fixing many problems. (eg. 'georgia' linking to 'south georgia island')
 - Ghost continent route 'antarctic' fixed.
 - Travel and history routes halted for time being 
-
-## Previous Versions
 
 ### 0.1.4
 *March 30, 2023*

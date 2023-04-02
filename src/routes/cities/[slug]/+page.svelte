@@ -5,6 +5,8 @@
   countries.registerLocale(en);
 
   const { slug, cityWikiArticle } = data;
+  console.log(cityWikiArticle);
+  
   const {
     content_urls,
     description,
@@ -14,6 +16,7 @@
     originalimage,
     title,
   } = cityWikiArticle;
+
 
   // console.log(costOfLiving);
 
@@ -40,18 +43,20 @@
 
 <div class="page">
   <div class="trace-back">
-    <a href="/">continents</a>/<a href="/continents/{region}">{region.toLowerCase()}</a>/<a href="/countries/{countryFullName.toLowerCase()}"
+    <a href="/">continents</a>/<a href="/continents/{region}"
+      >{region.toLowerCase()}</a
+    >/<a href="/countries/{countryFullName.toLowerCase()}"
       >{countryFullName.toLowerCase()}</a
     >/
     <p>{cityName.toLowerCase()}</p>
   </div>
-  <div class="city">
-    <div class="city-basic">
-      <h1>{cityName}, {countryName}</h1>
-      <p>{lat}, {lon}</p>
-    </div>
-    <hr />
-    {#if cityWikiArticle}
+  {#if cityWikiArticle}
+    <div class="city">
+      <div class="city-basic">
+        <h1>{cityName}, {countryName}</h1>
+        <p>{lat}, {lon}</p>
+      </div>
+      <hr />
       <div class="city-wiki-blurb">
         <h1>Blurb from WikiPedia</h1>
         <h2>{title}</h2>
@@ -60,11 +65,12 @@
 
         <img src={originalimage.source} alt="" />
       </div>
+    </div>
+  {:else}
+    <p>not found</p>
+  {/if}
 
-    {:else}
-      <p>No Article Found</p>
-    {/if}
-    <!-- {#if error == null}
+  <!-- {#if error == null}
       <div class="cost-of-living">
         <h1>Cost of Living in {city_name}</h1>
         <div class="col-item-wrap">
@@ -94,8 +100,8 @@
         </div>
       </div>
     {/if} -->
-  </div>
 </div>
+>
 
 <style>
   .trace-back {

@@ -5,6 +5,8 @@
 
   const { slug, cities, travelAdvisory } = data;
 
+  
+
   const advisoryStatus = travelAdvisory.api_status;
   const advisoryData: any = Object.values(travelAdvisory.data)[0];
   const { advisory, continent, iso_alpha2, name } = advisoryData;
@@ -42,7 +44,7 @@
                 <p>Capital</p>
               {/if}
             </div>
-            <a href="./travel/{name},{country}">Travel to {name}</a>
+            <a href="./travel/{name},{country},{latitude},{longitude}">Travel to {name}</a>
           </div>
         {/each}
       </div>

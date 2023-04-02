@@ -1,7 +1,12 @@
 <script lang="ts">
 
   export let data;
-  const { citySlug, countrySlug } = data;
+  const { citySlug, countrySlug, hotelData } = data;
+  const { features } = hotelData;
+
+  console.log(features[0].properties)
+  
+  
 
 </script>
 
@@ -10,12 +15,12 @@
     <a href="/countries/{countrySlug}/travel">Back</a>
   </div>
   <h1>Travel in {citySlug}, {countrySlug}</h1>
-<!-- 
-  <div class="hotels">
-    {#each hotelData as hotelItem}
-      <h1>{hotelItem.hotelName}</h1>
-    {/each}
-  </div> -->
+  {#each features as { properties }}
+    <h3>{properties.name}</h3>
+    <p>{properties.address_line2}</p>
+    <p>{properties.lat}, {properties.lon}</p>
+    <p>{properties.district}</p>
+  {/each}
 </div>
 
 <style>
