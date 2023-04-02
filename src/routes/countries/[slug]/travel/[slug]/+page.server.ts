@@ -19,12 +19,17 @@ export const load = (params) => {
 
   const fetchHotelData = async () => {
     const cityIdObj = await fetchCityId(citySlug);
-    const cityId = cityIdObj.results[0].place_id;
-    const res = await fetch(
-      `https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${cityId}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
-    );
-    const data = await res.json()
-    return data;
+    if(cityIdObj) {
+
+      const cityId = cityIdObj.results[0].place_id;
+      const res = await fetch(
+        `https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${cityId}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
+      );
+      const data = await res.json()
+      return data;
+    } else {
+      return 'error';
+    }
   };
 
 

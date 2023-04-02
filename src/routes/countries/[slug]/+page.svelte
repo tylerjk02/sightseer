@@ -10,6 +10,7 @@
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
+
   const countryItem = country[0];
   const countryLanguages = Object.values(countryItem.languages);
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
@@ -155,10 +156,7 @@
             {#if population}
               <p>Population: {population.toLocaleString()}</p>
             {/if}
-            <a
-              href="/cities/{name},{country},{latitude},{longitude},{countryRegion}"
-              >More Info</a
-            >
+
           </div>
         {/each}
       </div>
