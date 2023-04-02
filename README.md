@@ -11,7 +11,7 @@ In-Depth Info Directory for Countries/Cities.
 ## Current Version
 
 ### 0.1.7
-*April 3, 2023*
+*April 2, 2023*
 - Travel route info no longer limited to only hotels
 - Proper error handling for travel routes (whoops)
 - Styling for travel routes
