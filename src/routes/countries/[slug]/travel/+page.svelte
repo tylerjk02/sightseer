@@ -5,8 +5,6 @@
 
   const { slug, cities, travelAdvisory } = data;
 
-  
-
   const advisoryStatus = travelAdvisory.api_status;
   const advisoryData: any = Object.values(travelAdvisory.data)[0];
   const { advisory, continent, iso_alpha2, name } = advisoryData;
@@ -28,6 +26,7 @@
           {name} has a travel risk level of {advisory.score} (out of 5)
         </p>
       {/if}
+      <a class="risk-source" target="_blank" href="{advisory.source}">Source</a>
     </div>
   {/if}
   <h1>Travel to {upperCaseFirst(slug)}</h1>
@@ -36,7 +35,7 @@
       <h2>Please Select a City</h2>
       <div class="cities">
         {#each cities as { country, is_capital, latitude, longitude, name, population }}
-          <div class="city">
+          <a class="city" href="./travel/{name},{country},{latitude},{longitude}">
             <div class="city-info">
               <h3>{name}</h3>
               <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
@@ -44,8 +43,7 @@
                 <p>Capital</p>
               {/if}
             </div>
-            <a href="./travel/{name},{country},{latitude},{longitude}">Travel to {name}</a>
-          </div>
+          </a>
         {/each}
       </div>
     </div>
@@ -56,6 +54,11 @@
   .high {
     color: red;
   }
+
+  .trace-back {
+    margin: 5px 0;
+  }
+  
 
   .cities {
     display: grid;
@@ -70,14 +73,34 @@
     padding: 5px;
     /* margin: 5px; */
     height: 100%;
-  }
-
-  .city a {
     text-decoration: none;
-    align-self: flex-end;
+    color: #222;
+  }
+  .city:hover {
+    transition: all .1s ease-in-out;
+    background: #e4e4e4;
   }
 
-  .city a:hover {
+  .city:active {
+    transition: all 0;
+    background: #5e5e5e;
+  }
+
+  .advisory {
+    border-radius: 3px;
+    background: #222222e3;
+    color: #fff;
+    width: max-content;
+    padding: 5px;
+    border: 1px solid black;
+
+  }
+  .risk-source {
+    font-size: 14px;
+    text-decoration: none;
+    color: #ffffffc6;
+  }
+  .risk-source:hover {
     text-decoration: underline;
   }
 

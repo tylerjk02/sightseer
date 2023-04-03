@@ -13,12 +13,12 @@
     border-radius: 3px;
     width: fit-content;
     background: var(--color-orange);
-    padding: 10px;
+    padding: 5px 10px;
     .brand {
       a {
         text-decoration: none;
         color: var(--color-white);
-        font-size: 26px;
+        font-size: 24px;
         font-weight: bold;
       }
     }

@@ -24,11 +24,14 @@
               .join(" ")}
           </p>
           <p class="property__address">{properties.address_line2}</p>
-          <p class="property__coords">{properties.lat}, {properties.lon}</p>
+          <a target="_blank" href="https://www.google.com/maps/search/{properties.lat},{properties.lon}" class="property__coords">{properties.lat}, {properties.lon}</a>
+          <br/>
           {#if properties.district}
             <p class="property__district">{properties.district}</p>
           {/if}
           <a
+            class="property__source"
+            target="_blank"
             href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
               .datasource.raw.osm_id}&class=tourism">Source</a
           >
@@ -36,11 +39,15 @@
       {/each}
     </div>
   {:else}
-    <p>sorry, we couldn't find anything...</p>
+    <p>Sorry, we couldn't find anything...</p>
   {/if}
 </div>
 
 <style lang="scss">
+
+  .trace-back {
+    margin: 5px 0 0 0;
+  }
   .properties {
     gap: 5px;
     display: grid;
@@ -53,7 +60,21 @@
       &__name {
         font-size: 22px;
       }
+      &__coords {
+        text-decoration: none;
+        // color: #222222;
+      }
+      &__coords:hover {
+        text-decoration: underline;
+      }
       
+      &__source {
+        text-decoration: none;
+      }
+
+      &__source:hover {
+        text-decoration: underline;
+      }
 
     }
 

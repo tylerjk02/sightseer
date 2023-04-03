@@ -9,4 +9,4 @@
 
 <Header />
 
-<slot />
+<slot></slot>

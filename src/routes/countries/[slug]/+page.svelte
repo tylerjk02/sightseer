@@ -12,7 +12,8 @@
   const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
 
   const countryItem = country[0];
-  const countryLanguages = Object.values(countryItem.languages);
+
+  const countryLanguages: any = Object.values(countryItem.languages);
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
   const countryDrivingSide: any = Object.values(countryItem.car);
 
@@ -156,7 +157,6 @@
             {#if population}
               <p>Population: {population.toLocaleString()}</p>
             {/if}
-
           </div>
         {/each}
       </div>
@@ -183,7 +183,6 @@
       </div>
     </div>
   {/if}
-
 </div>
 
 <style>
