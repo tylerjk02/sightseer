@@ -60,6 +60,7 @@
   <div class="country">
     <div class="top-tabs">
       <a href="./{name.common}/travel/">Travel to {name.common}</a>
+      <a href="./{name.common}/history/">History of {name.common}</a>
     </div>
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
