@@ -34,11 +34,6 @@
     <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
   {/if}
 
-  <p>
-    click a country to view more or <a
-      href="/countries/{continents[ranNum()].name.official}">surprise me</a
-    >
-  </p>
   <div class="list">
     {#each continents as { name, flags, altSpellings }}
       <div class="country">
