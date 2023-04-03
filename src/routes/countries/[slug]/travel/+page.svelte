@@ -69,16 +69,18 @@
   .city {
     display: flex;
     justify-content: space-between;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    background-color: #222222;
     padding: 5px;
     /* margin: 5px; */
     height: 100%;
     text-decoration: none;
-    color: #222;
+    color: #ffffff;
+    border-radius: 3px;
   }
   .city:hover {
     transition: all .1s ease-in-out;
-    background: #e4e4e4;
+    background: #4e4e4e;
   }
 
   .city:active {

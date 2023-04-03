@@ -2,7 +2,6 @@
   export let data;
   const { citySlug, countrySlug, cityPlaces } = data;
   const { features } = cityPlaces;
-
 </script>
 
 <div class="travel">
@@ -24,11 +23,15 @@
               .join(" ")}
           </p>
           <p class="property__address">{properties.address_line2}</p>
-          <a target="_blank" href="https://www.google.com/maps/search/{properties.lat},{properties.lon}" class="property__coords">{properties.lat}, {properties.lon}</a>
-          <br/>
           {#if properties.district}
             <p class="property__district">{properties.district}</p>
           {/if}
+          <a
+            target="_blank"
+            href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
+            class="property__coords">{properties.lat}, {properties.lon}</a
+          >
+          <!-- <br /> -->
           <a
             class="property__source"
             target="_blank"
@@ -44,7 +47,6 @@
 </div>
 
 <style lang="scss">
-
   .trace-back {
     margin: 5px 0 0 0;
   }
@@ -55,8 +57,17 @@
 
     .property {
       padding: 5px;
-      border: 1px solid black;
+      // border: 1px solid black;
+      background: #222222;
+      padding: 5px;
+      border-radius: 3px;
+      color: #ffffff;
 
+      a {
+        font-size: 12px;
+        color: #fefefe;
+        text-decoration: underline;
+      }
       &__name {
         font-size: 22px;
       }
@@ -67,17 +78,16 @@
       &__coords:hover {
         text-decoration: underline;
       }
-      
+
       &__source {
         text-decoration: none;
       }
 
-      &__source:hover {
-        text-decoration: underline;
+      a:hover {
+        background: #808080;
+        text-decoration: none;
       }
-
     }
-
   }
 
   @media screen and (max-width: 1072px) {
@@ -92,5 +102,4 @@
       gap: 3px;
     }
   }
-
 </style>

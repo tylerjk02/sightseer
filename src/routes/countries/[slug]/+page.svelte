@@ -1,22 +1,24 @@
 <script lang="ts">
   import lookup from "country-code-lookup";
+
   export let data;
-
-  const { country, travelAdvisory, wikiArticle, webcams, cities, slug } = data;
-  // const cities: any = data.cities;
-  const webcamResults = webcams.result.webcams;
-
+  const { country, travelAdvisory, wikiArticle, cities, currencyConversion, slug } = data;
+  // travel advisory
   const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
-  const travelAdvisoryResponseCode = travelAdvisoryReq.reply.code;
+  const travelAdvisoryResponseCode: any = travelAdvisoryReq.reply.code;
+
 
   const countryItem = country[0];
-
   const countryLanguages: any = Object.values(countryItem.languages);
+  
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
-  const countryDrivingSide: any = Object.values(countryItem.car);
+  const { new_amount, new_currency } = currencyConversion;
 
+
+  const countryDrivingSide: any = Object.values(countryItem.car);
+  
   const {
     name,
     region,
@@ -59,8 +61,8 @@
 
   <div class="country">
     <div class="top-tabs">
-      <a href="./{name.common}/travel/">Travel to {name.common}</a>
-      <a href="./{name.common}/history/">History of {name.common}</a>
+      <a href="./{name.common}/travel/">Travel</a>
+      <a href="./{name.common},{name.official}/history/">History</a>
     </div>
     <div class="country-political-images">
       {#if coatOfArms.hasOwnProperty("svg")}
@@ -111,7 +113,10 @@
     {/if}
 
     <div class="currency">
-      <b>Currency</b>: {countryCurrenciesValues[0].name}
+      <b>Currency</b>: {countryCurrenciesValues[0].name} ({countryCurrenciesValues[0].symbol}) 
+      {#if new_amount !== undefined}
+        <p>$1 USD = {new_amount} {new_currency}</p>
+      {/if}
     </div>
 
     <div class="driving-side">
@@ -165,7 +170,7 @@
 
     <hr />
   {/if}
-  {#if webcamResults.length > 0}
+  <!-- {#if webcamResults.length > 0}
     <div class="webcams">
       <h3>Webcams from around {name.common}</h3>
       <div class="webcam-wrap">
@@ -183,19 +188,10 @@
         {/each}
       </div>
     </div>
-  {/if}
+  {/if} -->
 </div>
 
-<style>
-  .yt-search {
-    text-align: center;
-    background: #e3e3e3;
-    /* padding: 0 5px 5px 5px; */
-  }
-  .yt-search h3 {
-    padding: 5px 0;
-    font-size: 36px;
-  }
+<style lang="scss">
   .webcam {
     height: 250px;
     display: flex;
@@ -225,49 +221,8 @@
     background: #e3e3e3;
     /* padding: 0 5px 5px 5px; */
   }
-
   .webcams h3 {
     padding: 5px 0;
-    font-size: 36px;
-  }
-  .city-depth img {
-    width: 300px;
-  }
-  .city-depth:first-of-type {
-    margin-top: 0;
-  }
-  .city-depth:last-of-type {
-    margin-bottom: 0;
-  }
-  .city-depth {
-    background: #ffffff;
-    border: 1px solid black;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    /* margin: 3px 0; */
-  }
-  .city-depth a {
-    margin-top: auto;
-  }
-  .city-depth h3 {
-    text-align: left !important;
-    /* height: fit-content; */
-  }
-  .city-wrap-depth {
-    /* height: 100%; */
-    display: grid;
-    gap: 5px;
-    /* align-items: center; */
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .city-cities-depth {
-    background: #e3e3e3;
-    padding: 5px;
-  }
-  .city-cities-depth h3 {
-    text-align: center;
-    padding: 0 0 5px 0;
     font-size: 36px;
   }
   .country-info h1 {
@@ -285,10 +240,7 @@
     text-indent: 40px;
     font-size: 18px;
   }
-  .photo-header {
-    padding: 0 0 5px 0;
-    font-size: 36px;
-  }
+
   .country-cities {
     padding: 5px;
     background: #e3e3e3;
@@ -310,13 +262,7 @@
     /* margin: 5px 0; */
     /* margin: 5px; */
   }
-  .country-images {
-    margin: 0px auto;
-    width: min-content;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 5px;
-  }
+
   .trace-back {
     display: flex;
     gap: 1px;
@@ -330,8 +276,7 @@
   }
   .top-tabs a {
     text-decoration: none;
-    /* border: 1px solid black; */
-    padding: 5px;
+    padding: 0 5px 0 0;
   }
   .top-tabs a:hover {
     text-decoration: underline;
@@ -347,9 +292,6 @@
   .country-coa {
     width: 65px;
   }
-  .photo-header {
-    text-align: center;
-  }
   .country-political-images {
     display: flex;
     gap: 10px;
@@ -359,14 +301,6 @@
   @media screen and (max-width: 728px) {
     .city-wrap {
       /* display: grid; */
-      grid-template-columns: 1fr;
-    }
-
-    .city-wrap-depth {
-      grid-template-columns: 1fr;
-    }
-
-    .country-images {
       grid-template-columns: 1fr;
     }
 

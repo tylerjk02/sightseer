@@ -47,7 +47,7 @@
             <img src={flags.svg} alt={flags.alt} />
           </div>
           <div class="country-info">
-            <a href="/countries/{name.common}">{name.common}</a>
+            <a href="/countries/{name.common},{name.official}">{name.common}</a>
             <p>{name.official}</p>
           </div>
         </div>
