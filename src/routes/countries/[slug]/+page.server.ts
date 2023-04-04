@@ -12,9 +12,6 @@ export const load = (params) => {
   if(countryCurrencyItem[0] !== undefined) {
     countryCurrencyCode = Object.values(countryCurrencyItem[0])[0];
   }
-  // if(countryCurrencyItem)
-  // console.log(countryCurrencyCode);
-
 
   const fetchWikiArticle = async (id: string) => {
     try {

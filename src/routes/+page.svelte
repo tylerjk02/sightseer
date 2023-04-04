@@ -1,5 +1,5 @@
 <script lang="ts">
-
+  
 </script>
 
 <main class="main">
@@ -78,7 +78,7 @@
     }
     .region-link:hover {
       z-index: 1000;
-      transform: scale(104%);
+      transform: scale(101%);
       transition: all 0.3s;
     }
   }

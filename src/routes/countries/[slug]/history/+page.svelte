@@ -12,9 +12,12 @@
   historyBlipsCommonName.forEach((e: object) => {
     historyBlips.push(e);
   });
-  historyBlipsOfficialName.forEach((e: object) => {
-    historyBlips.push(e);
-  });
+  if(commonName !== officialName) {
+    historyBlipsOfficialName.forEach((e: object) => {
+      historyBlips.push(e);
+    });
+  }
+
 
   historyBlips.sort((a: any, b: any) => {
     if (a.year < b.year) {
@@ -25,6 +28,7 @@
     }
     return 0;
   });
+
 
   console.log(historyBlips);
 </script>
