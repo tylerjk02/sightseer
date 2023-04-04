@@ -12,7 +12,7 @@
     box-shadow: 0 0 3px rgb(0, 0, 0, 0.5);
     border-radius: 3px;
     width: fit-content;
-    background: var(--color-orange);
+    background: var(--color-black);
     padding: 5px 10px;
     .brand {
       a {

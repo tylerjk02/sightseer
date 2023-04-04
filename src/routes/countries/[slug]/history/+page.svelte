@@ -29,8 +29,6 @@
     return 0;
   });
 
-
-  console.log(historyBlips);
 </script>
 
 <div class="history">

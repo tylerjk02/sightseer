@@ -10,13 +10,20 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.1.9
+*April 4, 2023*
+- Fixed duplicate history blips
+- Fixed name conflicts on traceback
+- Style changes
+
+
+## Previous Versions
+
 ### 0.1.8
 *April 3, 2023*
 - History routes added
 - Webcams on country route removed (causing many errors)
 - Style changes
-
-## Previous Versions
 
 ### 0.1.7
 *April 2, 2023*

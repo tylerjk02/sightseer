@@ -11,6 +11,7 @@
 
 
   const countryItem = country[0];
+
   const countryLanguages: any = Object.values(countryItem.languages);
   
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);

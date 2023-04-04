@@ -1,6 +1,5 @@
 import { NINJA_API_KEY } from "$env/static/private";
 export const load = (params) => {
-  console.log(params.params.slug)
   const splitSlug = params.params.slug.split(',');
   const nameCommon = splitSlug[0];
   const nameOfficial = splitSlug[1]
