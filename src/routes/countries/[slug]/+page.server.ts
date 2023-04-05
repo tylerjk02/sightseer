@@ -25,22 +25,7 @@ export const load = (params) => {
     }
   };
 
-  const fetchCurrencyConversion = async (id: string) => {
-    try {
-      const res = await fetch(`https://api.api-ninjas.com/v1/convertcurrency?want=${id}&have=USD&amount=1`, {
-        method: 'GET',
-        headers: {
-          'X-Api-Key': NINJA_API_KEY
-        }
-      })
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      return err;
-    }
-  }
-
-
+  
   const fetchCountryData = async (id: string) => {
     // so sorry for this one. too bad!
     try {
@@ -57,6 +42,49 @@ export const load = (params) => {
       return err;
     }
   };
+
+  const fetchCountryCuisine = async (id: string) => {
+    try {
+      const countryRes = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryToAlpha3(id)}`);
+      const countryData = await countryRes.json();
+      let dataSet;
+
+      if(countryData.status === 400) {
+        const countryRes = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryToAlpha2(id)}`);
+        const countryData = await countryRes.json();
+        dataSet = countryData[0].demonyms.eng.m;
+      } else {
+        dataSet = countryData[0].demonyms.eng.m;
+      }
+
+      const res = await fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${dataSet}_cuisine`
+      );
+      const data = await res.json();
+      return data;
+
+    } catch (err) {
+      return err;
+    }
+  };
+
+
+  const fetchCurrencyConversion = async (id: string) => {
+    try {
+      const res = await fetch(`https://api.api-ninjas.com/v1/convertcurrency?want=${id}&have=USD&amount=1`, {
+        method: 'GET',
+        headers: {
+          'X-Api-Key': NINJA_API_KEY
+        }
+      })
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
+  }
+
+
 
   const fetchTravelAdvisoryInfo = async (id: string) => {
     try {
@@ -117,7 +145,9 @@ export const load = (params) => {
     cities: fetchCityData(commonName),
     wikiArticle: fetchWikiArticle(commonName),
     travelAdvisory: fetchTravelAdvisoryInfo(commonName),
+    countryCuisine: fetchCountryCuisine(commonName),
     currencyConversion: fetchCurrencyConversion(countryCurrencyCode),
+
 
     // webcams: fetchWebcamData(params.params.slug),
   };

@@ -3,7 +3,6 @@
 </script>
 
 <main class="main">
-  <!-- it appears that a route to antarctica exists -->
   <h1>Choose a region</h1>
   <div class="regions">
     <a class="region-link" href="/continents/africa">

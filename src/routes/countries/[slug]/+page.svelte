@@ -2,28 +2,35 @@
   import lookup from "country-code-lookup";
 
   export let data;
-  const { country, travelAdvisory, wikiArticle, cities, currencyConversion, slug } = data;
+  const {
+    country,
+    travelAdvisory,
+    wikiArticle,
+    cities,
+    currencyConversion,
+    countryCuisine,
+    slug,
+  } = data;
   // travel advisory
   const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode: any = travelAdvisoryReq.reply.code;
 
-
   const countryItem = country[0];
 
   const countryLanguages: any = Object.values(countryItem.languages);
-  
+
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
   const { new_amount, new_currency } = currencyConversion;
 
-
   const countryDrivingSide: any = Object.values(countryItem.car);
-  
+
   const {
     name,
     region,
     coatOfArms,
+    demonyms,
     flags,
     area,
     capital,
@@ -112,18 +119,23 @@
         <b>Official Languages</b>: {countryLanguages.join(", ")}
       </div>
     {/if}
-
+    <div class="demonym">
+      <b>Citizen Demonym</b>: <b>Male</b>: {demonyms.eng.m}, <b>Female</b>: {demonyms
+        .eng.f}
+    </div>
     <div class="currency">
-      <b>Currency</b>: {countryCurrenciesValues[0].name} ({countryCurrenciesValues[0].symbol}) 
+      <b>Currency</b>: {countryCurrenciesValues[0].name} ({countryCurrenciesValues[0]
+        .symbol})
       {#if new_amount !== undefined}
         <p>$1 USD = {new_amount} {new_currency}</p>
       {/if}
     </div>
-
-    <div class="driving-side">
-      <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
-        countryDrivingSide[1].slice(1)}
-    </div>
+    {#if countryDrivingSide[1] !== undefined}
+      <div class="driving-side">
+        <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
+          countryDrivingSide[1].slice(1)}
+      </div>
+    {/if}
     {#if tld !== ""}
       <div class="top-level-domain">
         <b>Top-Level Domain</b>: {tld}
@@ -145,9 +157,19 @@
   </div>
 
   <div class="wiki-blob">
-    <h3>Short Summary from Wikipedia</h3>
+    <h3>Summary from Wikipedia</h3>
     <div class="summary">{@html wikiArticle.extract_html}</div>
   </div>
+  {#if countryCuisine.title !== "Not found."}
+    <div class="cuisine">
+      {#if countryCuisine.description == undefined}
+        <h3>{countryCuisine.title}</h3>
+      {:else}
+        <h3>{countryCuisine.description}</h3>
+      {/if}
+      <p>{@html countryCuisine.extract_html}</p>
+    </div>
+  {/if}
 
   {#if cities.length !== 0}
     <div class="country-cities">
@@ -171,6 +193,7 @@
 
     <hr />
   {/if}
+
   <!-- {#if webcamResults.length > 0}
     <div class="webcams">
       <h3>Webcams from around {name.common}</h3>
@@ -234,11 +257,24 @@
     padding: 0 15px;
   }
   .wiki-blob h3 {
+    text-align: center;
     padding: 5px 0;
     font-size: 36px;
   }
   .wiki-blob div {
-    text-indent: 40px;
+    font-size: 18px;
+  }
+  .cuisine {
+    padding: 5px;
+    background: #e3e3e3;
+  }
+  .cuisine h3 {
+    text-align: center;
+    padding: 5px 0 5px 0;
+    font-size: 36px;
+  }
+  .cuisine p {
+    padding: 0 5px;
     font-size: 18px;
   }
 

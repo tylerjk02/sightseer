@@ -10,12 +10,20 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+
+### 0.2.2
+*April 5, 2023*
+- Added culinary tradition to country routes
+- Error handling for country driving side
+- Style changes
+
+
+## Previous Versions
+
 ### 0.2.1
 *April 5, 2023*
 - AI Generated Travel Info Chunk for every './cityName/travel' route
 - Styles fixed to 'known-for' tabs on wide screens
-
-## Previous Versions
 
 ### 0.2
 *April 5, 2023*

@@ -1,9 +1,11 @@
 <script lang="ts">
   export let data;
+
   const { citySlug, countrySlug, cityPlaces, cityDestinations, travelInfoAI } = data;
   const { features } = cityPlaces;
   const { included } = cityDestinations;
   const { choices } = travelInfoAI;
+
   const returnMessageAI = choices[0].message.content;
   const destinationPhotos: any[] = [];
   const destinationTags: any[] = [];
