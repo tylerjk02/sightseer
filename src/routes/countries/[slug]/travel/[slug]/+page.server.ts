@@ -21,7 +21,7 @@ export const load = (params) => {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': '37ca2892fcmsh4286c60da492a01p1f4042jsna2ef94919da0',
+        'X-RapidAPI-Key': RAPID_API_KEY,
         'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
       },
       body: `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"Travel info ${city}, ${country} under 60 words"}]}`
