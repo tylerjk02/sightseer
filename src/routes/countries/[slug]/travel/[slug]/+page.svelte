@@ -1,7 +1,22 @@
 <script lang="ts">
   export let data;
-  const { citySlug, countrySlug, cityPlaces } = data;
+  const { citySlug, countrySlug, cityPlaces, cityDestinations } = data;
   const { features } = cityPlaces;
+  const { included } = cityDestinations;
+  const destinationPhotos: any[] = [];
+  const destinationTags: any[] = [];
+  const destinationOther: any[] = [];
+
+  included.forEach((e: any) => {
+    if(e.type == 'photo') {
+      destinationPhotos.push(e);
+    } else if(e.type == 'known_for') {
+      destinationTags.push(e);
+    } else {
+      destinationOther.push(e);
+    }
+  })
+
 </script>
 
 <div class="travel">
@@ -9,6 +24,16 @@
     <a href="/countries/{countrySlug}/travel">Back</a>
   </div>
   <h1>Travel in {citySlug}, {countrySlug}</h1>
+  {#if destinationTags.length !== 0}
+    <p class="known-for">{citySlug} is known for:</p>
+    <div class="tags">
+      {#each destinationTags as tag} 
+        <div class="tag">
+          <p>{tag.attributes.name}</p>
+        </div>
+      {/each}
+    </div>
+  {/if}
 
   {#if features.length !== 0}
     <div class="properties">
@@ -49,6 +74,20 @@
 <style lang="scss">
   .trace-back {
     margin: 5px 0 0 0;
+  }
+  .known-for {
+    font-weight: bold;
+  }
+  .tags {
+    display: flex;
+    gap: 5px;
+    .tag {
+      border: 1px solid black;
+      border-radius: 30px;
+      margin: 2px 0 5px 0;
+      padding: 5px 10px;
+      color: #222222;
+    }
   }
   .properties {
     gap: 5px;
