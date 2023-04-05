@@ -27,7 +27,7 @@ export const load = (params) => {
     const cityIdObj = await fetchCityId(citySlug, countryFullName);
     const cityId = cityIdObj.results[0].place_id;
     const res = await fetch(
-      `https://api.geoapify.com/v2/places?categories=accommodation&filter=place:${cityId}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
+      `https://api.geoapify.com/v2/places?categories=accommodation&filter=place:${cityId}&limit=15&apiKey=${GEOAPIFY_API_KEY}`
     );
     const data = await res.json();
     return data;

@@ -23,4 +23,10 @@
       }
     }
   }
+
+  @media screen and (max-width: 528px) {
+    .header {
+      width: 100%;
+    }
+  }
 </style>

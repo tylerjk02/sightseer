@@ -24,6 +24,11 @@
     <a href="/countries/{countrySlug}/travel">Back</a>
   </div>
   <h1>Travel in {citySlug}, {countrySlug}</h1>
+  {#if destinationPhotos.length !== 0}
+    {#each destinationPhotos as photo}
+      <img class="city-photo" src="{photo.attributes.image.full}" alt="{citySlug}">
+    {/each}
+  {/if}
   {#if destinationTags.length !== 0}
     <p class="known-for">{citySlug} is known for:</p>
     <div class="tags">
@@ -34,7 +39,8 @@
       {/each}
     </div>
   {/if}
-
+  <hr>
+  <h2>Accommodations & Hotels</h2>
   {#if features.length !== 0}
     <div class="properties">
       {#each features as { properties }}
@@ -77,6 +83,10 @@
   }
   .known-for {
     font-weight: bold;
+  }
+
+  .city-photo {
+    width: 55%;
   }
   .tags {
     display: flex;
@@ -133,12 +143,27 @@
     .properties {
       grid-template-columns: repeat(2, 2fr);
     }
+    .city-photo {
+      width: 80%;
+    }
   }
 
   @media screen and (max-width: 786px) {
+    .tags {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      .tag {
+        text-align: center;
+      }
+    }
     .properties {
       grid-template-columns: repeat(1, 1fr);
       gap: 3px;
+    }
+
+    .city-photo {
+      width: 100%;
     }
   }
 </style>
