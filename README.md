@@ -10,14 +10,20 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2
+*April 5, 2023*
+- Images added to city travels routes
+- 'Known-for' tags added to city travel routes
+- Improvements to site for phone-based users
+
+## Previous Versions
+
 ### 0.1.9
 *April 4, 2023*
 - Fixed duplicate history blips
 - Fixed name conflicts on traceback
 - Style changes
 
-
-## Previous Versions
 
 ### 0.1.8
 *April 3, 2023*
@@ -68,7 +74,7 @@ In-Depth Info Directory for Countries/Cities.
 - Webcams Added
 - Style Fixes
 
-### 0.1.0
+### 0.1
 *March 24, 2023*
 - Cities added
 - Changes to Wiki article fetching
@@ -113,7 +119,6 @@ In-Depth Info Directory for Countries/Cities.
 - Country independence status
 - Country landlocked status
 - Country driving-side
-- Webcams from around given country (provided by Windy)
 
 ### City Data:
 - Most populous cities in given country
@@ -123,3 +128,11 @@ In-Depth Info Directory for Countries/Cities.
 - City imagery
 - Hotels and other accommodations in a city
 
+### Travel Data:
+- Advisory data
+- Hotels in a given city
+- Accommodations in a given city
+- 'Known-for' tags of given city
+
+### History Data:
+- History blips of given country
