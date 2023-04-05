@@ -10,13 +10,19 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2.1
+*April 5, 2023*
+- AI Generated Travel Info Chunk for every './cityName/travel' route
+- Styles fixed to 'known-for' tabs on wide screens
+
+## Previous Versions
+
 ### 0.2
 *April 5, 2023*
 - Images added to city travels routes
 - 'Known-for' tags added to city travel routes
 - Improvements to site for phone-based users
-
-## Previous Versions
+- Error fixes
 
 ### 0.1.9
 *April 4, 2023*

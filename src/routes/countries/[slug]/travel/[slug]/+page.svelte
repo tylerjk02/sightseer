@@ -1,12 +1,16 @@
 <script lang="ts">
   export let data;
-  const { citySlug, countrySlug, cityPlaces, cityDestinations } = data;
+  const { citySlug, countrySlug, cityPlaces, cityDestinations, travelInfoAI } = data;
   const { features } = cityPlaces;
   const { included } = cityDestinations;
+  const { choices } = travelInfoAI;
+  const returnMessageAI = choices[0].message.content;
   const destinationPhotos: any[] = [];
   const destinationTags: any[] = [];
   const destinationOther: any[] = [];
+  
 
+  
   included.forEach((e: any) => {
     if(e.type == 'photo') {
       destinationPhotos.push(e);
@@ -24,6 +28,8 @@
     <a href="/countries/{countrySlug}/travel">Back</a>
   </div>
   <h1>Travel in {citySlug}, {countrySlug}</h1>
+  <p>{returnMessageAI}</p>
+  <hr style="margin: 5px 0">
   {#if destinationPhotos.length !== 0}
     {#each destinationPhotos as photo}
       <img class="city-photo" src="{photo.attributes.image.full}" alt="{citySlug}">
@@ -38,8 +44,8 @@
         </div>
       {/each}
     </div>
+    <hr>
   {/if}
-  <hr>
   <h2>Accommodations & Hotels</h2>
   {#if features.length !== 0}
     <div class="properties">
@@ -92,10 +98,11 @@
     display: flex;
     gap: 5px;
     .tag {
-      border: 1px solid black;
+      border: 2px solid black;
       border-radius: 30px;
       margin: 2px 0 5px 0;
       padding: 5px 10px;
+      font-size: 18px;
       color: #222222;
     }
   }

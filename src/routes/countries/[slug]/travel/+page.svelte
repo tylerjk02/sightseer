@@ -8,6 +8,7 @@
   const advisoryStatus = travelAdvisory.api_status;
   const advisoryData: any = Object.values(travelAdvisory.data)[0];
   const { advisory, continent, iso_alpha2, name } = advisoryData;
+  let searchValue: string;
 
 </script>
 
@@ -30,12 +31,20 @@
     </div>
   {/if}
   <h1>Travel to {upperCaseFirst(slug)}</h1>
+  <!-- functionality for search works, way to many edge cases to make viable though. -->
+  <!-- <div class="city-search">
+    <label for="city-search">
+      Search city by exact name here (eg. New York, Al Hufuf, London)
+      <input type="text" name="city-search" id="city-search" bind:value={searchValue} required>
+      <a href="./travel/{searchValue},{slug}">Go</a>
+    </label> 
+  </div> -->
   {#if cities}
     <div class="city-select">
       <h2>Please Select a City</h2>
       <div class="cities">
         {#each cities as { country, is_capital, latitude, longitude, name, population }}
-          <a class="city" href="./travel/{name},{country},{latitude},{longitude}">
+          <a class="city" href="./travel/{name},{country}">
             <div class="city-info">
               <h3>{name}</h3>
               <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
@@ -48,6 +57,7 @@
       </div>
     </div>
   {/if}
+
 </div>
 
 <style>
