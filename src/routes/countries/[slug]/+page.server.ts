@@ -61,7 +61,7 @@ export const load = (params) => {
   const fetchTravelAdvisoryInfo = async (id: string) => {
     try {
       const res = await fetch(
-        `https://www.travel-advisory.info/api?countrycode=${countryToAlpha3(id)}`
+        `https://www.travel-advisory.info/api?countrycode=${countryToAlpha2(id)}`
       );
       const data = await res.json();
       return data;
