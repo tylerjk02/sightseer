@@ -6,7 +6,6 @@
     country,
     travelAdvisory,
     wikiArticle,
-    cities,
     currencyConversion,
     countryCuisine,
     slug,
@@ -68,110 +67,122 @@
   <hr />
 
   <div class="country">
-    <div class="top-tabs">
+    <div class="top">
+      <div class="tabs">
+        <a href="./{name.common}/travel/">Travel</a>
+        <a href="./{name.common},{name.official}/history/">History</a>
+      </div>
+  
+      <div class="container country-info">
+        <div class="country-political-images">
+          {#if coatOfArms.hasOwnProperty("svg")}
+            <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
+          {/if}
+          <img class="country-flag" src={flags.svg} alt={flags.alt} />
+        </div>
+        <h1>{name.common}</h1>
+        <p><b>{name.official}</b></p>
+        <div class="area">
+          <b>Size</b>: {area.toLocaleString()}km<sup>2</sup>
+        </div>
+        <p><b>Capital</b>: {capital}</p>
+  
+        {#if borders}
+          <p><b>Borders</b>: {borderString.join(", ")}</p>
+        {/if}
+        {#if population}
+          <p><b>Population</b>: {population.toLocaleString()}</p>
+        {/if}
+        {#if landlocked == true}
+          <div class="landlocked"><b>Landlocked</b></div>
+        {/if}
+        {#if independent == false}
+          <div class="independent"><b>Non-Independent</b></div>
+        {/if}
+        {#if unMember == true}
+          <b>UN Member</b>: Yes
+        {:else}
+          <b>UN Member</b>: No
+        {/if}
+      </div>
+
+    </div>
+
+    <hr />
+
+    <div class="container important-info">
+      <h3>Things to Know</h3>
+      {#if countryLanguages.length == 1}
+        <div class="language">
+          <b>Official Language</b>: {countryLanguages}
+        </div>
+      {:else}
+        <div class="language">
+          <b>Official Languages</b>: {countryLanguages.join(", ")}
+        </div>
+      {/if}
+      <div class="demonym">
+        <b>Citizen Demonym</b>: <b>Male</b>: {demonyms.eng.m}, <b>Female</b>: {demonyms
+          .eng.f}
+      </div>
+      <div class="currency">
+        <b>Currency</b>: {countryCurrenciesValues[0].name} ({countryCurrenciesValues[0]
+          .symbol})
+        {#if new_amount !== undefined}
+          <p>$1 USD = {new_amount} {new_currency}</p>
+        {/if}
+      </div>
+      {#if countryDrivingSide[1] !== undefined}
+        <div class="driving-side">
+          <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
+            countryDrivingSide[1].slice(1)}
+        </div>
+      {/if}
+      {#if tld !== ""}
+        <div class="top-level-domain">
+          <b>Top-Level Domain</b>: {tld}
+        </div>
+      {/if}
+
+      {#if travelAdvisoryResponseCode == 200}
+        <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
+        {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
+          <div class="travel-advisory">
+            <b>Travel Advisory:</b>
+            <p>{currentCountryAdvisory.advisory.message}</p>
+            <a target="_blank" href={currentCountryAdvisory.advisory.source}
+              >Source</a
+            >
+          </div>
+        {/if}
+      {/if}
+    </div>
+
+    <div class="container wiki-blob">
+      <h3>Summary from Wikipedia</h3>
+      <div class="summary">{@html wikiArticle.extract_html}</div>
+    </div>
+    {#if countryCuisine.title !== "Not found." && countryCuisine.type !== "disambiguation"}
+      <div class="container cuisine">
+        {#if countryCuisine.description == undefined}
+          <h3>{countryCuisine.title}</h3>
+        {:else}
+          <h3>{countryCuisine.description}</h3>
+        {/if}
+        <p>{@html countryCuisine.extract_html}</p>
+      </div>
+    {/if}
+
+    <!-- <hr style="padding: 5px; background: #e3e3e3"> -->
+
+    <div class="tabs">
       <a href="./{name.common}/travel/">Travel</a>
       <a href="./{name.common},{name.official}/history/">History</a>
     </div>
-    <div class="country-political-images">
-      {#if coatOfArms.hasOwnProperty("svg")}
-        <img class="country-coa" src={coatOfArms.svg} alt="Coat of Arms" />
-      {/if}
-      <img class="country-flag" src={flags.svg} alt={flags.alt} />
-    </div>
-
-    <div class="country-info">
-      <h1>{name.common}</h1>
-      <p><b>{name.official}</b></p>
-      <div class="area">
-        <b>Size</b>: {area.toLocaleString()}km<sup>2</sup>
-      </div>
-      <p><b>Capital</b>: {capital}</p>
-
-      {#if borders}
-        <p><b>Borders</b>: {borderString.join(", ")}</p>
-      {/if}
-      {#if population}
-        <p><b>Population</b>: {population.toLocaleString()}</p>
-      {/if}
-      {#if landlocked == true}
-        <div class="landlocked"><b>Landlocked</b></div>
-      {/if}
-      {#if independent == false}
-        <div class="independent"><b>Non-Independent</b></div>
-      {/if}
-      {#if unMember == true}
-        <b>UN Member</b>: Yes
-      {:else}
-        <b>UN Member</b>: No
-      {/if}
-    </div>
-  </div>
-  <hr />
-
-  <div class="important-info">
-    <h3>Things to Know</h3>
-    {#if countryLanguages.length == 1}
-      <div class="language">
-        <b>Official Language</b>: {countryLanguages}
-      </div>
-    {:else}
-      <div class="language">
-        <b>Official Languages</b>: {countryLanguages.join(", ")}
-      </div>
-    {/if}
-    <div class="demonym">
-      <b>Citizen Demonym</b>: <b>Male</b>: {demonyms.eng.m}, <b>Female</b>: {demonyms
-        .eng.f}
-    </div>
-    <div class="currency">
-      <b>Currency</b>: {countryCurrenciesValues[0].name} ({countryCurrenciesValues[0]
-        .symbol})
-      {#if new_amount !== undefined}
-        <p>$1 USD = {new_amount} {new_currency}</p>
-      {/if}
-    </div>
-    {#if countryDrivingSide[1] !== undefined}
-      <div class="driving-side">
-        <b>Driving Side</b>: {countryDrivingSide[1].charAt(0).toUpperCase() +
-          countryDrivingSide[1].slice(1)}
-      </div>
-    {/if}
-    {#if tld !== ""}
-      <div class="top-level-domain">
-        <b>Top-Level Domain</b>: {tld}
-      </div>
-    {/if}
-
-    {#if travelAdvisoryResponseCode == 200}
-      <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
-      {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
-        <div class="travel-advisory">
-          <b>Travel Advisory:</b>
-          <p>{currentCountryAdvisory.advisory.message}</p>
-          <a target="_blank" href={currentCountryAdvisory.advisory.source}
-            >Source</a
-          >
-        </div>
-      {/if}
-    {/if}
   </div>
 
-  <div class="wiki-blob">
-    <h3>Summary from Wikipedia</h3>
-    <div class="summary">{@html wikiArticle.extract_html}</div>
-  </div>
-  {#if countryCuisine.title !== "Not found." && countryCuisine.type !== "disambiguation"}
-    <div class="cuisine">
-      {#if countryCuisine.description == undefined}
-        <h3>{countryCuisine.title}</h3>
-      {:else}
-        <h3>{countryCuisine.description}</h3>
-      {/if}
-      <p>{@html countryCuisine.extract_html}</p>
-    </div>
-  {/if}
-
-  {#if cities.length !== 0}
+  <!-- likely affecting load time... will move it to separate page... one day -->
+  <!-- {#if cities.length !== 0}
     <div class="country-cities">
       <h3>Most Populated Cities of {name.common}</h3>
       <div class="city-wrap">
@@ -192,8 +203,9 @@
     </div>
 
     <hr />
-  {/if}
+  {/if} -->
 
+  <!-- causes too many errors (missing thumbnail?) -->
   <!-- {#if webcamResults.length > 0}
     <div class="webcams">
       <h3>Webcams from around {name.common}</h3>
@@ -216,139 +228,64 @@
 </div>
 
 <style lang="scss">
-  .webcam {
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .webcam p {
-    margin-bottom: 10px;
-  }
-
-  .webcam-wrap {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    /* gap: 5px; */
-  }
-  .important-info {
-    background: #e3e3e3;
-    padding: 0 15px;
-  }
-  .important-info h3 {
-    padding: 5px 0;
-    font-size: 36px;
-  }
-  .webcams {
-    text-align: center;
-    background: #e3e3e3;
-    /* padding: 0 5px 5px 5px; */
-  }
-  .webcams h3 {
-    padding: 5px 0;
-    font-size: 36px;
-  }
-  .country-info h1 {
-    font-size: 38px;
-  }
-  .wiki-blob {
-    background: #e3e3e3;
-    padding: 0 15px;
-  }
-  .wiki-blob h3 {
-    text-align: center;
-    padding: 5px 0;
-    font-size: 36px;
-  }
-  .wiki-blob div {
-    font-size: 18px;
-  }
-  .cuisine {
-    padding: 5px;
-    background: #e3e3e3;
-  }
-  .cuisine h3 {
-    text-align: center;
-    padding: 5px 0 5px 0;
-    font-size: 36px;
-  }
-  .cuisine p {
-    padding: 0 5px;
-    font-size: 18px;
-  }
-
-  .country-cities {
-    padding: 5px;
-    background: #e3e3e3;
-  }
-  .country-cities h3 {
-    text-align: center;
-    padding: 5px 0 5px 0;
-    font-size: 36px;
-  }
-  .city-wrap {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-  }
-  .city {
-    background: #ffffff;
-    border: 1px solid #222;
-    padding: 5px;
-    /* margin: 5px 0; */
-    /* margin: 5px; */
-  }
-
   .trace-back {
     display: flex;
     gap: 1px;
     margin: 5px 0;
   }
-  .main {
-    margin: 5px;
-  }
-  .top-tabs {
-    padding: 10px 0 15px 0;
-  }
-  .top-tabs a {
-    text-decoration: none;
-    padding: 0 5px 0 0;
-  }
-  .top-tabs a:hover {
-    text-decoration: underline;
-  }
+
   .country {
-    background: #e3e3e3;
-    padding: 1rem;
-    padding-top: 0;
-  }
-  .country-flag {
-    width: 70px;
-  }
-  .country-coa {
-    width: 65px;
-  }
-  .country-political-images {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+    .top {
+      width: 100%;
+      justify-content: space-between;
+      display: flex;
+      flex-direction: row-reverse;
+      background: #e3e3e3;
+      padding: 5px 5px 5px 0;
+    }
+    .tabs {
+      background: #e3e3e3;
+      
+      a {
+        text-decoration: none;
+        background: #222222;
+        color: #ffffff;
+        padding: 0 15px;
+        font-size: 18px;
+      }
+      a:hover {
+        background: #343434;
+        text-decoration: underline;
+      }
+    }
+    .tabs:last-of-type {
+      display: flex;
+      justify-content: end;
+      gap: 5px;
+      padding: 5px;
+    }
+    .container {
+      background: #e3e3e3;
+      padding: 0 10px;
 
-  @media screen and (max-width: 728px) {
-    .city-wrap {
-      /* display: grid; */
-      grid-template-columns: 1fr;
+      h3 {
+        padding: 5px 0;
+        font-size: 36px;
+      }
     }
 
-    .webcam-wrap {
-      grid-template-columns: 1fr;
+    .country-political-images {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .country-coa {
+        width: 65px;
+      }
+      .country-flag {
+        width: 70px;
+      }
     }
   }
 
-  @media screen and (min-width: 1028px) {
-    .webcam-wrap {
-      grid-template-columns: repeat(3, 3fr);
-    }
-  }
 </style>

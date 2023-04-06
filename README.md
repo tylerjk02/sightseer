@@ -10,15 +10,19 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2.3
+*April 6, 2023*
+- Redesign and complete refactoring of country-page css
+- 'Most populous cities' removed from countries page. (City info will be put in its own page, eventually)
+- Small fixes
+
+## Previous Versions
 
 ### 0.2.2
 *April 5, 2023*
 - Added culinary tradition to country routes
 - Error handling for country driving side
 - Style changes
-
-
-## Previous Versions
 
 ### 0.2.1
 *April 5, 2023*

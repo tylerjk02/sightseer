@@ -98,25 +98,28 @@ export const load = (params) => {
     }
   };
 
-  const fetchCityData = async (id: string) => {
-    try {
-      const res = await fetch(
-        `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
-          id
-        )}&limit=20`,
-        {
-          method: "GET",
-          headers: {
-            "X-Api-Key": NINJA_API_KEY,
-          },
-        }
-      );
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      return err;
-    }
-  };
+  
+  // Moving city data to its own page.
+
+  // const fetchCityData = async (id: string) => {
+  //   try {
+  //     const res = await fetch(
+  //       `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
+  //         id
+  //       )}&limit=20`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "X-Api-Key": NINJA_API_KEY,
+  //         },
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     return data;
+  //   } catch (err) {
+  //     return err;
+  //   }
+  // };
 
   // Throwing hundred of errors related to missing thumbnails. Working on it.
 
@@ -142,7 +145,7 @@ export const load = (params) => {
   return {
     slug: params.params.slug,
     country: fetchCountryData(commonName),
-    cities: fetchCityData(commonName),
+    // cities: fetchCityData(commonName),
     wikiArticle: fetchWikiArticle(commonName),
     travelAdvisory: fetchTravelAdvisoryInfo(commonName),
     countryCuisine: fetchCountryCuisine(commonName),
