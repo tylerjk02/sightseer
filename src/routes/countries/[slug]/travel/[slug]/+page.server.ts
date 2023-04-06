@@ -16,21 +16,21 @@ export const load = (params) => {
     countrySlug = countries.getName(countrySlug, "en");
   } 
 
-  const fetchAICompletion = async(city: string, country: string) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'X-RapidAPI-Key': RAPID_API_KEY,
-        'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
-      },
-      body: `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"Travel info ${city}, ${country} under 60 words"}]}`
-    };
-    const res = await fetch(`https://openai80.p.rapidapi.com/chat/completions`, options);
-    const data = await res.json();
+  // const fetchAICompletion = async(city: string, country: string) => {
+  //   const options = {
+  //     method: 'POST',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       'X-RapidAPI-Key': RAPID_API_KEY,
+  //       'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
+  //     },
+  //     body: `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"Travel info ${city}, ${country} under 60 words"}]}`
+  //   };
+  //   const res = await fetch(`https://openai80.p.rapidapi.com/chat/completions`, options);
+  //   const data = await res.json();
 
-    return data;
-  }
+  //   return data;
+  // }
 
 
   const fetchCityId = async (city: string, country: string) => {
@@ -51,31 +51,31 @@ export const load = (params) => {
     return data;
   };
 
-  const fetchDestination = async () => {
-    const auth_key = Buffer.from(
-      `${ROAD_GOAT_API}:${ROAD_GOAT_SECRET}`
-    ).toString("base64");
-    const  options = {
-      'method': 'GET',
-      'hostname': 'api.roadgoat.com',
-      'headers': {
-        'Authorization': `Basic ${auth_key}`
-      },
-      'maxRedirects': 20
-    };
+  // const fetchDestination = async () => {
+  //   const auth_key = Buffer.from(
+  //     `${ROAD_GOAT_API}:${ROAD_GOAT_SECRET}`
+  //   ).toString("base64");
+  //   const  options = {
+  //     'method': 'GET',
+  //     'hostname': 'api.roadgoat.com',
+  //     'headers': {
+  //       'Authorization': `Basic ${auth_key}`
+  //     },
+  //     'maxRedirects': 20
+  //   };
 
-    const res = await fetch(`https://api.roadgoat.com/api/v2/destinations/auto_complete?q=${citySlug},${countrySlug}`, options);
-    const data = await res.json();
-    return data;
-  };
+  //   const res = await fetch(`https://api.roadgoat.com/api/v2/destinations/auto_complete?q=${citySlug},${countrySlug}`, options);
+  //   const data = await res.json();
+  //   return data;
+  // };
 
 
   return {
     citySlug: citySlug,
     countrySlug: countrySlug,
     cityPlaces: fetchPlaceData(),
-    cityDestinations: fetchDestination(),
-    travelInfoAI: fetchAICompletion(citySlug, countrySlug),
+    // cityDestinations: fetchDestination(),
+    // travelInfoAI: fetchAICompletion(citySlug, countrySlug),
 
   };
 };

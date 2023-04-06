@@ -1,30 +1,28 @@
 <script lang="ts">
   export let data;
 
-  const { citySlug, countrySlug, cityPlaces, cityDestinations } = data;
+  const { citySlug, countrySlug, cityPlaces } = data;
   const { features } = cityPlaces;
-  const { included } = cityDestinations;
+  // const { included } = cityDestinations;
 
   // halting ai completions for now. ai expensive, me poor
 
   // const { choices } = travelInfoAI;
   // const returnMessageAI = choices[0].message.content;
   
-  const destinationPhotos: any[] = [];
-  const destinationTags: any[] = [];
-  const destinationOther: any[] = [];
+  // const destinationPhotos: any[] = [];
+  // const destinationTags: any[] = [];
+  // const destinationOther: any[] = [];
   
-
-  
-  included.forEach((e: any) => {
-    if(e.type == 'photo') {
-      destinationPhotos.push(e);
-    } else if(e.type == 'known_for') {
-      destinationTags.push(e);
-    } else {
-      destinationOther.push(e);
-    }
-  })
+  // included.forEach((e: any) => {
+  //   if(e.type == 'photo') {
+  //     destinationPhotos.push(e);
+  //   } else if(e.type == 'known_for') {
+  //     destinationTags.push(e);
+  //   } else {
+  //     destinationOther.push(e);
+  //   }
+  // })
 
 </script>
 
@@ -36,12 +34,12 @@
 
   <!-- <p>{returnMessageAI}</p> -->
   <hr style="margin: 5px 0">
-  {#if destinationPhotos.length !== 0}
+  <!-- {#if destinationPhotos.length !== 0}
     {#each destinationPhotos as photo}
       <img class="city-photo" src="{photo.attributes.image.full}" alt="{citySlug}">
     {/each}
-  {/if}
-  {#if destinationTags.length !== 0}
+  {/if} -->
+  <!-- {#if destinationTags.length !== 0}
     <p class="known-for">{citySlug} is known for:</p>
     <div class="tags">
       {#each destinationTags as tag} 
@@ -51,7 +49,7 @@
       {/each}
     </div>
     <hr>
-  {/if}
+  {/if} -->
   <h2>Accommodations & Hotels</h2>
   {#if features.length !== 0}
     <div class="properties">
