@@ -160,7 +160,7 @@
     <h3>Summary from Wikipedia</h3>
     <div class="summary">{@html wikiArticle.extract_html}</div>
   </div>
-  {#if countryCuisine.title !== "Not found."}
+  {#if countryCuisine.title !== "Not found." && countryCuisine.type !== "disambiguation"}
     <div class="cuisine">
       {#if countryCuisine.description == undefined}
         <h3>{countryCuisine.title}</h3>
