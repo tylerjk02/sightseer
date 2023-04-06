@@ -64,7 +64,7 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
-  <hr />
+  
 
   <div class="country">
     <div class="top">
@@ -72,7 +72,7 @@
         <a href="./{name.common}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/history/">History</a>
       </div>
-  
+
       <div class="container country-info">
         <div class="country-political-images">
           {#if coatOfArms.hasOwnProperty("svg")}
@@ -86,7 +86,7 @@
           <b>Size</b>: {area.toLocaleString()}km<sup>2</sup>
         </div>
         <p><b>Capital</b>: {capital}</p>
-  
+
         {#if borders}
           <p><b>Borders</b>: {borderString.join(", ")}</p>
         {/if}
@@ -105,7 +105,6 @@
           <b>UN Member</b>: No
         {/if}
       </div>
-
     </div>
 
     <hr />
@@ -158,10 +157,12 @@
       {/if}
     </div>
 
-    <div class="container wiki-blob">
-      <h3>Summary from Wikipedia</h3>
-      <div class="summary">{@html wikiArticle.extract_html}</div>
-    </div>
+    {#if wikiArticle.type !== "disambiguation"}
+      <div class="container wiki-blob">
+        <h3>Summary</h3>
+        <div class="summary">{@html wikiArticle.extract_html}</div>
+      </div>
+    {/if}
     {#if countryCuisine.title !== "Not found." && countryCuisine.type !== "disambiguation"}
       <div class="container cuisine">
         {#if countryCuisine.description == undefined}
@@ -245,7 +246,10 @@
     }
     .tabs {
       background: #e3e3e3;
-      
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
       a {
         text-decoration: none;
         background: #222222;
@@ -260,6 +264,7 @@
     }
     .tabs:last-of-type {
       display: flex;
+      flex-direction: row;
       justify-content: end;
       gap: 5px;
       padding: 5px;
@@ -287,5 +292,4 @@
       }
     }
   }
-
 </style>
