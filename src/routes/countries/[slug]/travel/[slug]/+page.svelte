@@ -1,12 +1,15 @@
 <script lang="ts">
   export let data;
 
-  const { citySlug, countrySlug, cityPlaces, cityDestinations, travelInfoAI } = data;
+  const { citySlug, countrySlug, cityPlaces, cityDestinations } = data;
   const { features } = cityPlaces;
   const { included } = cityDestinations;
-  const { choices } = travelInfoAI;
 
-  const returnMessageAI = choices[0].message.content;
+  // halting ai completions for now. ai expensive, me poor
+
+  // const { choices } = travelInfoAI;
+  // const returnMessageAI = choices[0].message.content;
+  
   const destinationPhotos: any[] = [];
   const destinationTags: any[] = [];
   const destinationOther: any[] = [];
@@ -30,7 +33,8 @@
     <a href="/countries/{countrySlug}/travel">Back</a>
   </div>
   <h1>Travel in {citySlug}, {countrySlug}</h1>
-  <p>{returnMessageAI}</p>
+
+  <!-- <p>{returnMessageAI}</p> -->
   <hr style="margin: 5px 0">
   {#if destinationPhotos.length !== 0}
     {#each destinationPhotos as photo}
