@@ -10,13 +10,18 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2.4
+*April 6, 2023*
+- Culture summary added to country routes
+- Check added for wiki summary disambiguation
+
+## Previous Versions
+
 ### 0.2.3
 *April 6, 2023*
 - Redesign and complete refactoring of country-page css
 - 'Most populous cities' removed from countries page. (City info will be put in its own page, eventually)
 - Small fixes
-
-## Previous Versions
 
 ### 0.2.2
 *April 5, 2023*
@@ -131,6 +136,8 @@ In-Depth Info Directory for Countries/Cities.
 - Country language info
 - Country currency info
 - Country domain info
+- Country cuisine info
+- Country culture info
 - Country travel advisories
 - Country summary from Wikipedia
 - Country UN status

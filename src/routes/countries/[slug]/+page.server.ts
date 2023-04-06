@@ -43,6 +43,17 @@ export const load = (params) => {
     }
   };
 
+  const fetchCountryCulture = async (id: string) => {
+    try {
+      const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/Culture_of_${id}`);
+      const data = await res.json();
+      return data;
+
+    } catch (err) {
+      return err;
+    }
+  }
+
   const fetchCountryCuisine = async (id: string) => {
     try {
       const countryRes = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryToAlpha3(id)}`);
@@ -148,6 +159,7 @@ export const load = (params) => {
     // cities: fetchCityData(commonName),
     wikiArticle: fetchWikiArticle(commonName),
     travelAdvisory: fetchTravelAdvisoryInfo(commonName),
+    countryCulture: fetchCountryCulture(commonName),
     countryCuisine: fetchCountryCuisine(commonName),
     currencyConversion: fetchCurrencyConversion(countryCurrencyCode),
 

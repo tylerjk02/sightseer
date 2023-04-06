@@ -8,6 +8,7 @@
     wikiArticle,
     currencyConversion,
     countryCuisine,
+    countryCulture,
     slug,
   } = data;
   // travel advisory
@@ -15,6 +16,9 @@
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode: any = travelAdvisoryReq.reply.code;
+
+
+  console.log(countryCulture);
 
   const countryItem = country[0];
 
@@ -161,6 +165,12 @@
       <div class="container wiki-blob">
         <h3>Summary</h3>
         <div class="summary">{@html wikiArticle.extract_html}</div>
+      </div>
+    {/if}
+    {#if countryCulture.title !== "Not found." && countryCulture.type !== "disambiguation" && wikiArticle.extract_html !== countryCulture.extract_html}
+      <div class="container culture">
+        <h3>{countryCulture.title}</h3>
+        <p>{@html countryCulture.extract_html}</p>
       </div>
     {/if}
     {#if countryCuisine.title !== "Not found." && countryCuisine.type !== "disambiguation"}
