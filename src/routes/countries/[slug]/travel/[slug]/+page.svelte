@@ -118,18 +118,19 @@
     .property {
       padding: 5px;
       // border: 1px solid black;
-      background: #222222;
+      background: #e3e3e3;
       padding: 5px;
+      font-size: 18px;
       border-radius: 3px;
-      color: #ffffff;
+      color: #222222;
 
       a {
-        font-size: 12px;
-        color: #fefefe;
+        font-size: 16px;
+        color: #232323;
         text-decoration: underline;
       }
       &__name {
-        font-size: 22px;
+        font-size: 24px;
       }
       &__coords {
         text-decoration: none;

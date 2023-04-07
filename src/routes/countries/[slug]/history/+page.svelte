@@ -56,18 +56,20 @@
     margin: 5px 0;
   }
   .blip {
-    background-color: rgba(30, 30, 30, 0.948);
+    background-color: #e3e3e3;
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: 0 0 2px rgba(30, 30, 30, 0.511);
     margin: 5px;
     padding: 5px;
-    color: #fefefe;
+    font-size: 18px;
+    color: #222222;
 
     &__date {
       margin: 0 0 2px 0;
-      color: #cecece;
-      font-size: 14px;
+      color: #232323;
+      font-weight: bold;
+      font-size: 16px;
       font-style: italic;
     }
   }

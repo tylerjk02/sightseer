@@ -7,6 +7,6 @@ export const load = ({ fetch, params }) => {
 
   return {
     slug: params.slug,
-    continents: fetchContinentData(params.slug)
+    countries: fetchContinentData(params.slug)
   }
 }

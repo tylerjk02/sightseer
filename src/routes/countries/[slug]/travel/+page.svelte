@@ -80,17 +80,17 @@
     display: flex;
     justify-content: space-between;
     /* border: 1px solid black; */
-    background-color: #222222;
+    background-color: #e3e3e3;
     padding: 5px;
     /* margin: 5px; */
     height: 100%;
     text-decoration: none;
-    color: #ffffff;
+    color: #222222;
     border-radius: 3px;
   }
   .city:hover {
     transition: all .1s ease-in-out;
-    background: #4e4e4e;
+    background: #c4c4c4;
   }
 
   .city:active {
@@ -100,20 +100,17 @@
 
   .advisory {
     border-radius: 3px;
-    background: #222222e3;
-    color: #fff;
+    background: #e3e3e3;
+    color: #222222;
     width: max-content;
     padding: 5px;
+    font-size: 18px;
     border: 1px solid black;
 
   }
   .risk-source {
-    font-size: 14px;
-    text-decoration: none;
-    color: #ffffffc6;
-  }
-  .risk-source:hover {
-    text-decoration: underline;
+    font-size: 16px;
+    color: #232323;
   }
 
 

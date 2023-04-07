@@ -1,8 +1,8 @@
 <script lang="ts">
   export let data;
-  const { continents, slug } = data;
+  const { countries, slug } = data;
 
-  continents.sort((a: any, b: any) => {
+  countries.sort((a: any, b: any) => {
     if (a.name.common < b.name.common) {
       return -1;
     }
@@ -13,10 +13,9 @@
   });
 
   const ranNum = () => {
-    return Math.floor(Math.random() * continents.length);
+    return Math.floor(Math.random() * countries.length);
   };
 </script>
-
 
 <div class="continent">
   <div class="trace-back">
@@ -26,31 +25,34 @@
   {#if slug == "antarctic"}
     <h1>Here be penguins...</h1>
   {:else}
-  {#if slug == "americas"}
-    <h1>
-      Countries in the {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}
-    </h1>
-  {:else}
-    <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
-  {/if}
+    {#if slug == "americas"}
+      <h1>
+        Countries in the {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}
+      </h1>
+    {:else}
+      <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
+    {/if}
 
-  <div class="list">
-    {#each continents as { name, flags, altSpellings }}
-      <div class="country">
-        <div class="country-inner">
-          <div class="country-flag">
-            <img src={flags.svg} alt={flags.alt} />
-          </div>
-          <div class="country-info">
-            <a href="/countries/{name.common},{name.official}">{name.common}</a>
-            <p>{name.official}</p>
+    <div class="list">
+      {#each countries as { name, flags, altSpellings }}
+        <div class="country">
+          <div class="country-inner">
+            <div class="country-flag">
+              <img src={flags.svg} alt={flags.alt} />
+            </div>
+            <div class="country-info">
+              <a href="/countries/{name.common},{name.official}"
+                >{name.common}</a
+              >
+              <p>{name.official}</p>
+            </div>
           </div>
         </div>
-      </div>
-    {/each}
-  </div>
+      {/each}
+    </div>
   {/if}
 </div>
+
 <style lang="scss">
   .trace-back {
     display: flex;
