@@ -10,12 +10,18 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2.5
+*April 7, 2023*
+- History routes extended with more info
+- Culture now has its own route, allowing more info and quicker country route loading
+- Better style consistency
+
+## Previous Versions
+
 ### 0.2.4
 *April 6, 2023*
 - Culture summary added to country routes
 - Check added for wiki summary disambiguation
-
-## Previous Versions
 
 ### 0.2.3
 *April 6, 2023*

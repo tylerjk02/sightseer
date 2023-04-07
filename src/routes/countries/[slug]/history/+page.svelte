@@ -6,18 +6,20 @@
     officialName,
     historyBlipsOfficialName,
     historyBlipsCommonName,
+    wikiHistory,
   } = data;
   const historyBlips: any = [];
+
+  console.log(wikiHistory);
 
   historyBlipsCommonName.forEach((e: object) => {
     historyBlips.push(e);
   });
-  if(commonName !== officialName) {
+  if (commonName !== officialName) {
     historyBlipsOfficialName.forEach((e: object) => {
       historyBlips.push(e);
     });
   }
-
 
   historyBlips.sort((a: any, b: any) => {
     if (a.year < b.year) {
@@ -28,7 +30,6 @@
     }
     return 0;
   });
-
 </script>
 
 <div class="history">
@@ -37,6 +38,12 @@
   </div>
 
   <div class="content">
+    {#if wikiHistory.title !== "Not found." && wikiHistory.type !== "disambiguation"}
+      <h1>History Summary</h1>
+      {@html wikiHistory.extract_html}
+      <hr style="margin: 5px 0"/>
+    {/if}
+
     {#if historyBlips.length !== 0}
       <h1>History Blips of {officialName}</h1>
       {#each historyBlips as blip}

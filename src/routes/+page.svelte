@@ -56,6 +56,8 @@
     display: flex;
     align-items: center;
     .region-link {
+      // margin: 5px;
+      transition: all 0.5s ease-out;
       width: 20%;
       position: relative;
       text-align: center;
@@ -65,20 +67,23 @@
         height: 200px;
       }
       .centered {
+        width: 80%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 42px;
+        
         background: var(--color-black);
-        padding: 5px 15px;
-        border-radius: 10px;
+        padding: 0;
+        border-radius: 5px;
       }
     }
     .region-link:hover {
+
+      width: 25%;
       z-index: 1000;
-      transform: scale(101%);
-      transition: all 0.3s;
+      transform: scale(105%);
     }
   }
 
@@ -91,6 +96,7 @@
     }
 
     .region-link {
+
       width: 100% !important;
       height: 200px;
     }

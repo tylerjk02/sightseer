@@ -7,8 +7,6 @@
     travelAdvisory,
     wikiArticle,
     currencyConversion,
-    countryCuisine,
-    countryCulture,
     slug,
   } = data;
   // travel advisory
@@ -16,9 +14,6 @@
   const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
   const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
   const travelAdvisoryResponseCode: any = travelAdvisoryReq.reply.code;
-
-
-  console.log(countryCulture);
 
   const countryItem = country[0];
 
@@ -75,6 +70,7 @@
       <div class="tabs">
         <a href="./{name.common},{name.official}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/history/">History</a>
+        <a href="./{name.common},{name.official}/culture/">Culture</a>
       </div>
 
       <div class="container country-info">
@@ -167,29 +163,8 @@
         <div class="summary">{@html wikiArticle.extract_html}</div>
       </div>
     {/if}
-    {#if countryCulture.title !== "Not found." && countryCulture.type !== "disambiguation" && wikiArticle.extract_html !== countryCulture.extract_html}
-      <div class="container culture">
-        <h3>{countryCulture.title}</h3>
-        <p>{@html countryCulture.extract_html}</p>
-      </div>
-    {/if}
-    {#if countryCuisine.title !== "Not found." && countryCuisine.type !== "disambiguation"}
-      <div class="container cuisine">
-        {#if countryCuisine.description == undefined}
-          <h3>{countryCuisine.title}</h3>
-        {:else}
-          <h3>{countryCuisine.description}</h3>
-        {/if}
-        <p>{@html countryCuisine.extract_html}</p>
-      </div>
-    {/if}
-
+    
     <!-- <hr style="padding: 5px; background: #e3e3e3"> -->
-
-    <div class="tabs">
-      <a href="./{name.common},{name.official}/travel/">Travel</a>
-      <a href="./{name.common},{name.official}/history/">History</a>
-    </div>
   </div>
 
   <!-- likely affecting load time... will move it to separate page... one day -->
@@ -244,7 +219,11 @@
     gap: 1px;
     margin: 5px 0;
   }
+  
 
+  .wiki-blob {
+    padding-bottom: 10px !important;
+  }
   .country {
     .top {
       width: 100%;
@@ -271,13 +250,6 @@
         background: #343434;
         text-decoration: underline;
       }
-    }
-    .tabs:last-of-type {
-      display: flex;
-      flex-direction: row;
-      justify-content: end;
-      gap: 5px;
-      padding: 5px;
     }
     .container {
       background: #e3e3e3;
