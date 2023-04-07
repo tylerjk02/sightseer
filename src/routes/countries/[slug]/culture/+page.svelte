@@ -1,6 +1,10 @@
 <script lang="ts">
+  import { each } from 'svelte/internal';
+
   export let data;
-  const { slug, countryCuisine, countryCulture } = data;
+  const { slug, countryCuisine, countryCulture, countryRecipe } = data;
+
+
   const splitSlug = slug.split(",");
   const commonName = splitSlug[0];
   const officialName = splitSlug[1];
@@ -28,11 +32,30 @@
         <p>{@html countryCuisine.extract_html}</p>
       </div>
     {/if}
+    {#if countryRecipe.length !== 0}
+      <hr>
+      <h2>Recipes</h2>
+      <p>*May or may not be traditional*</p>
+      
+      {#each countryRecipe as { title, instructions, ingredients, servings }}
+        <div class="recipe">
+          <h4>{title}</h4>
+          <div class="ingredients">{@html ingredients.split('|').join('<br/>')}</div><br>
+          <div class="instructions">{instructions}</div><br>
+          <div class="servings">{servings}</div>
+        </div>
+      {/each}
+    {/if}
   </div>
 </div>
 
 <style lang="scss">
   .trace-back {
+    margin: 5px 0;
+  }
+  .recipe {
+    border: 1px solid #222222;
+    padding: 5px;
     margin: 5px 0;
   }
 </style>

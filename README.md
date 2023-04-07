@@ -10,13 +10,18 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2.6
+*April 7, 2023*
+- Added recipes (ingredients, instructions and servings) related to given country (if applicable). Can be found in culture route.
+- Small changes
+
+## Previous Versions
+
 ### 0.2.5
 *April 7, 2023*
 - History routes extended with more info
 - Culture now has its own route, allowing more info and quicker country route loading
 - Better style consistency
-
-## Previous Versions
 
 ### 0.2.4
 *April 6, 2023*
@@ -150,6 +155,7 @@ In-Depth Info Directory for Countries/Cities.
 - Country independence status
 - Country landlocked status
 - Country driving-side
+- Country recipes
 
 ### City Data:
 - Most populous cities in given country
@@ -167,3 +173,8 @@ In-Depth Info Directory for Countries/Cities.
 
 ### History Data:
 - History blips of given country
+
+### Culture Data: 
+- Culture Summary
+- Local cuisine culture
+- Recipes relating to given country
