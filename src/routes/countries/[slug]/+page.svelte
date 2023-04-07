@@ -73,7 +73,7 @@
   <div class="country">
     <div class="top">
       <div class="tabs">
-        <a href="./{name.common}/travel/">Travel</a>
+        <a href="./{name.common},{name.official}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/history/">History</a>
       </div>
 
@@ -187,7 +187,7 @@
     <!-- <hr style="padding: 5px; background: #e3e3e3"> -->
 
     <div class="tabs">
-      <a href="./{name.common}/travel/">Travel</a>
+      <a href="./{name.common},{name.official}/travel/">Travel</a>
       <a href="./{name.common},{name.official}/history/">History</a>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <script lang="ts">
   export let data;
 
-  const { citySlug, countrySlug, cityPlaces } = data;
+  const { citySlug, nameCommon, nameOfficial, cityPlaces } = data;
   const { features } = cityPlaces;
   // const { included } = cityDestinations;
 
@@ -28,9 +28,9 @@
 
 <div class="travel">
   <div class="trace-back">
-    <a href="/countries/{countrySlug}/travel">Back</a>
+    <a href="/countries/{nameCommon},{nameOfficial}/travel">Back</a>
   </div>
-  <h1>Travel in {citySlug}, {countrySlug}</h1>
+  <h1>Travel in {citySlug}, {nameCommon}</h1>
 
   <!-- <p>{returnMessageAI}</p> -->
   <hr style="margin: 5px 0">

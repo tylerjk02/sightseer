@@ -5,6 +5,10 @@
 
   const { slug, cities, travelAdvisory } = data;
 
+  const nameCommon = slug[0];
+  const nameOfficial = slug[1];
+
+
   const advisoryStatus = travelAdvisory.api_status;
   const advisoryData: any = Object.values(travelAdvisory.data)[0];
   const { advisory, continent, iso_alpha2, name } = advisoryData;
@@ -14,7 +18,7 @@
 
 <div class="travel">
   <div class="trace-back">
-    <a href="/countries/{slug}">Back</a>
+    <a href="/countries/{nameCommon},{nameOfficial}">Back</a>
   </div>
   {#if advisoryStatus.reply.status == "ok"}
     <div class="advisory">
@@ -30,7 +34,7 @@
       <a class="risk-source" target="_blank" href="{advisory.source}">Source</a>
     </div>
   {/if}
-  <h1>Travel to {upperCaseFirst(slug)}</h1>
+  <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
   <!-- functionality for search works, way to many edge cases to make viable though. -->
   <!-- <div class="city-search">
     <label for="city-search">
@@ -44,7 +48,7 @@
       <h2>Please Select a City</h2>
       <div class="cities">
         {#each cities as { country, is_capital, latitude, longitude, name, population }}
-          <a class="city" href="./travel/{name},{country}">
+          <a class="city" href="./travel/{name},{nameCommon},{nameOfficial}">
             <div class="city-info">
               <h3>{name}</h3>
               <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>

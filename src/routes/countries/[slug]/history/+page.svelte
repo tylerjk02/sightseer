@@ -33,7 +33,7 @@
 
 <div class="history">
   <div class="trace-back">
-    <a href="/countries/{commonName}">Back</a>
+    <a href="/countries/{commonName},{officialName}">Back</a>
   </div>
 
   <div class="content">

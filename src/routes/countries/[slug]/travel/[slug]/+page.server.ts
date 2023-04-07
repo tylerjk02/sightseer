@@ -12,6 +12,8 @@ export const load = (params) => {
   const splitSlug = params.params.slug.split(",");
   const citySlug = splitSlug[0];
   let countrySlug = splitSlug[1];
+  let countryOfficialSlug = splitSlug[2];
+
   if(countrySlug.length == 2) {
     countrySlug = countries.getName(countrySlug, "en");
   } 
@@ -72,7 +74,8 @@ export const load = (params) => {
 
   return {
     citySlug: citySlug,
-    countrySlug: countrySlug,
+    nameCommon: countrySlug,
+    nameOfficial: countryOfficialSlug,
     cityPlaces: fetchPlaceData(),
     // cityDestinations: fetchDestination(),
     // travelInfoAI: fetchAICompletion(citySlug, countrySlug),

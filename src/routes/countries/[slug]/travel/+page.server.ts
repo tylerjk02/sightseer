@@ -3,6 +3,9 @@ import { countryToAlpha2 } from "country-to-iso";
 
 export const load = (params) => {
 
+  const splitSlug = params.params.slug.split(',');
+  const nameCommon = splitSlug[0];
+  const nameOfficial = splitSlug[1]
 
   const fetchTravelAdvisoryInfo = async (id: string) => {
     try {
@@ -40,9 +43,9 @@ export const load = (params) => {
   };
   
   return {
-    slug: params.params.slug,
-    cities: fetchCityData(params.params.slug),
-    travelAdvisory: fetchTravelAdvisoryInfo(params.params.slug),
+    slug: splitSlug,
+    cities: fetchCityData(nameCommon),
+    travelAdvisory: fetchTravelAdvisoryInfo(nameCommon),
 
   };
 };
