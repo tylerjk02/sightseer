@@ -35,19 +35,20 @@
 
     <div class="list">
       {#each countries as { name, flags, altSpellings }}
-        <div class="country">
+        <a href="/countries/{name.common},{name.official}" class="country">
           <div class="country-inner">
-            <div class="country-flag">
-              <img src={flags.svg} alt={flags.alt} />
+            <div class="base-info">
+              <div class="country-flag">
+                <img src={flags.svg} alt={flags.alt} />
+              </div>
+
+              <h1>{name.common}</h1>
             </div>
             <div class="country-info">
-              <a href="/countries/{name.common},{name.official}"
-                >{name.common}</a
-              >
               <p>{name.official}</p>
             </div>
           </div>
-        </div>
+        </a>
       {/each}
     </div>
   {/if}
@@ -63,9 +64,10 @@
     margin: 5px;
     .list {
       .country {
+        text-decoration: none;
         color: var(--color-black);
-        background: var(--color-light-grey);
-        box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+        border: 1px solid #222222;
+        background: #f6ffff;
         padding: 5px;
         margin: 5px;
 
@@ -74,23 +76,25 @@
         gap: 5px;
 
         .country-inner {
-          background: var(--color-white);
           width: 100%;
           height: 100%;
           padding: 5px;
-
-          .country-info {
-            a {
-              font-size: 24px;
-              text-decoration: none;
-            }
-            a:hover {
-              text-decoration: underline;
+          .base-info {
+            display: flex;
+            justify-self: center;
+            align-items: center;
+            gap: 10px;
+            .country-info {
+              h1 {
+                font-size: 28px;
+              }
             }
           }
         }
+
         .country-flag img {
-          width: 65px;
+          width: 85px;
+          max-height: 60px;
           box-shadow: 0 0 1px black;
         }
       }
