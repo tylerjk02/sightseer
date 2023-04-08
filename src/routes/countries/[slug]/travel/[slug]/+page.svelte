@@ -1,19 +1,19 @@
 <script lang="ts">
   export let data;
 
-  const { citySlug, nameCommon, nameOfficial, cityPlaces } = data;
-  const { features } = cityPlaces;
+  const { citySlug, nameCommon, nameOfficial } = data;
+  // const { features } = cityPlaces;
   // const { included } = cityDestinations;
 
   // halting ai completions for now. ai expensive, me poor
 
   // const { choices } = travelInfoAI;
   // const returnMessageAI = choices[0].message.content;
-  
+
   // const destinationPhotos: any[] = [];
   // const destinationTags: any[] = [];
   // const destinationOther: any[] = [];
-  
+
   // included.forEach((e: any) => {
   //   if(e.type == 'photo') {
   //     destinationPhotos.push(e);
@@ -23,7 +23,6 @@
   //     destinationOther.push(e);
   //   }
   // })
-
 </script>
 
 <div class="travel">
@@ -33,7 +32,7 @@
   <h1>Travel in {citySlug}, {nameCommon}</h1>
 
   <!-- <p>{returnMessageAI}</p> -->
-  <hr style="margin: 5px 0">
+  <hr style="margin: 5px 0" />
   <!-- {#if destinationPhotos.length !== 0}
     {#each destinationPhotos as photo}
       <img class="city-photo" src="{photo.attributes.image.full}" alt="{citySlug}">
@@ -51,40 +50,47 @@
     <hr>
   {/if} -->
   <h2>Accommodations & Hotels</h2>
-  {#if features.length !== 0}
+  {#await data.streamed.places}
+    Loading...
+  {:then places}
     <div class="properties">
-      {#each features as { properties }}
-        <div class="property">
-          <h3 class="property__name">{properties.address_line1}</h3>
-          <p class="property__category">
-            {properties.categories[1]
-              .split(".")
-              .join(", ")
-              .split("_")
-              .join(" ")}
-          </p>
-          <p class="property__address">{properties.address_line2}</p>
-          {#if properties.district}
-            <p class="property__district">{properties.district}</p>
-          {/if}
-          <a
-            target="_blank"
-            href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
-            class="property__coords">{properties.lat}, {properties.lon}</a
-          >
-          <!-- <br /> -->
-          <a
-            class="property__source"
-            target="_blank"
-            href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
-              .datasource.raw.osm_id}&class=tourism">Source</a
-          >
-        </div>
-      {/each}
+      {#if places.features.length !== 0}
+        {#each places.features as { properties }}
+          <div class="property">
+            <h3 class="property__name">{properties.address_line1}</h3>
+            <p class="property__category">
+              {properties.categories[1]
+                .split(".")
+                .join(", ")
+                .split("_")
+                .join(" ")}
+            </p>
+            <p class="property__address">{properties.address_line2}</p>
+            {#if properties.district}
+              <p class="property__district">{properties.district}</p>
+            {/if}
+            <a
+              target="_blank"
+              href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
+              class="property__coords">{properties.lat}, {properties.lon}</a
+            >
+            <!-- <br /> -->
+            <a
+              class="property__source"
+              target="_blank"
+              href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
+                .datasource.raw.osm_id}&class=tourism">Source</a
+            >
+          </div>
+        {/each}
+      {:else}
+        We couldn't find anything...
+      {/if}
     </div>
-  {:else}
-    <p>Sorry, we couldn't find anything...</p>
-  {/if}
+  {:catch error}
+    {console.error(error)}
+  {/await}
+  <br>
 </div>
 
 <style lang="scss">

@@ -2,25 +2,16 @@
   import lookup from "country-code-lookup";
 
   export let data;
-  const {
-    country,
-    travelAdvisory,
-    wikiArticle,
-    currencyConversion,
-    slug,
-  } = data;
-  // travel advisory
-  const travelAdvisoryReq: any = Object.values(travelAdvisory)[0];
-  const travelAdvisoryData: any = Object.values(travelAdvisory)[1];
-  const currentCountryAdvisory: any = Object.values(travelAdvisoryData)[0];
-  const travelAdvisoryResponseCode: any = travelAdvisoryReq.reply.code;
+  const { country, slug } = data;
 
   const countryItem = country[0];
 
-  const countryLanguages: any = Object.values(countryItem.languages);
+  let countryLanguages: any;
+  if (countryItem.languages) {
+    countryLanguages = Object.values(countryItem.languages);
+  }
 
   const countryCurrenciesValues: any = Object.values(countryItem.currencies);
-  const { new_amount, new_currency } = currencyConversion;
 
   const countryDrivingSide: any = Object.values(countryItem.car);
 
@@ -63,7 +54,6 @@
       <p>{name.common.toLowerCase()}</p>
     </div>
   </div>
-  
 
   <div class="country">
     <div class="top">
@@ -127,9 +117,21 @@
       <div class="currency">
         <b>Currency</b>: {countryCurrenciesValues[0].name} ({countryCurrenciesValues[0]
           .symbol})
-        {#if new_amount !== undefined}
-          <p>$1 USD = {new_amount} {new_currency}</p>
-        {/if}
+
+        <!-- Currency Conversion -->
+        {#await data.streamed.currency}
+          Converting...
+        {:then conversion}
+          {#if conversion.new_amount !== undefined}
+            <p>$1 USD = {conversion.new_amount} {conversion.new_currency}</p>
+          {/if}
+        {:catch error}
+          {console.error(error)}
+        {/await}
+        <!-- End Currency Conversion -->
+
+
+        
       </div>
       {#if countryDrivingSide[1] !== undefined}
         <div class="driving-side">
@@ -143,74 +145,39 @@
         </div>
       {/if}
 
-      {#if travelAdvisoryResponseCode == 200}
-        <!-- Advisory API seems to default to...Niue Island? Adding a check for that. -->
-        {#if currentCountryAdvisory.iso_alpha2 !== "NU"}
-          <div class="travel-advisory">
-            <b>Travel Advisory:</b>
-            <p>{currentCountryAdvisory.advisory.message}</p>
-            <a target="_blank" href={currentCountryAdvisory.advisory.source}
-              >Source</a
-            >
-          </div>
-        {/if}
-      {/if}
+      <!-- Travel Advisory -->
+      {#await data.streamed.travel}
+        Loading...
+      {:then response}
+        <div class="travel-advisory">
+          <b>Travel Advisory:</b>
+          <p>{response.advisory.message}</p>
+          <a target="_blank" href={response.advisory.source}>Source</a>
+        </div>
+      {:catch error}
+        {console.error(error)}
+      {/await}
+      <!-- End Travel Advisory -->
     </div>
 
-    {#if wikiArticle.type !== "disambiguation"}
-      <div class="container wiki-blob">
-        <h3>Summary</h3>
-        <div class="summary">{@html wikiArticle.extract_html}</div>
-      </div>
-    {/if}
-    
+    {#await data.streamed.article}
+      Loading...
+    {:then article}
+      {#if article.type !== "disambiguation"}
+        <div class="container wiki-blob">
+          <h3>Summary</h3>
+          <div class="summary">{@html article.extract_html}</div>
+        </div>
+      {/if}
+    {:catch error}
+      {console.error(error)}
+    {/await}
+    <!-- {#if wikiArticle.type !== "disambiguation"}
+
+    {/if} -->
+
     <!-- <hr style="padding: 5px; background: #e3e3e3"> -->
   </div>
-
-  <!-- likely affecting load time... will move it to separate page... one day -->
-  <!-- {#if cities.length !== 0}
-    <div class="country-cities">
-      <h3>Most Populated Cities of {name.common}</h3>
-      <div class="city-wrap">
-        {#each cities as { is_capital, latitude, longitude, name, population, country }}
-          <div class="city">
-            <h1>{name}</h1>
-            {#if is_capital == true}
-              <b>Capital</b>
-            {/if}
-
-            <p>Coordinates: {latitude}, {longitude}</p>
-            {#if population}
-              <p>Population: {population.toLocaleString()}</p>
-            {/if}
-          </div>
-        {/each}
-      </div>
-    </div>
-
-    <hr />
-  {/if} -->
-
-  <!-- causes too many errors (missing thumbnail?) -->
-  <!-- {#if webcamResults.length > 0}
-    <div class="webcams">
-      <h3>Webcams from around {name.common}</h3>
-      <div class="webcam-wrap">
-        {#each webcamResults as { location, player, title }}
-          <div class="webcam">
-            <p>{title}</p>
-            <iframe
-              {title}
-              src={player.day.embed}
-              frameborder="0"
-              width="300"
-              height="200"
-            />
-          </div>
-        {/each}
-      </div>
-    </div>
-  {/if} -->
 </div>
 
 <style lang="scss">
@@ -219,7 +186,6 @@
     gap: 1px;
     margin: 5px 0;
   }
-  
 
   .wiki-blob {
     padding-bottom: 10px !important;

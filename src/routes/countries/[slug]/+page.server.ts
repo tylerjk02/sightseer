@@ -24,10 +24,8 @@ export const load = (params) => {
       return err;
     }
   };
-
   
   const fetchCountryData = async (id: string) => {
-    // so sorry for this one. too bad!
     try {
       const res = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryToAlpha3(id)}`);
       const data = await res.json();
@@ -42,8 +40,6 @@ export const load = (params) => {
       return err;
     }
   };
-
- 
 
   const fetchCurrencyConversion = async (id: string) => {
     try {
@@ -60,75 +56,34 @@ export const load = (params) => {
     }
   }
 
-
-
   const fetchTravelAdvisoryInfo = async (id: string) => {
     try {
       const res = await fetch(
         `https://www.travel-advisory.info/api?countrycode=${countryToAlpha2(id)}`
       );
-      const data = await res.json();
-      return data;
+      const fullRes = await res.json();
+      const resStatus = fullRes.api_status.reply.code;
+      const resData: any = Object.values(fullRes.data)[0];
+      const data = resData;
+      if(resData.iso_alpha2 !== 'NU' && resStatus == 200) {
+        return data;
+      } else {
+        return resStatus;
+      }
+      // return data;
     } catch (err) {
       return err;
     }
   };
 
-  
-  // Moving city data to its own page.
-
-  // const fetchCityData = async (id: string) => {
-  //   try {
-  //     const res = await fetch(
-  //       `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
-  //         id
-  //       )}&limit=20`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "X-Api-Key": NINJA_API_KEY,
-  //         },
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     return data;
-  //   } catch (err) {
-  //     return err;
-  //   }
-  // };
-
-  // Throwing hundred of errors related to missing thumbnails. Working on it.
-
-  // const fetchWebcamData = async (id: string) => {
-  //   try {   
-  //     const res = await fetch(
-  //       `https://api.windy.com/api/webcams/v2/list/country=${countryToAlpha2(
-  //         id
-  //       )}?show=webcams:title,player,location,status`,
-  //       {
-  //         headers: {
-  //           "x-windy-key": WINDY_API_KEY,
-  //         },
-  //       }
-  //     );
-  //     const data = res.json();
-  //     return data;
-  //   } catch(err) {
-  //     return err;
-  //   }
-  // };
 
   return {
     slug: params.params.slug,
     country: fetchCountryData(commonName),
-    // cities: fetchCityData(commonName),
-    wikiArticle: fetchWikiArticle(commonName),
-    travelAdvisory: fetchTravelAdvisoryInfo(commonName),
-    // countryCulture: fetchCountryCulture(commonName),
-    // countryCuisine: fetchCountryCuisine(commonName),
-    currencyConversion: fetchCurrencyConversion(countryCurrencyCode),
-
-
-    // webcams: fetchWebcamData(params.params.slug),
+    streamed: {
+      currency: fetchCurrencyConversion(countryCurrencyCode),
+      travel: fetchTravelAdvisoryInfo(commonName),
+      article: fetchWikiArticle(commonName),
+    },
   };
 };

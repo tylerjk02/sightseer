@@ -10,8 +10,6 @@
   } = data;
   const historyBlips: any = [];
 
-  console.log(wikiHistory);
-
   historyBlipsCommonName.forEach((e: object) => {
     historyBlips.push(e);
   });

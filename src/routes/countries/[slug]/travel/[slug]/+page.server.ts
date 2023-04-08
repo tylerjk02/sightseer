@@ -35,16 +35,9 @@ export const load = (params) => {
   // }
 
 
-  const fetchCityId = async (city: string, country: string) => {
-    const res = await fetch(
-      `https://api.geoapify.com/v1/geocode/search?text=${city}%20${country}&format=json&apiKey=${GEOAPIFY_API_KEY}`
-    );
-    const data = await res.json();
-    return data;
-  };
-
-  const fetchPlaceData = async () => {
-    const cityIdObj = await fetchCityId(citySlug, countrySlug);
+  const fetchPlaceData = async (city: string, country: string) => {
+    const getCityId =  await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city}%20${country}&format=json&apiKey=${GEOAPIFY_API_KEY}`)
+    const cityIdObj = await getCityId.json();
     const cityId = cityIdObj.results[0].place_id;
     const res = await fetch(
       `https://api.geoapify.com/v2/places?categories=accommodation&filter=place:${cityId}&limit=15&apiKey=${GEOAPIFY_API_KEY}`
@@ -52,6 +45,7 @@ export const load = (params) => {
     const data = await res.json();
     return data;
   };
+
 
   // const fetchDestination = async () => {
   //   const auth_key = Buffer.from(
@@ -76,7 +70,9 @@ export const load = (params) => {
     citySlug: citySlug,
     nameCommon: countrySlug,
     nameOfficial: countryOfficialSlug,
-    cityPlaces: fetchPlaceData(),
+    streamed: {
+      places: fetchPlaceData(citySlug, countrySlug),
+    }
     // cityDestinations: fetchDestination(),
     // travelInfoAI: fetchAICompletion(citySlug, countrySlug),
 

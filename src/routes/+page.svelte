@@ -80,8 +80,7 @@
       }
     }
     .region-link:hover {
-
-      width: 25%;
+      // width: 25%;
       z-index: 1000;
       transform: scale(105%);
     }

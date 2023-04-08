@@ -10,12 +10,18 @@ In-Depth Info Directory for Countries/Cities.
 
 ## Current Version
 
+### 0.2.7
+*April 8, 2023*
+- Travel page now streams hotels and accommodations, greatly increasing navigation speed
+- Country page now streams most info, increasing navigation speed
+- Style changes
+
+## Previous Versions
+
 ### 0.2.6
 *April 7, 2023*
 - Added recipes (ingredients, instructions and servings) related to given country (if applicable). Can be found in culture route.
 - Small changes
-
-## Previous Versions
 
 ### 0.2.5
 *April 7, 2023*
