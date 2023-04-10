@@ -61,6 +61,7 @@
         <a href="./{name.common},{name.official}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/history/">History</a>
         <a href="./{name.common},{name.official}/culture/">Culture</a>
+        <a href="./{name.common},{name.official}/news">News</a>
       </div>
 
       <div class="container country-info">
@@ -206,6 +207,7 @@
       gap: 5px;
 
       a {
+        text-align: center;
         text-decoration: none;
         background: #222222;
         color: #ffffff;
