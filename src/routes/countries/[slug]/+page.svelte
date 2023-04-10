@@ -61,7 +61,7 @@
         <a href="./{name.common},{name.official}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/history/">History</a>
         <a href="./{name.common},{name.official}/culture/">Culture</a>
-        <a href="./{name.common},{name.official}/news">News</a>
+        <!-- <a href="./{name.common},{name.official}/news">News</a> -->
       </div>
 
       <div class="container country-info">

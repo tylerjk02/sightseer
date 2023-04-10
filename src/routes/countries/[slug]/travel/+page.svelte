@@ -8,12 +8,10 @@
   const nameCommon = slug[0];
   const nameOfficial = slug[1];
 
-
   const advisoryStatus = travelAdvisory.api_status;
   const advisoryData: any = Object.values(travelAdvisory.data)[0];
   const { advisory, continent, iso_alpha2, name } = advisoryData;
   let searchValue: string;
-
 </script>
 
 <div class="travel">
@@ -31,10 +29,9 @@
           {name} has a travel risk level of {advisory.score} (out of 5)
         </p>
       {/if}
-      <a class="risk-source" target="_blank" href="{advisory.source}">Source</a>
+      <a class="risk-source" target="_blank" href={advisory.source}>Source</a>
     </div>
   {/if}
-  <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
   <!-- functionality for search works, way to many edge cases to make viable though. -->
   <!-- <div class="city-search">
     <label for="city-search">
@@ -43,7 +40,8 @@
       <a href="./travel/{searchValue},{slug}">Go</a>
     </label> 
   </div> -->
-  {#if cities}
+  {#if cities.length !== 0}
+    <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
     <div class="city-select">
       <h2>Please Select a City</h2>
       <div class="cities">
@@ -60,8 +58,9 @@
         {/each}
       </div>
     </div>
+  {:else}
+    Sorry, our system couldn't find anything...
   {/if}
-
 </div>
 
 <style>
@@ -72,7 +71,6 @@
   .trace-back {
     margin: 5px 0;
   }
-  
 
   .cities {
     display: grid;
@@ -93,7 +91,7 @@
     border-radius: 3px;
   }
   .city:hover {
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
     background: #c4c4c4;
   }
 
@@ -110,13 +108,11 @@
     padding: 5px;
     font-size: 18px;
     border: 1px solid black;
-
   }
   .risk-source {
     font-size: 16px;
     color: #232323;
   }
-
 
   @media screen and (max-width: 728px) {
     .cities {

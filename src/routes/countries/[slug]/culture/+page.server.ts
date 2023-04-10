@@ -18,6 +18,20 @@ export const load = (params) => {
     }
   };
 
+  const fetchCountryCelebrities = async (id: string) => {
+    try {
+      const options = {
+        headers: {
+          "X-Api-Key": NINJA_API_KEY,
+        },
+      };
+      const res = await fetch(`https://api.api-ninjas.com/v1/celebrity?nationality=${countryToAlpha2(id)}`, options);
+      const data = await res.json();
+    } catch (err) {
+      return err;
+    }
+  };
+
   const fetchCountryCuisine = async (id: string) => {
     try {
       const countryRes = await fetch(
@@ -45,7 +59,6 @@ export const load = (params) => {
       return err;
     }
   };
-
 
   // i needed demonyms. this was the only way. too bad!
   // also, note to self to pay for ai. way more recipes available and will cover 99.9%* of countries (*antarctic 'countries' just return meatballs)
@@ -105,8 +118,10 @@ export const load = (params) => {
 
   return {
     slug: params.params.slug,
-    countryCulture: fetchCountryCulture(commonName),
-    countryCuisine: fetchCountryCuisine(commonName),
-    countryRecipe: fetchRecipe(commonName),
+    streamed: {
+      culture: fetchCountryCulture(commonName),
+      cuisine: fetchCountryCuisine(commonName),
+      recipes: fetchRecipe(commonName),
+    },
   };
 };

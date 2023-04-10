@@ -12,12 +12,19 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.2.9
+
+- Added toggle to hide news images
+- Fixes to news route styling
+- Culture route info now streams to the page, greatly increasing navigation speed
+- News routes temporarily halted due to faulty API
+
+## Previous Versions
+
 ### 0.2.8
 
 - News route now available via country pages. Displays local news.
 - Small changes
-
-## Previous Versions
 
 ### 0.2.7
 
@@ -168,6 +175,7 @@ A full list of data we provide can be found below.
 - Country landlocked status
 - Country driving-side
 - Country recipes
+- Country news
 
 ### City Data
 
@@ -187,6 +195,7 @@ A full list of data we provide can be found below.
 
 ### History Data
 
+- History summary
 - History blips of given country
 
 ### Culture Data
