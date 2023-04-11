@@ -14,9 +14,10 @@ A full list of data we provide can be found below.
 
 ### 0.3.2
 
-- Cities now have an independent route. Containing available cities & info
-- Folklore now extended with more detail if available. Fixing many 'single sentence' pages.
+- Cities now have an independent route. This is composed into three sections, 'Cities', 'Towns', and 'Villages'.
+- Folklore now extended with more detail if available. Fixing many 'single sentence' pages
 - Photo route tailored to show more landscape/nature images and less map/flag images
+- Travel route returns a limit of 10 cities (Previously it returned 30, with the lower 20 usually having no travel info)
 
 ## Previous Versions
 
@@ -54,7 +55,7 @@ A full list of data we provide can be found below.
 
 ### 0.2.6
 
-- Added recipes (ingredients, instructions and servings) related to given country (if applicable). Can be found in culture route.
+- Added recipes (ingredients, instructions and servings) related to given country (if applicable). Can be found in culture route
 - Small changes
 
 ### 0.2.5

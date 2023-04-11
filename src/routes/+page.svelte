@@ -4,7 +4,7 @@
 
 <main class="main">
   <h1>Choose a region</h1>
-  <div class="regions">
+  <div class="regions links">
     <a class="region-link" href="/continents/africa">
       <img
         class="region-img"
