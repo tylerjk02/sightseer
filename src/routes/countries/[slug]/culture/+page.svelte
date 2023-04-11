@@ -1,10 +1,21 @@
 <script lang="ts">
+  import { nameCase } from "@foundernest/namecase";
+
   export let data;
   const { slug } = data;
 
   const splitSlug = slug.split(",");
   const commonName = splitSlug[0];
   const officialName = splitSlug[1];
+  let showCelebs: boolean = true;
+  let showRecipes: boolean = true;
+
+  const showCelebsToggle = () => {
+    showCelebs = !showCelebs;
+  };
+  const showRecipesToggle = () => {
+    showRecipes = !showRecipes;
+  };
 </script>
 
 <div class="culture">
@@ -28,6 +39,47 @@
 
     <!-- End Culture -->
 
+    <!-- Celebrities -->
+    {#await data.streamed.celebrities}
+      ...
+    {:then countryCelebrities}
+      {#if countryCelebrities.length !== 0}
+        <h3>Celebrities of {commonName}</h3>
+        {#if showCelebs == true}
+          <button on:click={showCelebsToggle}>Hide</button>
+        {:else}
+          <button on:click={showCelebsToggle}>Show</button>
+        {/if}
+        {#if showCelebs == true}
+          <div class="celebrities">
+            {#each countryCelebrities as celebrity}
+              <div class="celebrity">
+                <h4>
+                  {nameCase(celebrity.name)}{#if celebrity.age}, {celebrity.age}{/if}
+                </h4>
+                <p>Net Worth: ${celebrity.net_worth.toLocaleString()}</p>
+                {#if celebrity.is_alive}
+                  <p>Alive</p>
+                {:else}
+                  <p>Deceased</p>
+                {/if}
+                {#if celebrity.hasOwnProperty("occupation")}
+                  <div class="jobs">
+                    {#each celebrity.occupation as occupation}
+                      <div class="job">
+                        {occupation}
+                      </div>
+                    {/each}
+                  </div>
+                {/if}
+              </div>
+            {/each}
+          </div>
+        {/if}
+      {/if}
+    {/await}
+    <!-- End Celebrities -->
+
     <!-- Cuisine -->
     {#await data.streamed.cuisine}
       ...
@@ -50,8 +102,14 @@
       ...
     {:then countryRecipes}
       {#if countryRecipes.length !== 0}
-        <hr />
-        <h2>Recipes</h2>
+        {#if showRecipes == true}
+          <button on:click={showRecipesToggle}>Hide</button>
+        {:else}
+          <button on:click={showRecipesToggle}>Show</button>
+        {/if}
+      {/if}
+      {#if countryRecipes.length !== 0 && showRecipes == true}
+        <h3>Recipes</h3>
         <p>*May or may not be traditional*</p>
 
         {#each countryRecipes as { title, instructions, ingredients, servings }}
@@ -70,7 +128,16 @@
     {/await}
     <!-- End Recipes -->
 
-
+    <!-- Folklore -->
+    {#await data.streamed.folklore}
+      ...
+    {:then folklore}
+      {#if folklore.title !== "Not found." && folklore.type !== "disambiguation"}
+        <h3>{folklore.title}</h3>
+        <p>{@html folklore.extract_html}</p>
+      {/if}
+    {/await}
+    <!-- End Folklore-->
   </div>
 </div>
 
@@ -82,5 +149,26 @@
     border: 1px solid #222222;
     padding: 5px;
     margin: 5px 0;
+  }
+  .celebrities {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .celebrity {
+    border: 1px solid #222222;
+  }
+  .jobs {
+    display: flex;
+    gap: 5px;
+    .job {
+      border: 1px solid #222222;
+      padding: 0 3px;
+    }
+  }
+
+  @media screen and (max-width: 1096px) {
+    .celebrities {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 </style>

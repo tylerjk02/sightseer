@@ -60,7 +60,8 @@
       <div class="tabs">
         <a href="./{name.common},{name.official}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/history/">History</a>
-        <a href="./{name.common},{name.official}/culture/">Culture</a>
+        <a href="./{name.common},{name.official},{demonyms.eng.m}/culture/">Culture</a>
+        <a href="./{name.common},{name.official}/photos/">Photos</a>
         <!-- <a href="./{name.common},{name.official}/news">News</a> -->
       </div>
 

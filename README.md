@@ -12,14 +12,23 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.3
+
+- Photos route now available via county pages. Displays country images
+- Country celebrities now available via culture pages
+- Country folklore summary now available via culture pages
+- Toggles added for celebrities and recipes on culture pages
+- Refactoring of culture pages
+- Style changes
+
+## Previous Versions
+
 ### 0.2.9
 
 - Added toggle to hide news images
 - Fixes to news route styling
 - Culture route info now streams to the page, greatly increasing navigation speed
 - News routes temporarily halted due to faulty API
-
-## Previous Versions
 
 ### 0.2.8
 
@@ -175,6 +184,9 @@ A full list of data we provide can be found below.
 - Country landlocked status
 - Country driving-side
 - Country recipes
+- Country photos
+- Country folklore summary
+- Country celebrities
 - Country news
 
 ### City Data
