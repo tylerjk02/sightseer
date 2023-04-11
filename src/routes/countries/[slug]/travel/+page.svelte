@@ -3,7 +3,7 @@
 
   export let data;
 
-  const { slug, cities, travelAdvisory } = data;
+  const { slug, travelAdvisory } = data;
 
   const nameCommon = slug[0];
   const nameOfficial = slug[1];
@@ -20,7 +20,7 @@
   </div>
   {#if advisoryStatus.reply.status == "ok"}
     <div class="advisory">
-      {#if advisory.score > 3}
+      {#if advisory.score > 3.5}
         <p class="risk-level high">
           {name} has a travel risk level of {advisory.score} (out of 5)
         </p>
@@ -40,27 +40,31 @@
       <a href="./travel/{searchValue},{slug}">Go</a>
     </label> 
   </div> -->
-  {#if cities.length !== 0}
-    <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
-    <div class="city-select">
-      <h2>Please Select a City</h2>
-      <div class="cities">
-        {#each cities as { country, is_capital, latitude, longitude, name, population }}
-          <a class="city" href="./travel/{name},{nameCommon},{nameOfficial}">
-            <div class="city-info">
-              <h3>{name}</h3>
-              <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
-              {#if is_capital}
-                <p>Capital</p>
-              {/if}
-            </div>
-          </a>
-        {/each}
+  {#await data.streamed.cities}
+    Loading...
+  {:then cities}
+    {#if cities.length !== 0}
+      <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
+      <div class="city-select">
+        <h2>Please Select a City</h2>
+        <div class="cities">
+          {#each cities as { country, is_capital, latitude, longitude, name, population }}
+            <a class="city" href="./travel/{name},{nameCommon},{nameOfficial}">
+              <div class="city-info">
+                <h3>{name}</h3>
+                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
+                {#if is_capital}
+                  <p>Capital</p>
+                {/if}
+              </div>
+            </a>
+          {/each}
+        </div>
       </div>
-    </div>
-  {:else}
-    Sorry, our system couldn't find anything...
-  {/if}
+    {:else}
+      Sorry, our system couldn't find anything...
+    {/if}
+  {/await}
 </div>
 
 <style>

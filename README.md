@@ -12,6 +12,13 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.3.1
+
+- Cities now stream to travel pages, improving navigation speed
+- Preloading disabled for travel pages, fixing 500 error
+
+## Previous Versions
+
 ### 0.3
 
 - Photos route now available via county pages. Displays country images
@@ -20,8 +27,6 @@ A full list of data we provide can be found below.
 - Toggles added for celebrities and recipes on culture pages
 - Refactoring of culture pages
 - Style changes
-
-## Previous Versions
 
 ### 0.2.9
 

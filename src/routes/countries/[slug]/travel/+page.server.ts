@@ -25,9 +25,7 @@ export const load = (params) => {
   const fetchCityData = async (id: string) => {
     try {
       const res = await fetch(
-        `https://api.api-ninjas.com/v1/city?country=${countryToAlpha2(
-          id
-        )}&limit=25`,
+        `https://api.api-ninjas.com/v1/city?country=${(countryToAlpha2(id))}&limit=25`,
         {
           method: "GET",
           headers: {
@@ -44,8 +42,9 @@ export const load = (params) => {
   
   return {
     slug: splitSlug,
-    cities: fetchCityData(nameCommon),
     travelAdvisory: fetchTravelAdvisoryInfo(nameCommon),
-
+    streamed: {
+      cities: fetchCityData(nameCommon),
+    }
   };
 };
