@@ -78,6 +78,17 @@ export const load = (params: any) => {
     }
   };
 
+  const fetchCountryFolkLoreDeeper = async (id: string) => {
+    try {
+      const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=1&titles=${id}_mythology&explaintext=1&formatversion=2&format=json`)
+      const data = await res.json();
+      return data; 
+
+    } catch (err) {
+      return err;
+    }
+  }
+
   // disabling AI recipes for now.
 
   // const fetchRecipe = async (id: string) => {
@@ -105,6 +116,7 @@ export const load = (params: any) => {
       celebrities: fetchCountryCelebrities(commonName),
       culture: fetchCountryCulture(commonName),
       folklore: fetchCountryFolkLore(demonym),
+      extfolklore: fetchCountryFolkLoreDeeper(demonym),
       cuisine: fetchCountryCuisine(demonym),
       recipes: fetchRecipe(demonym),
     },

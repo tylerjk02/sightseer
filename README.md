@@ -12,12 +12,18 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.3.2
+
+- Cities now have an independent route. Containing available cities & info
+- Folklore now extended with more detail if available. Fixing many 'single sentence' pages.
+- Photo route tailored to show more landscape/nature images and less map/flag images
+
+## Previous Versions
+
 ### 0.3.1
 
 - Cities now stream to travel pages, improving navigation speed
 - Preloading disabled for travel pages, fixing 500 error
-
-## Previous Versions
 
 ### 0.3
 

@@ -25,7 +25,7 @@ export const load = (params) => {
   const fetchCityData = async (id: string) => {
     try {
       const res = await fetch(
-        `https://api.api-ninjas.com/v1/city?country=${(countryToAlpha2(id))}&limit=25`,
+        `https://api.api-ninjas.com/v1/city?country=${(countryToAlpha2(id))}&limit=10`,
         {
           method: "GET",
           headers: {

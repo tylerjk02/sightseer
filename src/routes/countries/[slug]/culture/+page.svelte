@@ -1,5 +1,6 @@
 <script lang="ts">
   import { nameCase } from "@foundernest/namecase";
+  import { query_selector_all } from "svelte/internal";
 
   export let data;
   const { slug } = data;
@@ -67,7 +68,7 @@
                   <div class="jobs">
                     {#each celebrity.occupation as occupation}
                       <div class="job">
-                        {occupation}
+                        {occupation.split("_").join(" ")}
                       </div>
                     {/each}
                   </div>
@@ -137,6 +138,15 @@
         <p>{@html folklore.extract_html}</p>
       {/if}
     {/await}
+    {#await data.streamed.extfolklore}
+      ...
+    {:then folklore}
+      {#if folklore.query.pages[0].missing !== true && folklore.query.pages[0].extract.length > 50}
+        {#if folklore.query.pages[0].title !== "Not found."}
+          <p><b>Folklore Cont</b>...<br />{@html folklore.query.pages[0].extract}</p>
+        {/if}
+      {/if}
+    {/await}
     <!-- End Folklore-->
   </div>
 </div>
@@ -152,16 +162,21 @@
   }
   .celebrities {
     display: grid;
+    gap: 5px;
     grid-template-columns: repeat(2, 1fr);
   }
   .celebrity {
     border: 1px solid #222222;
+    padding: 5px;
   }
   .jobs {
     display: flex;
     gap: 5px;
     .job {
+      color: #ffffff;
+      background: #222222;
       border: 1px solid #222222;
+      border-radius: 5px;
       padding: 0 3px;
     }
   }

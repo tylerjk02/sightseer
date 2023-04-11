@@ -52,10 +52,11 @@
             <a class="city" href="./travel/{name},{nameCommon},{nameOfficial}">
               <div class="city-info">
                 <h3>{name}</h3>
-                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
                 {#if is_capital}
                   <p>Capital</p>
                 {/if}
+                <p><b>Population: </b> {population.toLocaleString()}</p>
+                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
               </div>
             </a>
           {/each}

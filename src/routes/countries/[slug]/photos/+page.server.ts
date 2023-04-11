@@ -13,7 +13,7 @@ export const load = (params) => {
       }
     };
 
-    const res = await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=${id}`, options);
+    const res = await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=${id}%20landscape`, options);
     const data = await res.json();
 
     return data;
