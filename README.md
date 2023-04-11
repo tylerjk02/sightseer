@@ -12,14 +12,19 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.3.3
+
+- Nature route added, featuring summary country flora and fauna
+- Styling improved for cities routes
+
+## Previous Versions
+
 ### 0.3.2
 
 - Cities now have an independent route. This is composed into three sections, 'Cities', 'Towns', and 'Villages'.
 - Folklore now extended with more detail if available. Fixing many 'single sentence' pages
 - Photo route tailored to show more landscape/nature images and less map/flag images
 - Travel route returns a limit of 10 cities (Previously it returned 30, with the lower 20 usually having no travel info)
-
-## Previous Versions
 
 ### 0.3.1
 
@@ -199,6 +204,7 @@ A full list of data we provide can be found below.
 - Country photos
 - Country folklore summary
 - Country celebrities
+- Country flora & fauna
 - Country news
 
 ### City Data

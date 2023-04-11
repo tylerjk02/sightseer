@@ -61,8 +61,17 @@
         <a href="./{name.common},{name.official}/travel/">Travel</a>
         <a href="./{name.common},{name.official}/cities">Cities</a>
         <a href="./{name.common},{name.official}/history/">History</a>
-        <a href="./{name.common},{name.official},{demonyms.eng.m}/culture/">Culture</a>
+        <a href="./{name.common},{name.official},{demonyms.eng.m}/culture/"
+          >Culture</a
+        >
         <a href="./{name.common},{name.official}/photos/">Photos</a>
+        {#await data.streamed.wildlife}
+          ...
+        {:then wildlife}
+          {#if wildlife.query.pages[0].extract.length !== 0}
+            <a href="./{name.common},{name.official}/nature/">Nature</a>
+          {/if}
+        {/await}
         <!-- <a href="./{name.common},{name.official}/news">News</a> -->
       </div>
 
@@ -132,9 +141,6 @@
           {console.error(error)}
         {/await}
         <!-- End Currency Conversion -->
-
-
-        
       </div>
       {#if countryDrivingSide[1] !== undefined}
         <div class="driving-side">

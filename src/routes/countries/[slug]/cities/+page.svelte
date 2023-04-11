@@ -102,6 +102,23 @@
   }
   .list {
     display: grid;
+    gap: 5px;
     grid-template-columns: repeat(3, 1fr);
+    
+    div {
+      padding: 5px;
+      border: 1px solid #222222;
+    }
   }
+
+  @media screen and (max-width: 892px) {
+    .list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 578px) {
+    .list {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  } 
 </style>

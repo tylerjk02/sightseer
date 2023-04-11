@@ -76,6 +76,16 @@ export const load = (params) => {
     }
   };
 
+  const testCountryWildlifeArticle = async (id: string) => {
+    try {
+      const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=1&titles=Wildlife_of_${commonName}&explaintext=1&formatversion=2&format=json`)
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
+  }
+
 
   return {
     slug: params.params.slug,
@@ -84,6 +94,7 @@ export const load = (params) => {
       currency: fetchCurrencyConversion(countryCurrencyCode),
       travel: fetchTravelAdvisoryInfo(commonName),
       article: fetchWikiArticle(commonName),
+      wildlife: testCountryWildlifeArticle(commonName),
     },
   };
 };
