@@ -12,13 +12,19 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.3.6
+
+- ./travel/city pages now have images of given city
+- Updates to homepage
+- Style changes
+
+## Previous Versions
+
 ### 0.3.5
 
 - Tourist & Sightseeing locations added to ./travel/city pages
 - Accuracy of travel routes greatly increased by using coordinates instead of city names
 - Nature route now accessible on many more pages
-
-## Previous Versions
 
 ### 0.3.4
 
@@ -218,7 +224,6 @@ A full list of data we provide can be found below.
 - Country folklore summary
 - Country celebrities
 - Country flora & fauna
-- Country news
 
 ### City Data
 
@@ -226,7 +231,7 @@ A full list of data we provide can be found below.
 - Summary from Wikipedia on given city
 - City coordinates
 - City population
-- City imagery
+- City photos
 - Hotels and other accommodations in a city
 
 ### Travel Data
@@ -234,7 +239,9 @@ A full list of data we provide can be found below.
 - Advisory data
 - Hotels in a given city
 - Accommodations in a given city
-- 'Known-for' tags of given city
+- Tourist Spots in given city
+- Sightseeing locations in given city
+- Historical locations in given city
 
 ### History Data
 

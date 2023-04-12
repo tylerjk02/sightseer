@@ -109,11 +109,15 @@
       background: var(--color-black);
       color: var(--color-white);
     }
+    button:hover {
+      cursor: pointer;
+    }
   }
   .continent {
     margin: 5px;
     .list {
       .country {
+        transition: all 0.2s ease-in-out;
         text-decoration: none;
         color: var(--color-black);
         border: 1px solid #222222;
@@ -147,6 +151,9 @@
           max-height: 60px;
           box-shadow: 0 0 1px black;
         }
+      }
+      .country:hover {
+        background: #e3e3e3;
       }
     }
   }

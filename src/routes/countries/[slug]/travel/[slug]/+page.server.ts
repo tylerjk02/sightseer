@@ -16,9 +16,9 @@ export const load = (params) => {
   let lat = splitSlug[3];
   let lon = splitSlug[4];
 
-  if(countrySlug.length == 2) {
+  if (countrySlug.length == 2) {
     countrySlug = countries.getName(countrySlug, "en");
-  } 
+  }
 
   // const fetchAICompletion = async(city: string, country: string) => {
   //   const options = {
@@ -37,6 +37,21 @@ export const load = (params) => {
   // }
 
 
+  const fetchCityImages = async (city: string, country: string) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': RAPID_API_KEY,
+        'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com'
+      }
+    };
+
+    const res = await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=${city}%20${country}&count=4`, options);
+    const data = await res.json();
+
+    return data;
+  }
+
   const fetchPlaceData = async (lat: string, lon: string) => {
     const res = await fetch(
       `https://api.geoapify.com/v2/places?categories=accommodation&filter=circle:${lon},${lat},10000&bias=proximity:${lon},${lat}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
@@ -51,8 +66,7 @@ export const load = (params) => {
     );
     const data = await res.json();
     return data;
-  }
-
+  };
 
   // const fetchDestination = async () => {
   //   const auth_key = Buffer.from(
@@ -72,7 +86,6 @@ export const load = (params) => {
   //   return data;
   // };
 
-
   return {
     citySlug: citySlug,
     nameCommon: countrySlug,
@@ -81,10 +94,10 @@ export const load = (params) => {
     lon: lon,
     streamed: {
       places: fetchPlaceData(lat, lon),
-      tourism: fetchTourismData(lat, lon)
-    }
+      tourism: fetchTourismData(lat, lon),
+      photos: fetchCityImages(citySlug, countrySlug)
+    },
     // cityDestinations: fetchDestination(),
     // travelInfoAI: fetchAICompletion(citySlug, countrySlug),
-
   };
 };

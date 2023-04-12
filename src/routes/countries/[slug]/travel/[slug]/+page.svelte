@@ -1,7 +1,7 @@
 <script lang="ts">
   export let data;
 
-  const { citySlug, nameCommon, nameOfficial } = data;
+  const { citySlug, nameCommon, nameOfficial, lat, lon } = data;
   // const { features } = cityPlaces;
   // const { included } = cityDestinations;
 
@@ -30,24 +30,19 @@
     <a href="/countries/{nameCommon},{nameOfficial}/travel">Back</a>
   </div>
   <h1>Travel in {citySlug}, {nameCommon}</h1>
-
   <hr style="margin: 5px 0" />
-  <!-- {#if destinationPhotos.length !== 0}
-    {#each destinationPhotos as photo}
-      <img class="city-photo" src="{photo.attributes.image.full}" alt="{citySlug}">
-    {/each}
-  {/if} -->
-  <!-- {#if destinationTags.length !== 0}
-    <p class="known-for">{citySlug} is known for:</p>
-    <div class="tags">
-      {#each destinationTags as tag} 
-        <div class="tag">
-          <p>{tag.attributes.name}</p>
-        </div>
+  
+  <!-- Photos -->
+  {#await data.streamed.photos}
+    ...
+  {:then photos} 
+    <div class="photos">
+      {#each photos.value as photo}
+        <img src="{photo.contentUrl}" alt="{photo.name}" class="photo">  
       {/each}
     </div>
-    <hr>
-  {/if} -->
+  {/await}
+  <!-- End Photos -->
 
   <!-- Hotels -->
   {#await data.streamed.places}
@@ -144,7 +139,14 @@
   .known-for {
     font-weight: bold;
   }
-
+  .photos {
+    display: grid;
+    gap: 3px;
+    grid-template-columns: repeat(2, 1fr);
+    .photo {
+      width: 100%;
+    }
+  }
   .city-photo {
     width: 55%;
   }
@@ -226,6 +228,11 @@
 
     .city-photo {
       width: 100%;
+    }
+  }
+  @media screen and (max-width: 578px) {
+    .photos {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 </style>
