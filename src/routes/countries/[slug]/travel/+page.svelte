@@ -49,7 +49,7 @@
         <h2>Please Select a City</h2>
         <div class="cities">
           {#each cities as { country, is_capital, latitude, longitude, name, population }}
-            <a class="city" href="./travel/{name},{nameCommon},{nameOfficial}">
+            <a class="city" href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}">
               <div class="city-info">
                 <h3>{name}</h3>
                 {#if is_capital}

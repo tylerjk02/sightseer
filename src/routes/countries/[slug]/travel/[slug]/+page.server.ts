@@ -13,6 +13,8 @@ export const load = (params) => {
   const citySlug = splitSlug[0];
   let countrySlug = splitSlug[1];
   let countryOfficialSlug = splitSlug[2];
+  let lat = splitSlug[3];
+  let lon = splitSlug[4];
 
   if(countrySlug.length == 2) {
     countrySlug = countries.getName(countrySlug, "en");
@@ -35,16 +37,21 @@ export const load = (params) => {
   // }
 
 
-  const fetchPlaceData = async (city: string, country: string) => {
-    const getCityId =  await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city.split(' ').join('_')}%20${country}&format=json&apiKey=${GEOAPIFY_API_KEY}`)
-    const cityIdObj = await getCityId.json();
-    const cityId = cityIdObj.results[0].place_id;
+  const fetchPlaceData = async (lat: string, lon: string) => {
     const res = await fetch(
-      `https://api.geoapify.com/v2/places?categories=accommodation&filter=place:${cityId}&limit=15&apiKey=${GEOAPIFY_API_KEY}`
+      `https://api.geoapify.com/v2/places?categories=accommodation&filter=circle:${lon},${lat},10000&bias=proximity:${lon},${lat}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
     );
     const data = await res.json();
     return data;
   };
+
+  const fetchTourismData = async (lat: string, lon: string) => {
+    const res = await fetch(
+      `https://api.geoapify.com/v2/places?categories=tourism&filter=circle:${lon},${lat},10000&bias=proximity:${lon},${lat}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
+    );
+    const data = await res.json();
+    return data;
+  }
 
 
   // const fetchDestination = async () => {
@@ -70,8 +77,11 @@ export const load = (params) => {
     citySlug: citySlug,
     nameCommon: countrySlug,
     nameOfficial: countryOfficialSlug,
+    lat: lat,
+    lon: lon,
     streamed: {
-      places: fetchPlaceData(citySlug, countrySlug),
+      places: fetchPlaceData(lat, lon),
+      tourism: fetchTourismData(lat, lon)
     }
     // cityDestinations: fetchDestination(),
     // travelInfoAI: fetchAICompletion(citySlug, countrySlug),
