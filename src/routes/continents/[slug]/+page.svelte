@@ -2,7 +2,6 @@
   export let data;
   const { slug } = data;
   let countries = data.countries;
-  console.log(countries);
   const sortByName = () => {
     countries.sort((a: any, b: any) => {
       if (a.name.common < b.name.common) {
