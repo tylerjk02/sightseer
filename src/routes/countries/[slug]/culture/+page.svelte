@@ -19,7 +19,7 @@
   };
 </script>
 
-<div class="culture">
+<main class="culture">
   <div class="trace-back">
     <a href="/countries/{commonName},{officialName}">Back</a>
   </div>
@@ -149,7 +149,7 @@
     {/await}
     <!-- End Folklore-->
   </div>
-</div>
+</main>
 
 <style lang="scss">
   .trace-back {

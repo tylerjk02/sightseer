@@ -1,20 +1,46 @@
 <script lang="ts">
   export let data;
-  const { countries, slug } = data;
-
-  countries.sort((a: any, b: any) => {
-    if (a.name.common < b.name.common) {
-      return -1;
-    }
-    if (a.name.common > b.name.common) {
-      return 1;
-    }
-    return 0;
-  });
-
-  const ranNum = () => {
-    return Math.floor(Math.random() * countries.length);
+  const { slug } = data;
+  let countries = data.countries;
+  console.log(countries);
+  const sortByName = () => {
+    countries.sort((a: any, b: any) => {
+      if (a.name.common < b.name.common) {
+        return -1;
+      }
+      if (a.name.common > b.name.common) {
+        return 1;
+      }
+      return 0;
+    });
+    countries = countries;
   };
+  const sortByPop = (first: number, second: number) => {
+    countries.sort((a: any, b: any) => {
+      if (a.population < b.population) {
+        return first;
+      }
+      if (a.population > b.population) {
+        return second;
+      }
+      return 0;
+    });
+    countries = countries;
+  };
+  const sortByArea = (first: number, second: number) => {
+    countries.sort((a: any, b: any) => {
+      if (a.area < b.area) {
+        return first;
+      }
+      if (a.area > b.area) {
+        return second;
+      }
+      return 0;
+    });
+    countries = countries;
+  };
+
+  sortByPop(1, -1);
 </script>
 
 <div class="continent">
@@ -22,6 +48,15 @@
     <a href="/">continents</a>/
     <p>{slug.toLowerCase()}</p>
   </div>
+  {#if slug !== "antarctic"}
+    <div class="sort-tabs">
+      <button on:click={sortByName}>Alphabetical</button>
+      <button on:click={() => sortByPop(-1, 1)}>Least Populated</button>
+      <button on:click={() => sortByPop(1, -1)}>Most Populated</button>
+      <button on:click={() => sortByArea(-1, 1)}>Smallest</button>
+      <button on:click={() => sortByArea(1, -1)}>Largest</button>
+    </div>
+  {/if}
   {#if slug == "antarctic"}
     <h1>Here be penguins...</h1>
   {:else}
@@ -34,7 +69,7 @@
     {/if}
 
     <div class="list">
-      {#each countries as { name, flags, altSpellings }}
+      {#each countries as { name, flags, altSpellings, population, area }}
         <a href="/countries/{name.common},{name.official}" class="country">
           <div class="country-inner">
             <div class="base-info">
@@ -45,7 +80,9 @@
               <h1>{name.common}</h1>
             </div>
             <div class="country-info">
-              <p>{name.official}</p>
+              <p><b>{name.official}</b></p>
+              <p><b>Population</b>: {population.toLocaleString()}</p>
+              <p><b>Area</b>: {area.toLocaleString()}km<sup>2</sup></p>
             </div>
           </div>
         </a>
@@ -59,6 +96,20 @@
     display: flex;
     gap: 1px;
     margin-top: 5px;
+  }
+  .sort-tabs {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+
+    button {
+      // border: none;
+      width: 100%;
+      background: var(--color-black);
+      color: var(--color-white);
+    }
   }
   .continent {
     margin: 5px;
@@ -105,6 +156,14 @@
     .list {
       display: grid;
       grid-template-columns: repeat(2, 2fr);
+    }
+  }
+  @media screen and (max-width: 682px) {
+    .sort-tabs {
+      flex-direction: column;
+      button {
+        padding: 5px 0;
+      }
     }
   }
 </style>

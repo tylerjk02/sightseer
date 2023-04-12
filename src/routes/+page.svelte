@@ -3,7 +3,7 @@
 </script>
 
 <main class="main">
-  <h1>Choose a region</h1>
+  <h2>Choose a region</h2>
   <div class="regions links">
     <a class="region-link" href="/continents/africa">
       <img
@@ -49,15 +49,17 @@
 </main>
 
 <style lang="scss">
-  .main h1 {
-    margin: 5px 0;
+  @import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+  .main h2 {
+    // margin: 5px 0;
+    // background: var(--color-black);
+    // color: var(--color-white);
+    // padding: 5px;
   }
   .regions {
     display: flex;
     align-items: center;
     .region-link {
-      // margin: 5px;
-      transition: all 0.5s ease-out;
       width: 20%;
       position: relative;
       text-align: center;
@@ -67,22 +69,23 @@
         height: 200px;
       }
       .centered {
+        font-family: 'Patua One', cursive;
+        text-transform: uppercase;
         width: 80%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 42px;
+        font-size: 28px;
         
         background: var(--color-black);
         padding: 0;
         border-radius: 5px;
       }
     }
-    .region-link:hover {
-      // width: 25%;
+    .region-link:active {
+      transform: scale(1.01);
       z-index: 1000;
-      transform: scale(105%);
     }
   }
 

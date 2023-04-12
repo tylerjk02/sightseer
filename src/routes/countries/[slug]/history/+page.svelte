@@ -30,7 +30,7 @@
   });
 </script>
 
-<div class="history">
+<main class="history">
   <div class="trace-back">
     <a href="/countries/{commonName},{officialName}">Back</a>
   </div>
@@ -54,7 +54,7 @@
       <p>Unable to find data</p>
     {/if}
   </div>
-</div>
+</main>
 
 <style lang="scss">
   .trace-back {

@@ -14,7 +14,7 @@
   let searchValue: string;
 </script>
 
-<div class="travel">
+<main class="travel">
   <div class="trace-back">
     <a href="/countries/{nameCommon},{nameOfficial}">Back</a>
   </div>
@@ -66,7 +66,7 @@
       Sorry, our system couldn't find anything...
     {/if}
   {/await}
-</div>
+</main>
 
 <style>
   .high {

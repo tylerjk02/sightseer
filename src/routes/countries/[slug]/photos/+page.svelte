@@ -3,7 +3,7 @@
   const { commonName, officialName } = data;
 </script>
 
-<div class="photos">
+<main class="photos">
   <div class="trace-back">
     <a href="/countries/{commonName},{officialName}">Back</a>
   </div>
@@ -25,7 +25,7 @@
 
   <!-- End Images -->
 
-</div>
+  </main>
 
 <style lang="scss">
   .images {

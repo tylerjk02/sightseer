@@ -45,7 +45,7 @@
   }
 </script>
 
-<div class="main">
+<main class="main">
   <div class="region">
     <div class="trace-back">
       <a href="/">continents</a>/<a href="/continents/{region.toLowerCase()}"
@@ -65,9 +65,7 @@
           >Culture</a
         >
         <a href="./{name.common},{name.official}/photos/">Photos</a>
-        {#await data.streamed.wildlife}
-          ...
-        {:then wildlife}
+        {#await data.streamed.wildlife then wildlife}
           {#if wildlife.query.pages[0].extract.length !== 0}
             <a href="./{name.common},{name.official}/nature/">Nature</a>
           {/if}
@@ -187,7 +185,7 @@
 
     <!-- <hr style="padding: 5px; background: #e3e3e3"> -->
   </div>
-</div>
+</main>
 
 <style lang="scss">
   .trace-back {

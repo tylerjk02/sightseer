@@ -36,7 +36,7 @@ export const load = (params) => {
 
 
   const fetchPlaceData = async (city: string, country: string) => {
-    const getCityId =  await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city}%20${country}&format=json&apiKey=${GEOAPIFY_API_KEY}`)
+    const getCityId =  await fetch(`https://api.geoapify.com/v1/geocode/search?text=${city.split(' ').join('')}%20${country}&format=json&apiKey=${GEOAPIFY_API_KEY}`)
     const cityIdObj = await getCityId.json();
     const cityId = cityIdObj.results[0].place_id;
     const res = await fetch(

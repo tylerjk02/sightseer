@@ -12,12 +12,19 @@ A full list of data we provide can be found below.
 
 ## Current Version
 
+### 0.3.4
+
+- More info on country selection page
+- Country selection page can now be sorted (Alphabetically, Population Size, Area Size)
+- Issue with place data fixed (Multiple word cities were being fetched as the first word, i.e. 'New York' -> 'New')
+- Style changes
+
+## Previous Versions
+
 ### 0.3.3
 
 - Nature route added, featuring summary country flora and fauna
 - Styling improved for cities routes
-
-## Previous Versions
 
 ### 0.3.2
 

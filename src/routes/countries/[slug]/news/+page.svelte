@@ -8,7 +8,7 @@
   // };
 </script>
 
-<div class="news">
+<main class="news">
   <div class="trace-back">
     <a href="/countries/{commonName},{officialName}">Back</a>
   </div>
@@ -56,7 +56,7 @@
       return error
     {/await} -->
   <!-- </div> -->
-</div>
+</main>
 
 <style lang="scss">
   .articles {

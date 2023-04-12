@@ -25,7 +25,7 @@
   // })
 </script>
 
-<div class="travel">
+<main class="travel">
   <div class="trace-back">
     <a href="/countries/{nameCommon},{nameOfficial}/travel">Back</a>
   </div>
@@ -90,8 +90,8 @@
   {:catch error}
     {console.error(error)}
   {/await}
-  <br>
-</div>
+  <br />
+</main>
 
 <style lang="scss">
   .trace-back {
