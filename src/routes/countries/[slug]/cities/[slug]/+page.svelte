@@ -9,6 +9,18 @@
   </div>
   <div class="city">
     <h1>{cityName}, {countryCode}</h1>
+    <div class="city-basic">
+      {#await data.streamed.city}
+        ...
+      {:then city} 
+        {#if city[0].country == countryCode}
+          {#if city[0].is_capital}
+            <p><b>Capital</b></p>
+          {/if}
+          <div class="coords">{city[0].latitude}, {city[0].longitude}</div>
+        {/if}
+      {/await}
+    </div>
     <div class="city-wiki">
       {#await data.streamed.article}
         ...

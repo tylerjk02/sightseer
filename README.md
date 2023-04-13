@@ -1,24 +1,23 @@
 # Sightseer
 
-In-Depth Info Directory for Countries/Cities.
-
-*e.g.*
-
-- Country Name, Both Common and Official
-- Country Flag and Coat of Arms
-- Wikipedia Summaries
-
-A full list of data we provide can be found below.
+Country & City Info Directory & Travel Guide.
 
 ## Current Version
+
+### 0.3.7
+
+- Travel routes city limit updated (10 -> 18)
+- Nature routes now feature images of local wildlife
+- Removed a check that tested whether to add 'Nature' link to country page, nature page now available for all countries
+- City routes fix to dead pages in places with repeating names, such as 'New York, New York'
+
+## Previous Versions
 
 ### 0.3.6
 
 - ./travel/city pages now have images of given city
 - Updates to homepage
 - Style changes
-
-## Previous Versions
 
 ### 0.3.5
 
@@ -200,9 +199,7 @@ A full list of data we provide can be found below.
 - Countries split by region
 - Country list added
 
-## Data we provide
-
-### Country Data
+## Data We Have
 
 - Country name, common and official
 - Country area size (sq km)
@@ -224,32 +221,21 @@ A full list of data we provide can be found below.
 - Country folklore summary
 - Country celebrities
 - Country flora & fauna
-
-### City Data
-
+- Country wildlife photos
 - Most populous cities in given country
 - Summary from Wikipedia on given city
 - City coordinates
 - City population
 - City photos
 - Hotels and other accommodations in a city
-
-### Travel Data
-
 - Advisory data
 - Hotels in a given city
 - Accommodations in a given city
 - Tourist Spots in given city
 - Sightseeing locations in given city
 - Historical locations in given city
-
-### History Data
-
 - History summary
 - History blips of given country
-
-### Culture Data
-
 - Culture Summary
 - Local cuisine culture
 - Recipes relating to given country

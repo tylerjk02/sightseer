@@ -79,6 +79,7 @@
         <li>Country folklore summary</li>
         <li>Country celebrities</li>
         <li>Country flora & fauna</li>
+        <li>Country wildlife photos</li>
         <li>Most populous cities in given country</li>
         <li>Summary from Wikipedia on given city</li>
         <li>City coordinates</li>
@@ -99,7 +100,7 @@
       </ul>
     </section>
     <section class="section">
-      <h3>Current Version: 0.3.5</h3>
+      <h3>Current Version: 0.3.7</h3>
       <div class="gh-link">
         <a href="https://github.com/tylerjk02/sightseer">GitHub</a>
       </div>

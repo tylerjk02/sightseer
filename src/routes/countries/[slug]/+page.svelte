@@ -65,11 +65,9 @@
           >Culture</a
         >
         <a href="./{name.common},{name.official}/photos/">Photos</a>
-        {#await data.streamed.wildlife then wildlife}
-          {#if wildlife.query.pages[0].extract.length !== 0}
-            <a href="./{name.common},{name.official}/nature/">Nature</a>
-          {/if}
-        {/await}
+
+        <a href="./{name.common},{name.official}/nature/">Nature</a>
+
         <!-- <a href="./{name.common},{name.official}/news">News</a> -->
       </div>
 

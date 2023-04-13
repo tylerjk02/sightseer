@@ -66,7 +66,7 @@
     {:else}
       <h1>Countries in {slug.charAt(0).toLocaleUpperCase() + slug.slice(1)}</h1>
     {/if}
-
+    <p><em>Click a country for more info</em></p>
     <div class="list">
       {#each countries as { name, flags, altSpellings, population, area }}
         <a href="/countries/{name.common},{name.official}" class="country">
