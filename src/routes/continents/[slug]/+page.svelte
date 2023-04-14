@@ -2,19 +2,43 @@
   export let data;
   const { slug } = data;
   let countries = data.countries;
+  let sortUp: boolean = true;
   const sortByName = () => {
+    let first: number;
+    let second: number;
+    if (sortUp == false) {
+      first = -1;
+      second = 1;
+      sortUp = !sortUp;
+    } else {
+      first = 1;
+      second = -1;
+      sortUp = !sortUp;
+    }
     countries.sort((a: any, b: any) => {
       if (a.name.common < b.name.common) {
-        return -1;
+        return first;
       }
       if (a.name.common > b.name.common) {
-        return 1;
+        return second;
       }
       return 0;
     });
+
     countries = countries;
   };
-  const sortByPop = (first: number, second: number) => {
+  const sortByPop = () => {
+    let first: number;
+    let second: number;
+    if (sortUp == false) {
+      first = -1;
+      second = 1;
+      sortUp = !sortUp;
+    } else {
+      first = 1;
+      second = -1;
+      sortUp = !sortUp;
+    }
     countries.sort((a: any, b: any) => {
       if (a.population < b.population) {
         return first;
@@ -26,7 +50,18 @@
     });
     countries = countries;
   };
-  const sortByArea = (first: number, second: number) => {
+  const sortByArea = () => {
+    let first: number;
+    let second: number;
+    if (sortUp == false) {
+      first = -1;
+      second = 1;
+      sortUp = !sortUp;
+    } else {
+      first = 1;
+      second = -1;
+      sortUp = !sortUp;
+    }
     countries.sort((a: any, b: any) => {
       if (a.area < b.area) {
         return first;
@@ -39,7 +74,7 @@
     countries = countries;
   };
 
-  sortByPop(1, -1);
+  sortByPop();
 </script>
 
 <div class="continent">
@@ -50,12 +85,11 @@
   {#if slug !== "antarctic"}
     <div class="sort-tabs">
       <button on:click={sortByName}>Alphabetical</button>
-      <button on:click={() => sortByPop(-1, 1)}>Least Populated</button>
-      <button on:click={() => sortByPop(1, -1)}>Most Populated</button>
-      <button on:click={() => sortByArea(-1, 1)}>Smallest</button>
-      <button on:click={() => sortByArea(1, -1)}>Largest</button>
+      <button on:click={sortByPop}>Population</button>
+      <button on:click={sortByArea}>Area</button>
     </div>
   {/if}
+  
   {#if slug == "antarctic"}
     <h1>Here be penguins...</h1>
   {:else}

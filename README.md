@@ -4,14 +4,20 @@ Country & City Info Directory & Travel Guide.
 
 ## Current Version
 
+### 0.3.8
+
+- Changes to country page sorting system (Clicking a sort tab a second time will reverse sort)
+- Changes to nature route image fetching
+- Style changes
+
+## Previous Versions
+
 ### 0.3.7
 
 - Travel routes city limit updated (10 -> 18)
 - Nature routes now feature images of local wildlife
 - Removed a check that tested whether to add 'Nature' link to country page, nature page now available for all countries
 - City routes fix to dead pages in places with repeating names, such as 'New York, New York'
-
-## Previous Versions
 
 ### 0.3.6
 

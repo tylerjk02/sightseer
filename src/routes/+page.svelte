@@ -170,9 +170,6 @@
       // margin: 0;
     }
     .info {
-      ul {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
 
     .region-link {

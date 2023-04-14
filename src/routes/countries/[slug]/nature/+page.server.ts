@@ -33,7 +33,7 @@ export const load = (params) => {
       }
     };
 
-    const res = await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=Country%20of%20${country}%20Wildlife&count=15`, options);
+    const res = await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=Country%20of%20${country}%20Native%20Animals&count=15`, options);
     const data = await res.json();
 
     return data;
