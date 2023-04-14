@@ -100,7 +100,7 @@
       </ul>
     </section>
     <section class="section">
-      <h3>Current Version: 0.3.7</h3>
+      <h3>Current Version: 0.3.8</h3>
       <div class="gh-link">
         <a href="https://github.com/tylerjk02/sightseer">GitHub</a>
       </div>
