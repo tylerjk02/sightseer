@@ -4,13 +4,19 @@ Country & City Info Directory & Travel Guide.
 
 ## Current Version
 
+### 0.3.9
+
+- Travel and city routes combined. All info can now be found through the travel route
+- Improved checks for potential missing data
+- Style changes
+
+## Previous Versions
+
 ### 0.3.8
 
 - Changes to country page sorting system (Clicking a sort tab a second time will reverse sort)
 - Changes to nature route image fetching
 - Style changes
-
-## Previous Versions
 
 ### 0.3.7
 

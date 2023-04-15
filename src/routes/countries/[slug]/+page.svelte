@@ -59,7 +59,7 @@
     <div class="top">
       <div class="tabs" data-sveltekit-preload-data="off">
         <a href="./{name.common},{name.official}/travel/">Travel</a>
-        <a href="./{name.common},{name.official}/cities">Cities</a>
+        <!-- <a href="./{name.common},{name.official}/cities">Cities</a> -->
         <a href="./{name.common},{name.official}/history/">History</a>
         <a href="./{name.common},{name.official},{demonyms.eng.m}/culture/"
           >Culture</a

@@ -18,6 +18,7 @@
   <div class="trace-back">
     <a href="/countries/{nameCommon},{nameOfficial}">Back</a>
   </div>
+  <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
   {#if advisoryStatus.reply.status == "ok"}
     <div class="advisory">
       {#if advisory.score > 3.5}
@@ -32,6 +33,7 @@
       <a class="risk-source" target="_blank" href={advisory.source}>Source</a>
     </div>
   {/if}
+  <br />
   <!-- functionality for search works, way to many edge cases to make viable though. -->
   <!-- <div class="city-search">
     <label for="city-search">
@@ -40,16 +42,22 @@
       <a href="./travel/{searchValue},{slug}">Go</a>
     </label> 
   </div> -->
-  {#await data.streamed.cities}
+  <h2>Please Select a City</h2>
+  <!-- Large Cities, 250,000+ -->
+  {#await data.streamed.largeCities}
     Loading...
-  {:then cities}
-    {#if cities.length !== 0}
-      <h1>Travel to {upperCaseFirst(nameCommon)}</h1>
+  {:then largeCities}
+    {#if largeCities.length !== 0}
       <div class="city-select">
-        <h2>Please Select a City</h2>
+        <div class="city-size-label">
+          <h3>Large Cities (250,000+)</h3>
+        </div>
         <div class="cities">
-          {#each cities as { country, is_capital, latitude, longitude, name, population }}
-            <a class="city" href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}">
+          {#each largeCities as { country, is_capital, latitude, longitude, name, population }}
+            <a
+              class="city"
+              href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}"
+            >
               <div class="city-info">
                 <h3>{name}</h3>
                 {#if is_capital}
@@ -63,7 +71,131 @@
         </div>
       </div>
     {:else}
-      Sorry, our system couldn't find anything...
+      <div class=""></div>
+    {/if}
+  {/await}
+  <!-- Small Cities, 100,000 - 250,000 -->
+  {#await data.streamed.smallCities}
+    Loading...
+  {:then smallCities}
+    {#if smallCities.length !== 0}
+      <div class="city-select">
+        <div class="city-size-label">
+          <h3>Small Cities (100,000 - 250,000)</h3>
+        </div>
+        <div class="cities">
+          {#each smallCities as { country, is_capital, latitude, longitude, name, population }}
+            <a
+              class="city"
+              href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}"
+            >
+              <div class="city-info">
+                <h3>{name}</h3>
+                {#if is_capital}
+                  <p>Capital</p>
+                {/if}
+                <p><b>Population: </b> {population.toLocaleString()}</p>
+                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
+              </div>
+            </a>
+          {/each}
+        </div>
+      </div>
+    {:else}
+      <div class=""></div>
+    {/if}
+  {/await}
+  <!-- Large Towns, 50,000 - 100,000 -->
+  {#await data.streamed.largeTowns}
+    Loading...
+  {:then largeTowns}
+    {#if largeTowns.length !== 0}
+      <div class="city-select">
+        <div class="city-size-label">
+          <h3>Large Towns (50,000 - 100,000)</h3>
+        </div>
+        <div class="cities">
+          {#each largeTowns as { country, is_capital, latitude, longitude, name, population }}
+            <a
+              class="city"
+              href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}"
+            >
+              <div class="city-info">
+                <h3>{name}</h3>
+                {#if is_capital}
+                  <p>Capital</p>
+                {/if}
+                <p><b>Population: </b> {population.toLocaleString()}</p>
+                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
+              </div>
+            </a>
+          {/each}
+        </div>
+      </div>
+    {:else}
+      <div class=""></div>
+    {/if}
+  {/await}
+  <!-- Small Towns, 20,000 - 50,000 -->
+  {#await data.streamed.smallTowns}
+    Loading...
+  {:then smallTowns}
+    {#if smallTowns.length !== 0}
+      <div class="city-select">
+        <div class="city-size-label">
+          <h3>Small Towns (20,000 - 50,000)</h3>
+        </div>
+        <div class="cities">
+          {#each smallTowns as { country, is_capital, latitude, longitude, name, population }}
+            <a
+              class="city"
+              href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}"
+            >
+              <div class="city-info">
+                <h3>{name}</h3>
+                {#if is_capital}
+                  <p>Capital</p>
+                {/if}
+                <p><b>Population: </b> {population.toLocaleString()}</p>
+                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
+              </div>
+            </a>
+          {/each}
+        </div>
+      </div>
+    {:else}
+      <div class=""></div>
+    {/if}
+  {/await}
+  <!-- Villages, Hamlets and other, 0 - 20,000 -->
+  {#await data.streamed.other}
+    Loading...
+  {:then other}
+    {#if other.length !== 0}
+      <div class="city-select">
+        <div class="city-size-label">
+          <h3>Villages, Hamlets and other (0 - 20,000)</h3>
+        </div>
+        <div class="cities">
+          {#each other as { country, is_capital, latitude, longitude, name, population }}
+            <a
+              class="city"
+              href="./travel/{name},{nameCommon},{nameOfficial},{latitude},{longitude}"
+            >
+              <div class="city-info">
+                <h3>{name}</h3>
+                {#if is_capital}
+                  <p>Capital</p>
+                {/if}
+                <p><b>Population: </b> {population.toLocaleString()}</p>
+                <p>{latitude.toFixed(3)}, {longitude.toFixed(3)}</p>
+              </div>
+            </a>
+          {/each}
+        </div>
+      </div>
+    {:else}
+      <div class=""></div>
     {/if}
   {/await}
 </main>

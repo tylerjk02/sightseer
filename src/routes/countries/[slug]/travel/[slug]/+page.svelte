@@ -31,14 +31,38 @@
   </div>
   <h1>Travel in {citySlug}, {nameCommon}</h1>
   <hr style="margin: 5px 0" />
-  
+
+  <!-- Info & Wiki -->
+  {#await data.streamed.city}
+    Loading...
+  {:then city}
+    {#if city.length !== 0}
+      {#if city[0].is_capital}
+        <p><b>Capital</b></p>
+      {/if}
+      <p>{city[0].latitude}, {city[0].longitude}</p>
+      <p><b>Population</b>: {city[0].population.toLocaleString()}</p>
+    {/if}
+  {/await}
+  {#await data.streamed.wiki}
+    ...
+  {:then wiki}
+    {#if wiki.title !== "Not found." && wiki.type !== "disambiguation"}
+      <img src={wiki.thumbnail.source} alt={wiki.title} />
+      <p>{@html wiki.extract_html}</p>
+    {:else}
+      <div class="" />
+    {/if}
+  {/await}
+  <!-- End Info & Wiki -->
+
   <!-- Photos -->
   {#await data.streamed.photos}
     ...
-  {:then photos} 
+  {:then photos}
     <div class="photos">
       {#each photos.value as photo}
-        <img src="{photo.contentUrl}" alt="{photo.name}" class="photo">  
+        <img src={photo.contentUrl} alt={photo.name} class="photo" />
       {/each}
     </div>
   {/await}
@@ -87,45 +111,45 @@
     {console.error(error)}
   {/await}
   <!-- End Hotels -->
-  <hr>
+  <hr />
   <!-- Tourism -->
   {#await data.streamed.tourism}
     Loading...
-  {:then tourism} 
+  {:then tourism}
     {#if tourism.features.length !== 0}
-    <h2>Tourism & Sightseeing</h2>
-    <div class="properties">
-      {#each tourism.features as { properties }}
-        <div class="property">
-          <h3 class="property__name">{properties.address_line1}</h3>
-          <p class="property__category">
-            {properties.categories[1]
-              .split(".")
-              .join(", ")
-              .split("_")
-              .join(" ")}
-          </p>
-          <p class="property__address">{properties.address_line2}</p>
-          {#if properties.district}
-            <p class="property__district">{properties.district}</p>
-          {/if}
-          <a
-            target="_blank"
-            href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
-            class="property__coords">{properties.lat}, {properties.lon}</a
-          >
-          <!-- <br /> -->
-          <a
-            class="property__source"
-            target="_blank"
-            href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
-              .datasource.raw.osm_id}&class=tourism">Source</a
-          >
-        </div>
-      {/each}
-    </div>
+      <h2>Tourism & Sightseeing</h2>
+      <div class="properties">
+        {#each tourism.features as { properties }}
+          <div class="property">
+            <h3 class="property__name">{properties.address_line1}</h3>
+            <p class="property__category">
+              {properties.categories[1]
+                .split(".")
+                .join(", ")
+                .split("_")
+                .join(" ")}
+            </p>
+            <p class="property__address">{properties.address_line2}</p>
+            {#if properties.district}
+              <p class="property__district">{properties.district}</p>
+            {/if}
+            <a
+              target="_blank"
+              href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
+              class="property__coords">{properties.lat}, {properties.lon}</a
+            >
+            <!-- <br /> -->
+            <a
+              class="property__source"
+              target="_blank"
+              href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
+                .datasource.raw.osm_id}&class=tourism">Source</a
+            >
+          </div>
+        {/each}
+      </div>
     {:else}
-      We couldn't find anything... 
+      We couldn't find anything...
     {/if}
   {/await}
   <!-- End Tourism -->
