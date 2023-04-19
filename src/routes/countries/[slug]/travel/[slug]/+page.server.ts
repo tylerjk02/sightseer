@@ -5,7 +5,7 @@ import {
   GEOAPIFY_API_KEY,
   ROAD_GOAT_API,
   ROAD_GOAT_SECRET,
-  NINJA_API_KEY
+  NINJA_API_KEY,
 } from "$env/static/private";
 import { countryToAlpha2 } from "country-to-iso";
 countries.registerLocale(en);
@@ -22,71 +22,36 @@ export const load = (params) => {
     countrySlug = countries.getName(countrySlug, "en");
   }
 
-  // const fetchAICompletion = async(city: string, country: string) => {
-  //   const options = {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'X-RapidAPI-Key': RAPID_API_KEY,
-  //       'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
-  //     },
-  //     body: `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"Travel info ${city}, ${country} under 60 words"}]}`
-  //   };
-  //   const res = await fetch(`https://openai80.p.rapidapi.com/chat/completions`, options);
-  //   const data = await res.json();
-
-  //   return data;
-  // }
-
-
-  const fetchCity = async(city: string, country: string) => {
+  const fetchCity = async (city: string, country: string) => {
     const options = {
       method: "GET",
       headers: {
         "X-Api-Key": NINJA_API_KEY,
       },
-    }
-    try {
-      const res = await fetch(`https://api.api-ninjas.com/v1/city?name=${city}&country=${countryToAlpha2(country)}`, options);
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      return err;
-    }
-  }
-
-
-  const fetchWikiArticle = async (id: string) => {
+    };
     try {
       const res = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${id}`
+        `https://api.api-ninjas.com/v1/city?name=${city}&country=${countryToAlpha2(
+          country
+        )}`,
+        options
       );
       const data = await res.json();
-      if(data.type == "disambiguation") {
-        const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${id}_(city)`)
-        const data = await res.json();
-        return data;
-      }
       return data;
     } catch (err) {
       return err;
     }
   };
 
-  const fetchCityImages = async (city: string, country: string) => {
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': RAPID_API_KEY,
-        'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com'
-      }
-    };
-
-    const res = await fetch(`https://bing-image-search1.p.rapidapi.com/images/search?q=${city}%20${country}&count=4`, options);
+  const fetchWikiArticle = async (id: string) => {
+    const slug = id.split(' ').join('_');
+    const res = await fetch(
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${slug}`
+    );
     const data = await res.json();
-
+    console.log(data);
     return data;
-  }
+  };
 
   const fetchPlaceData = async (lat: string, lon: string) => {
     const res = await fetch(
@@ -104,24 +69,6 @@ export const load = (params) => {
     return data;
   };
 
-  // const fetchDestination = async () => {
-  //   const auth_key = Buffer.from(
-  //     `${ROAD_GOAT_API}:${ROAD_GOAT_SECRET}`
-  //   ).toString("base64");
-  //   const  options = {
-  //     'method': 'GET',
-  //     'hostname': 'api.roadgoat.com',
-  //     'headers': {
-  //       'Authorization': `Basic ${auth_key}`
-  //     },
-  //     'maxRedirects': 20
-  //   };
-
-  //   const res = await fetch(`https://api.roadgoat.com/api/v2/destinations/auto_complete?q=${citySlug},${countrySlug}`, options);
-  //   const data = await res.json();
-  //   return data;
-  // };
-
   return {
     citySlug: citySlug,
     nameCommon: countrySlug,
@@ -132,8 +79,7 @@ export const load = (params) => {
       city: fetchCity(citySlug, countrySlug),
       places: fetchPlaceData(lat, lon),
       tourism: fetchTourismData(lat, lon),
-      photos: fetchCityImages(citySlug, countrySlug),
-      wiki: fetchWikiArticle(citySlug)
+      wiki: fetchWikiArticle(citySlug),
     },
     // cityDestinations: fetchDestination(),
     // travelInfoAI: fetchAICompletion(citySlug, countrySlug),

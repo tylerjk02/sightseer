@@ -19,6 +19,7 @@ export const load = (params) => {
         `https://en.wikipedia.org/api/rest_v1/page/summary/${id}`
       );
       const data = await res.json();
+      
       return data;
     } catch (err) {
       return err;
@@ -76,6 +77,18 @@ export const load = (params) => {
     }
   };
 
+  const fetchCountrySubData = async (datatype: string, country: string) => {
+    try {
+      const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${datatype}_of_${country}`);
+      const data = await res.json();
+      console.log(data)
+      return data;
+    } catch (err) {
+      return err;
+    }
+  }
+
+
   return {
     slug: params.params.slug,
     country: fetchCountryData(commonName),
@@ -83,6 +96,8 @@ export const load = (params) => {
       currency: fetchCurrencyConversion(countryCurrencyCode),
       travel: fetchTravelAdvisoryInfo(commonName),
       article: fetchWikiArticle(commonName),
+      climate: fetchCountrySubData('Climate', commonName),
+      economy: fetchCountrySubData('Economy', commonName)
     },
   };
 };

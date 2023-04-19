@@ -34,7 +34,7 @@
     </div>
   {/if}
   <br />
-  <!-- functionality for search works, way to many edge cases to make viable though. -->
+  <!-- functionality for search works, too many edge cases to make viable though. -->
   <!-- <div class="city-search">
     <label for="city-search">
       Search city by exact name here (eg. New York, Al Hufuf, London)

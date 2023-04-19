@@ -45,7 +45,7 @@
       <div class="centered">Oceania</div>
     </a>
   </div>
-  <hr style="background: #222; padding: 2px;">
+  <hr style="background: #222; padding: 2px;" />
   <div class="info">
     <section class="section">
       <h3>About:</h3>
@@ -56,50 +56,8 @@
         Cuisine/Recipes and much more.
       </p>
     </section>
-    <section class="section">
-      <h3>Data We Have:</h3>
-      <ul>
-        <li>Country name, common and official</li>
-        <li>Country area size (sq km)</li>
-        <li>Country capital info</li>
-        <li>Country border info</li>
-        <li>Country language info</li>
-        <li>Country currency info</li>
-        <li>Country domain info</li>
-        <li>Country cuisine info</li>
-        <li>Country culture info</li>
-        <li>Country travel advisories</li>
-        <li>Country summary from Wikipedia</li>
-        <li>Country UN status</li>
-        <li>Country independence status</li>
-        <li>Country landlocked status</li>
-        <li>Country driving-side</li>
-        <li>Country recipes</li>
-        <li>Country photos</li>
-        <li>Country folklore summary</li>
-        <li>Country celebrities</li>
-        <li>Country flora & fauna</li>
-        <li>Country wildlife photos</li>
-        <li>Most populous cities in given country</li>
-        <li>Summary from Wikipedia on given city</li>
-        <li>City coordinates</li>
-        <li>City population</li>
-        <li>City imagery</li>
-        <li>Hotels and other accommodations in a city</li>
-        <li>Advisory data</li>
-        <li>Hotels in a given city</li>
-        <li>Accommodations in a given city</li>
-        <li>Tourist Spots in given city</li>
-        <li>Sightseeing locations in given city</li>
-        <li>Historical locations in given city</li>
-        <li>History summary</li>
-        <li>History blips of given country</li>
-        <li>Culture Summary</li>
-        <li>Local cuisine culture</li>
-        <li>Recipes relating to given country</li>
-      </ul>
-    </section>
-    <section class="section">
+
+    <section class="section version">
       <h3>Current Version: 0.3.9</h3>
       <div class="gh-link">
         <a href="https://github.com/tylerjk02/sightseer">GitHub</a>
@@ -115,20 +73,9 @@
   }
   .info {
     width: 100%;
-    ul {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      list-style: none;
-      li {
-        padding: 3px;
-      }
-      li:nth-child(even) {
-        background: #e3e3e3;
-      }
-      li:nth-child(odd) {
-        background: #d0d0d0;
-      }
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .regions {
@@ -169,9 +116,6 @@
       // gap: 5px;
       // margin: 0;
     }
-    .info {
-    }
-
     .region-link {
       width: 100% !important;
       height: 200px;
@@ -182,11 +126,6 @@
     .regions {
       display: flex;
       flex-direction: column;
-    }
-    .info {
-      ul {
-        grid-template-columns: repeat(1, 1fr);
-      }
     }
     .region-link {
       width: 100%;

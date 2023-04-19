@@ -1,33 +1,19 @@
 <script lang="ts">
   export let data;
 
-  const {
-    commonName,
-    officialName,
-    historyBlipsOfficialName,
-    historyBlipsCommonName,
-    wikiHistory,
-  } = data;
-  const historyBlips: any = [];
+  const { commonName, officialName } = data;
 
-  historyBlipsCommonName.forEach((e: object) => {
-    historyBlips.push(e);
-  });
-  if (commonName !== officialName) {
-    historyBlipsOfficialName.forEach((e: object) => {
-      historyBlips.push(e);
+  const sortByYear = (e: any) => {
+    e.sort((a: any, b: any) => {
+      if (a.year < b.year) {
+        return -1;
+      }
+      if (a.year > b.year) {
+        return 1;
+      }
+      return 0;
     });
-  }
-
-  historyBlips.sort((a: any, b: any) => {
-    if (a.year < b.year) {
-      return -1;
-    }
-    if (a.year > b.year) {
-      return 1;
-    }
-    return 0;
-  });
+  };
 </script>
 
 <main class="history">
@@ -36,26 +22,51 @@
   </div>
 
   <div class="content">
-    {#if wikiHistory.title !== "Not found." && wikiHistory.type !== "disambiguation"}
-      <h1>History Summary</h1>
-      {@html wikiHistory.extract_html}
-      <hr style="margin: 5px 0"/>
-    {/if}
+    {#await data.streamed.wikiHistory}
+      Loading...
+    {:then wikiHistory}
+      {#if wikiHistory.title !== "Not found." && wikiHistory.type !== "disambiguation"}
+        <h1>History Summary</h1>
+        {@html wikiHistory.extract_html}
+        <hr style="margin: 5px 0" />
+      {/if}
+    {/await}
 
-    {#if historyBlips.length !== 0}
-      <h1>History Blips of {officialName}</h1>
-      <div class="blips">
-        {#each historyBlips as blip}
-        <div class="blip">
-          <p class="blip__date">{blip.month}/{blip.day}/{blip.year}</p>
-          <p class="blip__event">{blip.event}</p>
+    {#await data.streamed.historyBlipsCommonName}
+      ...
+    {:then historyBlips}
+      {#if historyBlips.length !== 0}
+        <h1>History Blips of '{commonName}'</h1>
+        <div class="blips">
+          {#each historyBlips as blip}
+            <div class="blip">
+              <p class="blip__date">{blip.month}/{blip.day}/{blip.year}</p>
+              <p class="blip__event">{blip.event}</p>
+            </div>
+          {/each}
         </div>
-      {/each}
-      </div>
-
-    {:else}
-      <p>Unable to find data</p>
-    {/if}
+      {:else}
+        <p>Unable to find data</p>
+      {/if}
+    {/await}
+    <hr>
+    {#await data.streamed.historyBlipsOfficialName}
+      ...
+    {:then historyBlips}
+      {#if historyBlips.length !== 0}
+        <h1>History Blips of '{officialName}'</h1>
+        <div class="blips">
+          {#each historyBlips as blip}
+            <div class="blip">
+              <p class="blip__date">{blip.month}/{blip.day}/{blip.year}</p>
+              <p class="blip__event">{blip.event}</p>
+            </div>
+          {/each}
+        </div>
+      {:else}
+        <p>Unable to find data</p>
+      {/if}
+    {/await}
   </div>
 </main>
 
@@ -96,6 +107,5 @@
     .blip:nth-child(odd) {
       background-color: #f1f1f1;
     }
-
   }
 </style>

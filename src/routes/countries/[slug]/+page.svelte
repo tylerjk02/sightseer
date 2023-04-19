@@ -160,7 +160,7 @@
           <a target="_blank" href={response.advisory.source}>Source</a>
         </div>
       {:catch error}
-        {console.error(error)}
+        <div class="" />
       {/await}
       <!-- End Travel Advisory -->
     </div>
@@ -175,13 +175,37 @@
         </div>
       {/if}
     {:catch error}
-      {console.error(error)}
+      <div class="" />
     {/await}
-    <!-- {#if wikiArticle.type !== "disambiguation"}
+    <div class="country-sub-data">
+      {#await data.streamed.climate}
+        ...
+      {:then climate}
+        {#if climate.title !== "Not found." && climate.type !== "disambiguation"}
+          <div class="container climate">
+            <h3>Climate & Geography</h3>
+            <img src={climate.thumbnail.source} alt={climate.title} />
+            <div class="summary">{@html climate.extract_html}</div>
+          </div>
+        {/if}
+      {:catch error}
+        <div class="" />
+      {/await}
 
-    {/if} -->
-
-    <!-- <hr style="padding: 5px; background: #e3e3e3"> -->
+      {#await data.streamed.economy}
+        ...
+      {:then economy}
+        {#if economy.title !== "Not found." && economy.type !== "disambiguation"}
+          <div class="container climate">
+            <h3>Economy of {name.common}</h3>
+            <img src={economy.thumbnail.source} alt={economy.title} />
+            <div class="summary">{@html economy.extract_html}</div>
+          </div>
+        {/if}
+      {:catch error}
+        <div class="" />
+      {/await}
+    </div>
   </div>
 </main>
 
@@ -223,6 +247,8 @@
         text-decoration: underline;
       }
     }
+
+    
     .container {
       background: #e3e3e3;
       padding: 0 10px;

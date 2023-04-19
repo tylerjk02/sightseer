@@ -4,6 +4,18 @@ export const load = (params) => {
   const nameCommon = splitSlug[0];
   const nameOfficial = splitSlug[1];
 
+  const sortByYear = (e: any) => {
+    e.sort((a: any, b: any) => {
+      if (a.year < b.year) {
+        return -1;
+      }
+      if (a.year > b.year) {
+        return 1;
+      }
+      return 0;
+    });
+  };
+
   const fetchWikiHistory = async (id: string) => {
     try {
       const res = await fetch(
@@ -28,6 +40,7 @@ export const load = (params) => {
         options
       );
       const data = await res.json();
+      sortByYear(data);
       return data;
     } catch (err) {
       return err;
@@ -46,6 +59,7 @@ export const load = (params) => {
         options
       );
       const data = await res.json();
+      sortByYear(data);
       return data;
     } catch (err) {
       return err;
@@ -55,8 +69,10 @@ export const load = (params) => {
   return {
     commonName: nameCommon,
     officialName: nameOfficial,
-    historyBlipsCommonName: fetchHistoryCommon(nameCommon),
-    historyBlipsOfficialName: fetchHistoryOfficial(nameOfficial),
-    wikiHistory: fetchWikiHistory(nameCommon),
+    streamed : {
+      historyBlipsCommonName: fetchHistoryCommon(nameCommon),
+      historyBlipsOfficialName: fetchHistoryOfficial(nameOfficial),
+      wikiHistory: fetchWikiHistory(nameCommon),
+    }
   };
 };

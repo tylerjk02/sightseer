@@ -2,27 +2,6 @@
   export let data;
 
   const { citySlug, nameCommon, nameOfficial, lat, lon } = data;
-  // const { features } = cityPlaces;
-  // const { included } = cityDestinations;
-
-  // halting ai completions for now. ai expensive, me poor
-
-  // const { choices } = travelInfoAI;
-  // const returnMessageAI = choices[0].message.content;
-
-  // const destinationPhotos: any[] = [];
-  // const destinationTags: any[] = [];
-  // const destinationOther: any[] = [];
-
-  // included.forEach((e: any) => {
-  //   if(e.type == 'photo') {
-  //     destinationPhotos.push(e);
-  //   } else if(e.type == 'known_for') {
-  //     destinationTags.push(e);
-  //   } else {
-  //     destinationOther.push(e);
-  //   }
-  // })
 </script>
 
 <main class="travel">
@@ -55,18 +34,6 @@
     {/if}
   {/await}
   <!-- End Info & Wiki -->
-
-  <!-- Photos -->
-  {#await data.streamed.photos}
-    ...
-  {:then photos}
-    <div class="photos">
-      {#each photos.value as photo}
-        <img src={photo.contentUrl} alt={photo.name} class="photo" />
-      {/each}
-    </div>
-  {/await}
-  <!-- End Photos -->
 
   <!-- Hotels -->
   {#await data.streamed.places}
@@ -160,32 +127,7 @@
   .trace-back {
     margin: 5px 0 0 0;
   }
-  .known-for {
-    font-weight: bold;
-  }
-  .photos {
-    display: grid;
-    gap: 3px;
-    grid-template-columns: repeat(2, 1fr);
-    .photo {
-      width: 100%;
-    }
-  }
-  .city-photo {
-    width: 55%;
-  }
-  .tags {
-    display: flex;
-    gap: 5px;
-    .tag {
-      border: 2px solid black;
-      border-radius: 30px;
-      margin: 2px 0 5px 0;
-      padding: 5px 10px;
-      font-size: 18px;
-      color: #222222;
-    }
-  }
+
   .properties {
     gap: 5px;
     display: grid;
@@ -231,32 +173,12 @@
     .properties {
       grid-template-columns: repeat(2, 2fr);
     }
-    .city-photo {
-      width: 80%;
-    }
   }
 
   @media screen and (max-width: 786px) {
-    .tags {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-
-      .tag {
-        text-align: center;
-      }
-    }
     .properties {
       grid-template-columns: repeat(1, 1fr);
       gap: 3px;
-    }
-
-    .city-photo {
-      width: 100%;
-    }
-  }
-  @media screen and (max-width: 578px) {
-    .photos {
-      grid-template-columns: repeat(1, 1fr);
     }
   }
 </style>

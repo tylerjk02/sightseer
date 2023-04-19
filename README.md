@@ -4,13 +4,21 @@ Country & City Info Directory & Travel Guide.
 
 ## Current Version
 
+### 0.4
+
+- Economy section added to country pages
+- Climate & Geography section added to country pages
+- Streaming of history page, fixing occasional 500 errors
+- Tidying of dead code
+- Style changes
+
+## Previous Versions
+
 ### 0.3.9
 
 - Travel and city routes combined. All info can now be found through the travel route
 - Improved checks for potential missing data
 - Style changes
-
-## Previous Versions
 
 ### 0.3.8
 
@@ -223,19 +231,22 @@ Country & City Info Directory & Travel Guide.
 - Country cuisine info
 - Country culture info
 - Country travel advisories
-- Country summary from Wikipedia
 - Country UN status
 - Country independence status
 - Country landlocked status
 - Country driving-side
 - Country recipes
 - Country photos
-- Country folklore summary
 - Country celebrities
 - Country flora & fauna
 - Country wildlife photos
+- Country general summary
+- Country folklore summary
+- Country climate summary
+- Country geography summary
+- Country economy summary
 - Most populous cities in given country
-- Summary from Wikipedia on given city
+- City general summary
 - City coordinates
 - City population
 - City photos
