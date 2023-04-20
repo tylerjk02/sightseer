@@ -58,7 +58,7 @@
     </section>
 
     <section class="section version">
-      <h3>Current Version: 0.4</h3>
+      <h3>Current Version: 0.4.1</h3>
       <div class="gh-link">
         <a href="https://github.com/tylerjk02/sightseer">GitHub</a>
       </div>

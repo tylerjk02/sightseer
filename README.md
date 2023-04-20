@@ -4,6 +4,14 @@ Country & City Info Directory & Travel Guide.
 
 ## Current Version
 
+### 0.4.1
+
+- Stores & Commercial added to travel routes
+- Activities & Attractions added to travel routes
+- Tidying of travel route codebase
+
+## Previous Versions
+
 ### 0.4
 
 - Economy section added to country pages
@@ -11,8 +19,6 @@ Country & City Info Directory & Travel Guide.
 - Streaming of history page, fixing occasional 500 errors
 - Tidying of dead code
 - Style changes
-
-## Previous Versions
 
 ### 0.3.9
 

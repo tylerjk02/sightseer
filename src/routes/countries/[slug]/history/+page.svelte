@@ -3,17 +3,7 @@
 
   const { commonName, officialName } = data;
 
-  const sortByYear = (e: any) => {
-    e.sort((a: any, b: any) => {
-      if (a.year < b.year) {
-        return -1;
-      }
-      if (a.year > b.year) {
-        return 1;
-      }
-      return 0;
-    });
-  };
+ 
 </script>
 
 <main class="history">

@@ -120,6 +120,90 @@
     {/if}
   {/await}
   <!-- End Tourism -->
+
+  <hr />
+
+  <!-- Activities -->
+  {#await data.streamed.activities}
+    Loading...
+  {:then activities}
+    {#if activities.features.length !== 0}
+      <h2>Activities & Attractions</h2>
+      <div class="properties">
+        {#each activities.features as { properties }}
+          <div class="property">
+            <h3 class="property__name">{properties.address_line1}</h3>
+            <p class="property__category">
+              {properties.categories[1]
+                .split(".")
+                .join(", ")
+                .split("_")
+                .join(" ")}
+            </p>
+            <p class="property__address">{properties.address_line2}</p>
+            {#if properties.district}
+              <p class="property__district">{properties.district}</p>
+            {/if}
+            <a
+              target="_blank"
+              href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
+              class="property__coords">{properties.lat}, {properties.lon}</a
+            >
+            <!-- <br /> -->
+            <a
+              class="property__source"
+              target="_blank"
+              href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
+                .datasource.raw.osm_id}&class=tourism">Source</a
+            >
+          </div>
+        {/each}
+      </div>
+    {:else}
+      We couldn't find anything...
+    {/if}
+  {/await}
+
+  <hr />
+
+  <!-- Activities -->
+  {#await data.streamed.commercial}
+    Loading...
+  {:then commercial}
+    {#if commercial.features.length !== 0}
+      <h2>Stores & Commercial</h2>
+      <div class="properties">
+        {#each commercial.features as { properties }}
+          <div class="property">
+            <h3 class="property__name">{properties.address_line1}</h3>
+            {#if properties.categories[0]}
+            <p class="property__category">
+              {properties.categories[0]}
+            </p>
+            {/if}
+            <p class="property__address">{properties.address_line2}</p>
+            {#if properties.district}
+              <p class="property__district">{properties.district}</p>
+            {/if}
+            <a
+              target="_blank"
+              href="https://www.google.com/maps/search/{properties.lat},{properties.lon}"
+              class="property__coords">{properties.lat}, {properties.lon}</a
+            >
+            <a
+              class="property__source"
+              target="_blank"
+              href="https://nominatim.openstreetmap.org/ui/details.html?osmtype={properties.datasource.raw.osm_type.toUpperCase()}&osmid={properties
+                .datasource.raw.osm_id}&class=tourism">Source</a
+            >
+          </div>
+        {/each}
+      </div>
+    {:else}
+      We couldn't find anything...
+    {/if}
+  {/await}
+  <!-- End Activities -->
   <br />
 </main>
 

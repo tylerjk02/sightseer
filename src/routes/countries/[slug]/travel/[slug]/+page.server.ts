@@ -49,21 +49,12 @@ export const load = (params) => {
       `https://en.wikipedia.org/api/rest_v1/page/summary/${slug}`
     );
     const data = await res.json();
-    console.log(data);
     return data;
   };
 
-  const fetchPlaceData = async (lat: string, lon: string) => {
+  const fetchPlaceData = async (cat: string, lat: string, lon: string) => {
     const res = await fetch(
-      `https://api.geoapify.com/v2/places?categories=accommodation&filter=circle:${lon},${lat},10000&bias=proximity:${lon},${lat}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
-    );
-    const data = await res.json();
-    return data;
-  };
-
-  const fetchTourismData = async (lat: string, lon: string) => {
-    const res = await fetch(
-      `https://api.geoapify.com/v2/places?categories=tourism&filter=circle:${lon},${lat},10000&bias=proximity:${lon},${lat}&limit=20&apiKey=${GEOAPIFY_API_KEY}`
+      `https://api.geoapify.com/v2/places?categories=${cat}&filter=circle:${lon},${lat},10000&bias=proximity:${lon},${lat}&limit=10&apiKey=${GEOAPIFY_API_KEY}`
     );
     const data = await res.json();
     return data;
@@ -77,8 +68,10 @@ export const load = (params) => {
     lon: lon,
     streamed: {
       city: fetchCity(citySlug, countrySlug),
-      places: fetchPlaceData(lat, lon),
-      tourism: fetchTourismData(lat, lon),
+      places: fetchPlaceData('accommodation', lat, lon),
+      tourism: fetchPlaceData('tourism', lat, lon),
+      activities: fetchPlaceData('activity', lat, lon),
+      commercial: fetchPlaceData('commercial', lat, lon),
       wiki: fetchWikiArticle(citySlug),
     },
     // cityDestinations: fetchDestination(),
